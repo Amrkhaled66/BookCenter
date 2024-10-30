@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.BookCenter__signature--text {
+  font-family:
+    Monument Extended,
+    sans-serif;
+  -webkit-text-stroke: 0.1rem #1a472d;
+}
+
+.light {
+  --main-color: #3da9fc;
+  --second-color: #ef4565;
+  --darkAndWhite-color: #121212;
+  --main__text-color: #094067;
+  --second__text-color: #5f6c7b;
+}
+
+.dark {
+  --main-color: #0f8ccf;
+  --second-color: #d32f45;
+  --darkAndWhite-color: #ffffff;
+  --main__text-color: #A6D9FF; 
+  --second__text-color: #93999f;
+}
+@font-face {
+  font-family: RadyPro;
+  src: url(../public/Fonts/RadyPro.otf);
+}
+@font-face {
+  font-family: RadyProRegular;
+  src: url(../public/Fonts/RadyProRegular.otf);
+}
