@@ -23,7 +23,7 @@ export default function Navbar() {
   const { toggleMenu } = useShowMobileMenu();
   return (
     <div
-      className={`${isSticky ? "bg-[#3da9fc3f] backdrop-blur-sm" : " "}  top-0 z-50 w-screen fixed left-1/2 -translate-x-1/2 rounded-xl bg-transparent transition-all duration-300`}
+      className={`${isSticky ? "bg-[#3da9fc3f] backdrop-blur-sm" : " "} fixed left-1/2 top-0 z-50 w-screen -translate-x-1/2 rounded-xl bg-transparent transition-all duration-300`}
     >
       <motion.div
         variants={navVariants}
@@ -36,7 +36,7 @@ export default function Navbar() {
 
         {/* Logo */}
         <p className="order-2 sm:w-96 lg:order-none">
-          <img className=" mx-auto md:mx-0  lg:mx-auto w-20" src={logo} alt="Book Center" />
+          <img className="mx-auto w-20 md:mx-0" src={logo} alt="Book Center" />
         </p>
 
         {/* Search Section */}

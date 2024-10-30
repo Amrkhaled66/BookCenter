@@ -4,7 +4,7 @@ import studentImg from "src/assets/studentImg.svg";
 
 export default function ImageSection() {
   return (
-    <div className="flex w-full justify-center lg:w-1/2">
+    <div className="flex w-full justify-center md:justify-start lg:w-1/2">
       <motion.img
         initial={{ scale: 0 }}
         animate={{ scale: [0, 1.1, 1] }}
