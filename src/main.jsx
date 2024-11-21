@@ -7,13 +7,17 @@ import IsNavStickyContextProvider from "./contexts/isNavSticky";
 import ShowMobileMenuContextProvider from "./contexts/showMobileMenu.jsx";
 import ColorsContextProvider from "./contexts/colors";
 import CartContextProvider from "./contexts/cart.jsx";
+import ProductContextProvider from "./contexts/products.jsx";
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <CartContextProvider>
       <IsNavStickyContextProvider>
         <ShowMobileMenuContextProvider>
           <ColorsContextProvider>
-            <App />
+            <ProductContextProvider>
+              <App />
+            </ProductContextProvider>
           </ColorsContextProvider>
         </ShowMobileMenuContextProvider>
       </IsNavStickyContextProvider>

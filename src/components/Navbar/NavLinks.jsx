@@ -9,29 +9,28 @@ import useCart from "src/hooks/useCart";
 // react icons
 import { GiBookshelf } from "react-icons/gi";
 import { IoTrailSignOutline } from "react-icons/io5";
-import { IoCartOutline } from "react-icons/io5";
 
-// bg-[#094067]
+import cartImg from "src/assets/cart.svg";
+
+import { Link } from "react-router-dom";
 export default function NavLinks() {
   const { cartLength } = useCart();
   const { secondColor } = useColors();
+
   return (
     <nav className="order-3 flex gap-x-5 lg:order-none">
       {/* cart */}
-      <button className="relative flex h-10 w-10 items-center justify-center rounded-full text-2xl text-white transition-all duration-300 hover:drop-shadow-xl">
-        <div className="absolute -left-1 -top-1 z-10 h-5 w-auto min-w-5 rounded-full bg-main-text--color px-1 text-sm">
+      <Link to={'cart'} className="relative flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:drop-shadow-xl">
+        <div
+          className={`absolute -top-1 text-lg ${cartLength > 9 ? "left-[.85rem]" : "left-1/2"} font-bold`}
+        >
           {cartLength}
         </div>
-        <IoCartOutline
-          className="-scale-x-100"
-          stroke="#000000"
-          strokeWidth={30}
-          size={30}
-        />
-      </button>
+        <img className="h-full w-full" src={cartImg} alt="cart" />
+      </Link>
 
       {/* Links */}
-      <ul className="hidden items-center gap-4 font-Changa text-[14px] font-semibold md:flex xl:text-base">
+      <ul className="font-Changa hidden items-center gap-4 text-[14px] font-semibold md:flex xl:text-base">
         <li>
           <ShadowButton
             bgColor="white"

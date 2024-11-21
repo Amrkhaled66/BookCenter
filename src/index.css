@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap");
+/* Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Changa:wght@600&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -24,7 +24,7 @@
   --main-color: #0f8ccf;
   --second-color: #d32f45;
   --darkAndWhite-color: #ffffff;
-  --main__text-color: #A6D9FF; 
+  --main__text-color: #a6d9ff;
   --second__text-color: #93999f;
 }
 @font-face {
@@ -34,4 +34,22 @@
 @font-face {
   font-family: RadyProRegular;
   src: url(../public/Fonts/RadyProRegular.otf);
+}
+@font-face {
+  font-family: Blabeloo;
+  src: url(../public/Fonts/Blabeloo-font-v.1.0.ttf);
+}
+
+
+
+/* Hide arrows for Chrome, Safari, and Edge */
+.no-arrows::-webkit-outer-spin-button,
+.no-arrows::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide arrows for Firefox */
+.no-arrows[type="number"] {
+  -moz-appearance: textfield;
 }

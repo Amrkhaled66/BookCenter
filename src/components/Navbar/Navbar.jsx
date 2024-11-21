@@ -1,14 +1,15 @@
-import logo from "../../assets/logo.svg";
+import logo from "src/assets/logo.svg";
 
 import { motion } from "framer-motion";
 
-import useIsNavStickyContext from "../../hooks/useIsNavSticky";
-import useShowMobileMenu from "../../hooks/useShowMobileMenu";
+import useIsNavStickyContext from "src/hooks/useIsNavSticky";
+import useShowMobileMenu from "src/hooks/useShowMobileMenu";
 
 import Progressbar from "./Progressbar";
 import NavLinks from "./NavLinks";
 import MenuIcon from "./MenuIcon";
 
+import { Link } from "react-router-dom";
 const navVariants = {
   hidden: {
     transform: "translateY(-100px)",
@@ -35,24 +36,9 @@ export default function Navbar() {
         <Progressbar />
 
         {/* Logo */}
-        <p className="order-2 sm:w-96 lg:order-none">
+        <Link to="/" className="order-2 sm:w-96 lg:order-none">
           <img className="mx-auto w-20 md:mx-0" src={logo} alt="Book Center" />
-        </p>
-
-        {/* Search Section */}
-        {/* <div
-          className={`order-4 mx-auto flex w-full items-center justify-center transition-all duration-300 sm:w-5/6 lg:order-none`}
-        >
-          <button className="rounded-l-full bg-main-color px-7 py-3 text-white">
-            ابحث
-          </button>
-          <input
-            type="text"
-            dir="rtl"
-            className="w-3/6 rounded-r-full border border-main-color px-4 py-3 text-right transition-all focus:outline-none focus:ring-[.5px] focus:ring-main-color"
-            placeholder="ابحث الان..."
-          />
-        </div> */}
+        </Link>
 
         {/* Mobile Menu Icon */}
         <button
@@ -66,4 +52,21 @@ export default function Navbar() {
       </motion.div>
     </div>
   );
+}
+
+{
+  /* Search Section */
+  /* <div
+          className={`order-4 mx-auto flex w-full items-center justify-center transition-all duration-300 sm:w-5/6 lg:order-none`}
+        >
+          <button className="rounded-l-full bg-main-color px-7 py-3 text-white">
+            ابحث
+          </button>
+          <input
+            type="text"
+            dir="rtl"
+            className="w-3/6 rounded-r-full border border-main-color px-4 py-3 text-right transition-all focus:outline-none focus:ring-[.5px] focus:ring-main-color"
+            placeholder="ابحث الان..."
+          />
+        </div> */
 }

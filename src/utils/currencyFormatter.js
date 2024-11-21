@@ -1,9 +1,12 @@
 export default function currencyFormatter(number) {
-  const price = number - 1 + 0.99;
-  return new Intl.NumberFormat("ar-Eg", {
+  if (!number) return;
+
+  let formatter = new Intl.NumberFormat("en-EG", {
     style: "currency",
     currency: "EGP",
     currencyDisplay: "symbol",
     useGrouping: false,
-  }).format(price);
+    // minimumFractionDigits: 2,
+  }).format(number);
+  return formatter.replace(".", ",");
 }

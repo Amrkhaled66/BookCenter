@@ -4,8 +4,24 @@ export default {
   darkMode: "class",
   theme: {
     extend: {
+      keyframes: {
+        shake: {
+          "0%, 100%": { transform: "translateX(0)" },
+          "10%, 30%, 50%, 70%, 90%": { transform: "translateX(-5px)" },
+          "20%, 40%, 60%, 80%": { transform: "translateX(5px)" },
+        },
+      },
+      animation: {
+        shake: "shake 2s ease-in-out 0s 1,shake 2s ease-in-out 3s infinite",
+      },
+      backgroundImage: {
+        "product-bg": "url('/src/assets/asset.png')",
+        footerBg: "url('/src/assets/footerBg.png')",
+        waveBG: "url('/src/assets/waveBG.svg')",
+        cartCardBg: "url('/src/assets/angryStudent.jpg')",
+      },
       container: {
-        center: true, // Centers the container
+        center: true,
         padding: {
           DEFAULT: "1.2rem",
           sm: "1rem",
@@ -25,12 +41,12 @@ export default {
       },
 
       fontFamily: {
-        Changa: ["Changa", "sans-serif"],
         mainFont: ["RadyPro", "sans-serif"],
         mainFontRegular: ["RadyProRegular", "sans-serif"],
-        secondFont: ["IBM Plex Sans Arabic", "sans-serif"],
+        secondFont: ["Blabeloo", "sans-serif"],
+        Poppins: ["Poppins", "sans-serif"],
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-motion")],
 };

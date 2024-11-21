@@ -1,15 +1,24 @@
-import Navbar from "components/Navbar/Navbar";
-import MobileMenu from "components//MobileMenu/MobileMenu";
-import HeroSection from "components/HeroSection/HeroSection";
+import AppRouter from "src/routes/index";
+import { AnimatePresence } from "framer-motion";
 
-import MainSection from "components/MainSection/MainSection";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <>
-      <Navbar />
-      <HeroSection />
-      <MobileMenu />
-      <MainSection />
+      <AppRouter />
+      <ToastContainer
+        position="top-center"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <ToastContainer />
     </>
   );
 }
