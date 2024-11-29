@@ -35,20 +35,21 @@ export default function Navbar() {
       >
         <Progressbar />
 
+        <NavLinks />
         {/* Logo */}
-        <Link to="/" className="order-2 sm:w-96 lg:order-none">
+        <Link
+          to="/"
+          className="relative order-3 flex justify-end sm:w-96 md:order-none"
+        >
           <img className="mx-auto w-20 md:mx-0" src={logo} alt="Book Center" />
         </Link>
-
         {/* Mobile Menu Icon */}
         <button
           onClick={toggleMenu}
-          className="order-1 text-3xl md:order-none md:hidden"
+          className="order-3 text-3xl md:order-none md:hidden"
         >
           <MenuIcon />
         </button>
-
-        <NavLinks />
       </motion.div>
     </div>
   );

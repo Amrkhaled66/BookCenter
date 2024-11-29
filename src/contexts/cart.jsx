@@ -1,5 +1,8 @@
 import { createContext, useReducer } from "react";
-import { toast } from "react-toastify";
+
+import useProducts from "src/hooks/useProducts";
+
+import Swal from "sweetalert2";
 
 const cartContext = createContext();
 
@@ -28,13 +31,13 @@ const reducer = (state, action) => {
     return updatedCart;
   } else if (action.type === "DECREASE") {
     const updatedItemIndex = state.findIndex(
-      (item) => item.id === action.payload,
+      (item) => item.id === action.payload.id,
     );
     if (updatedItemIndex > -1 && state[updatedItemIndex].quantity > 1) {
       const existingItem = state[updatedItemIndex];
       const updatedItem = {
         ...existingItem,
-        quantity: existingItem.quantity - 1,
+        quantity: existingItem.quantity - action.payload.quantity,
       };
 
       updatedCart[updatedItemIndex] = updatedItem;
@@ -51,33 +54,61 @@ const reducer = (state, action) => {
     return updatedCart;
   } else if (action.type === "CLEAR_CART") {
     return [];
+  } else if (action.type === "MODIFYQUN") {
+    const updatedItemIndex = state.findIndex(
+      (item) => item.id === action.payload.id,
+    );
+
+    const existingItem = state[updatedItemIndex];
+    const updatedItem = {
+      ...existingItem,
+      quantity: action.payload.quantity,
+    };
+
+    updatedCart[updatedItemIndex] = updatedItem;
+
+    return updatedCart;
   }
 
   return state; // No matching action; return the original state to prevent unnecessary renders.
 };
 
-export default function CartContextProvider({ children }) {
-  const notify = () =>
-    toast.success("تم اضافة المنتج", {
-      position: "top-right",
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
+const notify = (title) => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top",
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+    customClass: {
+      popup: "custom-toast",
+    },
+  });
 
+  Toast.fire({
+    icon: "success",
+    title: title,
+    background: "#eafff0",
+  });
+};
+
+export default function CartContextProvider({ children }) {
   const [cart, dispatch] = useReducer(reducer, []);
+  const { selectProduct } = useProducts();
 
   const addToCart = (id, quantity) => {
-    notify();
+    console.log(quantity);
+    notify("تم إضافة المنتج لسلة مشترياتك.");
     dispatch({ type: "ADD", payload: { id, quantity } });
   };
 
-  const decreaseCartItem = (id) => {
-    dispatch({ type: "DECREASE", payload: { id } });
+  const decreaseCartItem = (id, quantity) => {
+    dispatch({ type: "DECREASE", payload: { id, quantity } });
+  };
+
+  const modifyQuantity = (id, quantity) => {
+    notify("تم تعديل الكمية.");
+    dispatch({ type: "MODIFYQUN", payload: { id, quantity } });
   };
 
   const clearItem = (id) => {
@@ -89,8 +120,18 @@ export default function CartContextProvider({ children }) {
     dispatch({ type: "CLEAR_CART" });
   };
 
-  const cartLength =
-    cart.length && cart.reduce((total, item) => total + item.quantity, 0);
+  const calcAllPice = () => {
+    return cart.reduce((total, item) => {
+      console.log(total);
+      const product = selectProduct(item.id);
+      const price =
+        product.pricing.discountedPrice || product.pricing.originalPrice;
+
+      return total + price * item.quantity;
+    }, 0);
+  };
+
+  const cartLength = cart.reduce((total, item) => total + item.quantity, 0);
 
   const value = {
     cart,
@@ -99,6 +140,8 @@ export default function CartContextProvider({ children }) {
     clearItem,
     clearCart,
     cartLength,
+    modifyQuantity,
+    calcAllPice,
   };
 
   return <cartContext.Provider value={value}>{children}</cartContext.Provider>;

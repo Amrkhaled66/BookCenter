@@ -11,16 +11,16 @@ import ProductContextProvider from "./contexts/products.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <CartContextProvider>
-      <IsNavStickyContextProvider>
-        <ShowMobileMenuContextProvider>
-          <ColorsContextProvider>
-            <ProductContextProvider>
+    <ProductContextProvider>
+      <CartContextProvider>
+        <IsNavStickyContextProvider>
+          <ShowMobileMenuContextProvider>
+            <ColorsContextProvider>
               <App />
-            </ProductContextProvider>
-          </ColorsContextProvider>
-        </ShowMobileMenuContextProvider>
-      </IsNavStickyContextProvider>
-    </CartContextProvider>
+            </ColorsContextProvider>
+          </ShowMobileMenuContextProvider>
+        </IsNavStickyContextProvider>
+      </CartContextProvider>
+    </ProductContextProvider>
   </StrictMode>,
 );

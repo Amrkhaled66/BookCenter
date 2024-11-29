@@ -7,6 +7,7 @@ export default function Products() {
 
   return (
     <motion.ul
+      dir="rtl"
       key={selectedCategory}
       initial={{ opacity: 0, y: 100 }}
       animate={{ opacity: 1, y: 0 }}

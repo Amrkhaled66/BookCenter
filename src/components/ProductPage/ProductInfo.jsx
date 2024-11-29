@@ -23,9 +23,9 @@ export default function ProductInfo({ product }) {
   }, [description]);
 
   return (
-    <div className="order-none flex h-auto w-full flex-col items-end justify-between gap-y-7 rounded-3xl bg-white p-5 pr-10 text-right text-main-text--color drop-shadow-md sm:w-full md:order-3 xl:order-none xl:w-2/5">
+    <div className="order-none flex h-auto w-full flex-col  items-start justify-between gap-y-7 rounded-3xl bg-white p-5 pr-10 text-right text-main-text--color drop-shadow-md sm:w-full md:order-3 xl:order-none xl:w-2/5">
       <Title title={title} publisher={publisher} />
-      <div className="flex flex-col items-end gap-y-5">
+      <div className="flex flex-col items-start gap-y-5">
         <Description
           {...{ description, isExpanded, isClipped, toggleExpand, textRef }}
         />
@@ -61,7 +61,7 @@ const Description = ({
     <p className="relative font-mainFontRegular text-lg font-medium after:absolute after:-bottom-1 after:left-1/2 after:h-1 after:w-full after:-translate-x-1/2 after:bg-second-color">
       نبذة عن الكتاب
     </p>
-    <div className="flex w-full flex-wrap justify-end text-right">
+    <div className="flex w-full flex-wrap justify-center text-right">
       <p
         ref={textRef}
         className={` ${isExpanded ? "line-clamp-none" : "line-clamp-3"} overflow-ellipsis font-mainFontRegular leading-loose tracking-wide text-second-text--color`}
@@ -85,7 +85,7 @@ const DetailsList = memo(({ detailsList }) => (
   <>
     <ul className="font-mainFontRegular text-second-text--color">
       {detailsList.map((detail, index) => (
-        <li key={`detail ${index} `}>{detail} -</li>
+        <li key={`detail ${index} `}>-  {detail} </li>
       ))}
     </ul>
   </>

@@ -1,6 +1,10 @@
 /* Poppins */
 @import url("https://fonts.googleapis.com/css2?family=Changa:wght@600&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -52,4 +56,11 @@
 /* Hide arrows for Firefox */
 .no-arrows[type="number"] {
   -moz-appearance: textfield;
+}
+
+
+.custom-toast {
+  font-family: 'RadyProRegular', sans-serif; /* Change font family */
+  border-radius: 10px; /* Optional: change border radius */
+  direction: rtl; /* Ensure right-to-left direction */
 }

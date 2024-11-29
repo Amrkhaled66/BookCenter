@@ -18,7 +18,7 @@ export default {
         "product-bg": "url('/src/assets/asset.png')",
         footerBg: "url('/src/assets/footerBg.png')",
         waveBG: "url('/src/assets/waveBG.svg')",
-        cartCardBg: "url('/src/assets/angryStudent.jpg')",
+        dots:"url('/src/assets/dotsBg.png')",
       },
       container: {
         center: true,
@@ -45,6 +45,7 @@ export default {
         mainFontRegular: ["RadyProRegular", "sans-serif"],
         secondFont: ["Blabeloo", "sans-serif"],
         Poppins: ["Poppins", "sans-serif"],
+        cairo: ["Cairo", "sans-serif"],
       },
     },
   },

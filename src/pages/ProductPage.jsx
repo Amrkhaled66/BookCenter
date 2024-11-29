@@ -35,7 +35,7 @@ export default function ProductPage() {
   const { image, pricing, productId } = product || {};
   return (
     <div className={`relative flex min-h-screen w-screen items-center`}>
-      <div className="container flex w-full flex-col flex-wrap items-center gap-x-9 gap-y-9 py-9 pt-[150px] sm:flex-row-reverse sm:justify-around xl:flex-nowrap xl:justify-center xl:pt-0">
+      <div className="container flex w-full flex-col flex-wrap items-center gap-x-9 gap-y-9 py-9 pt-[150px] sm:flex-row sm:justify-around xl:flex-nowrap xl:justify-center xl:pt-0">
         <ProductImg img={image} />
         <ProductInfo product={product} />
         <ProductPurchaseCard id={productId} pricing={pricing} />

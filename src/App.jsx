@@ -8,6 +8,7 @@ function App() {
     <>
       <AppRouter />
       <ToastContainer
+        limit={3}
         position="top-center"
         autoClose={1000}
         hideProgressBar={false}

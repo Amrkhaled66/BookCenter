@@ -18,9 +18,43 @@ export default function NavLinks() {
   const { secondColor } = useColors();
 
   return (
-    <nav className="order-3 flex gap-x-5 lg:order-none">
+    <nav className="order-3 flex gap-x-5 md:order-none">
+      {/* Links */}
+      <ul className="font-Changa hidden items-center gap-4 text-[14px] font-semibold md:flex xl:text-base">
+        <Link to="/signup">
+          <li>
+            <ScaleButton
+              className={`border-second-color`}
+              bgColor={secondColor}
+              textColor={"white"}
+            >
+              <GiBookshelf size={25} /> !أنشئ حساب جديد
+            </ScaleButton>
+          </li>
+        </Link>
+
+        <Link to="/login">
+          <li>
+            <ShadowButton
+              bgColor="transparent"
+              textColor="black"
+              className={
+                "group flex items-center gap-x-1 text-darkAndWhite-color"
+              }
+            >
+              <span className="transition-rotate text-main-color duration-500 group-hover:rotate-[720deg]">
+                <IoTrailSignOutline size={25} />
+              </span>
+              <span className="text-nowrap"> تسجيل الدخول</span>
+            </ShadowButton>
+          </li>
+        </Link>
+      </ul>
       {/* cart */}
-      <Link to={'cart'} className="relative flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:drop-shadow-xl">
+      <Link
+        to={"cart"}
+        className="relative flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:drop-shadow-xl"
+      >
         <div
           className={`absolute -top-1 text-lg ${cartLength > 9 ? "left-[.85rem]" : "left-1/2"} font-bold`}
         >
@@ -28,33 +62,6 @@ export default function NavLinks() {
         </div>
         <img className="h-full w-full" src={cartImg} alt="cart" />
       </Link>
-
-      {/* Links */}
-      <ul className="font-Changa hidden items-center gap-4 text-[14px] font-semibold md:flex xl:text-base">
-        <li>
-          <ShadowButton
-            bgColor="white"
-            textColor="black"
-            className={
-              "group flex items-center gap-x-1 text-darkAndWhite-color"
-            }
-          >
-            <span className="transition-rotate text-main-color duration-500 group-hover:rotate-[720deg]">
-              <IoTrailSignOutline size={25} />
-            </span>
-            <span className="text-nowrap"> تسجيل الدخول</span>
-          </ShadowButton>
-        </li>
-        <li>
-          <ScaleButton
-            className={`border-second-color`}
-            bgColor={secondColor}
-            textColor={"white"}
-          >
-            <GiBookshelf size={25} /> !أنشئ حساب جديد
-          </ScaleButton>
-        </li>
-      </ul>
     </nav>
   );
 }
