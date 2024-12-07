@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
 
-export default function ProductImg({ img }) {
+export default function ProductImg({ imageUrl }) {
   return (
     <motion.img
-      initial={{ rotate: 40 }}
-      animate={{ rotate: 0 }}
-      transition={{ duration: 0.5 }}
-      className="drop-shadow-2x h-full w-full min-w-[300px] max-w-[400px] rounded-xl rounded-r-2xl drop-shadow-2xl xl:w-[30%]"
-      src={img}
+      initial={{ opacity: 0, y: 100 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.75, type: "spring" }}
+      className=" w-[90%] md:w-[70%] drop-shadow-2xl lg:w-[70%]"
+      src={`${import.meta.env.VITE_API_URL}/${imageUrl}`}
       alt="Product Image"
     />
   );

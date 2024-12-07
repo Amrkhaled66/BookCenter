@@ -1,18 +1,24 @@
 import useCart from "src/hooks/useCart";
 
-import { CartPageHeader, CartList, CartSummary, EmptyCart } from "src/components/CartPage";
+import BagIcon from "src/components/ui/icons/bagIcon";
+
+import { CartList, CartSummary, EmptyCart } from "src/components/CartPage";
+
+import PageHeader from "src/components/ui/PageHeader";
 export default function CartPage() {
   const { cart } = useCart();
 
   return (
-    <div className="font-cairo relative flex min-h-screen flex-col items-center">
+    <div className="relative flex min-h-screen flex-col items-center font-cairo">
       <div className="container flex w-full flex-col items-center pt-24">
-        <CartPageHeader />
+        <PageHeader>
+          عربة التسوق <BagIcon />
+        </PageHeader>
 
         {cart.length < 1 ? (
           <EmptyCart />
         ) : (
-          <div className="mt-8 flex w-full xl:w-[80%] flex-col items-center gap-y-6 pb-12">
+          <div className="mt-8 flex w-full flex-col items-center gap-y-6 pb-12 xl:w-[80%]">
             <CartList />
             <CartSummary />
           </div>

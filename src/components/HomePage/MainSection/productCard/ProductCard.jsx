@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-
 import AddToCartButton from "src/components/AddToCartButton";
 
 import { Suspense, lazy } from "react";
@@ -11,15 +9,14 @@ export default function ProductCard({
   image,
   originalPrice,
   discountedPrice,
-  item,
   publisher,
   id,
 }) {
   return (
-    <div className="relative mx-auto flex min-h-fit w-full flex-col items-center gap-1 overflow-hidden rounded-lg font-mainFontRegular text-main-text--color shadow-xl shadow-[#9aaabb] md:w-full">
+    <div className="group relative mx-auto flex min-h-fit w-full flex-col items-center gap-1 overflow-hidden rounded-lg font-mainFontRegular text-main-text--color shadow-xl shadow-[#9aaabb] transition-all duration-300 hover:-translate-y-7 hover:rounded-none md:w-full">
       {/* Product image */}
       <Link to={"/product/" + id}>
-        <div className="w-full bg-second-color">
+        <div className="w-full overflow-hidden bg-main-text--color">
           <img
             src={image}
             loading="lazy"
@@ -27,7 +24,7 @@ export default function ProductCard({
             alt={title}
           />
         </div>
-
+        {/*  hover:rotate-6 hover:scale-110 hover:brightness-110 */}
         <Suspense className="Loading...">
           <CardInfo
             originalPrice={originalPrice}
@@ -46,9 +43,9 @@ export default function ProductCard({
           className="mx-auto flex w-full items-center justify-center gap-x-4 py-3 text-xs text-white md:text-base"
           quantity={1}
           productId={id}
+          price={discountedPrice || originalPrice}
         ></AddToCartButton>
       </div>
     </div>
   );
 }
-

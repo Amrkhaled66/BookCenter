@@ -1,21 +1,21 @@
 import DeptBtn from "./DeptBtn";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import useProducts from "src/hooks/useProducts";
+import useCategory from "src/hooks/useCategory";
 
 const departments = [
   {
-    title: "كتب و روايات",
-    deptName: "novels&books",
+    title: "الكتب الدراسية",
+    deptCode: "studentBooks",
   },
   {
-    title: "الكتب الدراسية",
-    deptName: "academicBooks",
+    title: "كتب و روايات",
+    deptCode: "booksAndNovel",
   },
 ];
 
 export default function Departments() {
-  const { selectedCategory, selectCategory } = useProducts();
+  const { selectedCategory, selectCategory } = useCategory();
 
   const handleSelectDept = function (newDept) {
     selectCategory(newDept);
@@ -32,10 +32,10 @@ export default function Departments() {
         className="container flex flex-wrap items-center justify-center gap-x-5 gap-y-4"
       >
         {departments.map((dept, i) => (
-          <li key={dept.deptName}>
+          <li key={dept.deptCode}>
             <DeptBtn
-              onClick={() => handleSelectDept(dept.deptName)}
-              isSelected={selectedCategory === dept.deptName}
+              onClick={() => handleSelectDept(dept.deptCode)}
+              isSelected={selectedCategory === dept.deptCode}
               index={i}
             >
               {dept.title}

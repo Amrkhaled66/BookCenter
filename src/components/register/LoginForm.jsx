@@ -3,6 +3,7 @@ import { IoIosUnlock } from "react-icons/io";
 
 import AuthForm from "src/components/register/Form";
 
+import signinValidate from "src/utils/validateLogInForm";
 export default function LoginForm({ mainColor }) {
   return (
     <AuthForm
@@ -12,13 +13,24 @@ export default function LoginForm({ mainColor }) {
         {
           layout: "block",
           fields: [
-            { label: "رقم الهاتف", inputType: "text", Icon: AiFillPhone },
+            {
+              label: "رقم الهاتف",
+              inputType: "text",
+              Icon: AiFillPhone,
+              name: "phone",
+              error: Error.phone,
+            },
           ],
         },
         {
           layout: "block",
           fields: [
-            { label: "كلمة السر", inputType: "password", Icon: IoIosUnlock },
+            {
+              label: "كلمة السر",
+              inputType: "password",
+              Icon: IoIosUnlock,
+              name: "password",
+            },
           ],
         },
       ]}
@@ -26,6 +38,7 @@ export default function LoginForm({ mainColor }) {
       redirectText="لا يوجد لديك حساب؟"
       redirectLink="/signup"
       mainColor={mainColor}
+      validate={signinValidate}
     />
   );
 }

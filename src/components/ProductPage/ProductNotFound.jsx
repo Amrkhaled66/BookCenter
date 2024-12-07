@@ -2,20 +2,30 @@ import angryStudentImg from "src/assets/angryStudent.png";
 
 import Divider from "src/components/ui/Divider";
 
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+
 export default function ProductNotFound() {
   return (
-    <div className="flex h-auto min-h-screen w-screen flex-col-reverse items-center justify-center gap-y-10 pb-5 pt-[100px] xl:flex-row-reverse xl:justify-between">
-      <div className="flex w-3/5 flex-col space-y-5 p-5 text-center font-mainFontRegular font-extrabold text-black">
-        <p className="text-3xl md:text-5xl"> للأسف المنتج مش موجود</p>
+    <div className="flex h-auto min-h-screen w-screen flex-col-reverse items-center justify-center gap-y-10 pb-5 pt-[100px]">
+      <div className="flex w-full flex-col space-y-5 p-5 text-center font-mainFontRegular font-extrabold text-black">
+        <p className="text-2xl sm:text-4xl"> للأسف المنتج مش موجود</p>
         <Divider />
-        <a className="text-lg text-second-color underline">
-          ! تواصل معانا من هنا
-        </a>
+        <Link
+          to="/contact"
+          className="text-sm text-second-color underline sm:text-base"
+        >
+          تواصل معانا من هنا !
+        </Link>
       </div>
-      <div className="flex h-auto w-full items-center justify-center bg-second-color p-6 xl:min-h-screen xl:w-2/5 xl:rounded-e-[100px]">
-        <img
+      <div className="relative overflow-hidden flex w-full items-center justify-center p-6">
+        <div className="absolute right-0 h-full w-full bg-second-color"></div>
+        <motion.img
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
           src={angryStudentImg}
-          className="drop-shadow-2xl"
+          className="w-[60%] drop-shadow-2xl sm:w-[25%]"
           alt="angryStudent"
         />
       </div>

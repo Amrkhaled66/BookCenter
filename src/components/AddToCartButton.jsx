@@ -8,6 +8,7 @@ export default function AddToCartButton({
   productId,
   quantity,
   className,
+  price,
   ...props
 }) {
   const { cart, addToCart } = useCart();
@@ -15,10 +16,11 @@ export default function AddToCartButton({
   const productIndex = cart.findIndex((item) => item.id === productId);
   return (
     <motion.button
-      onClick={() => addToCart(productId, quantity)}
+      onClick={() => addToCart(productId, quantity, price)}
       className={className}
       {...props}
     >
+      أضف إلي السلة
       {productIndex > -1 ? (
         <ScaleIn key={cart[productIndex].quantity}>
           {cart[productIndex].quantity}
@@ -26,7 +28,6 @@ export default function AddToCartButton({
       ) : (
         <FaCartPlus />
       )}
-      أضف إلي السلة
     </motion.button>
   );
 }

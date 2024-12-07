@@ -4,6 +4,9 @@ export default {
   darkMode: "class",
   theme: {
     extend: {
+      screens: {
+        xMd:"777px"
+      },
       keyframes: {
         shake: {
           "0%, 100%": { transform: "translateX(0)" },

@@ -1,11 +1,18 @@
-import useProducts from "src/hooks/useProducts";
+// hooks
 import { useState } from "react";
+import useCart from "src/hooks/useCart";
+
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+
+// services
+import currencyFormatter from "src/utils/currencyFormatter";
+import { useGetProductById } from "src/services/productsServices";
+
+// icons
 import { MdDeleteOutline } from "react-icons/md";
 
-import currencyFormatter from "src/utils/currencyFormatter";
-import useCart from "src/hooks/useCart";
-import { motion } from "framer-motion";
-
+import Loader from "../ui/icons/Loader";
 const itemVariants = {
   initial: { opacity: 0, x: 100 },
   animate: { opacity: 1, x: 0 },
@@ -13,35 +20,54 @@ const itemVariants = {
 };
 
 export default function CartItem({ id, quantity }) {
-  const { selectProduct } = useProducts();
-  const product = selectProduct(id);
-  const { image, info, pricing } = product;
+  const { data, isLoading, isError } = useGetProductById(id);
   const { addToCart, decreaseCartItem, clearItem, modifyQuantity } = useCart();
 
-  const mainPrice = pricing.discountedPrice
-    ? pricing.discountedPrice
-    : pricing.originalPrice;
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center gap-x-3 text-center font-cairo font-bold">
+        يتم التحميل الان <Loader />
+      </div>
+    );
+
+  if (isError)
+    return (
+      <div className="flex items-center justify-center font-cairo font-bold tracking-wider">
+        حدث خطأ في تحميل المنتج
+        <Link to="/contact" className="text-second-color underline">
+          برجاء التواصل مع الدعم
+        </Link>
+      </div>
+    );
+
+  const { name, imageUrl, publisher, price, discountedPrice } = data;
+
+  const mainPrice = price || discountedPrice;
 
   return (
     <motion.li variants={itemVariants} key={id} className="relative">
       <div className="flex w-full flex-col justify-between gap-y-10 border-b-2 border-gray-300 py-7 lg:flex-row">
-        <div className="flex w-full  gap-x-4  lg:w-1/2">
+        <div className="flex w-full gap-x-4 lg:w-1/2">
           <img
-            src={image}
+            src={`${import.meta.env.VITE_API_URL}/${imageUrl}`}
             className="h-full w-[14%] shadow-sm shadow-black"
             alt=""
           />
           <div className="w-full space-y-3">
-            <p className=" w-full text-sm sm:text-base sm:w-2/3  font-semibold">{info.title}</p>
-            <p className="text-[10px] text-xs sm:text-base font-medium">{info.publisher}</p>
+            <p className="w-full text-sm font-semibold sm:w-2/3 sm:text-base">
+              {name}
+            </p>
+            <p className="text-[10px] font-medium text-black/60 sm:text-sm">
+              {publisher}
+            </p>
           </div>
         </div>
-        <div className="flex  w-full items-center justify-between lg:w-1/2">
-          <div className="text-sm sm:text-base" >
+        <div className="flex w-full items-center justify-between lg:w-1/2">
+          <div className="text-sm sm:text-base">
             <p>{currencyFormatter(mainPrice)}</p>
-            {pricing.discountedPrice && (
+            {discountedPrice && (
               <p className="text-red-600 line-through">
-                {currencyFormatter(pricing.originalPrice)}
+                {currencyFormatter(price)}
               </p>
             )}
           </div>
@@ -54,7 +80,9 @@ export default function CartItem({ id, quantity }) {
               onModify={modifyQuantity}
             />
           </div>
-          <p className="text-sm sm:text-base" >{currencyFormatter(quantity * mainPrice)}</p>
+          <p className="text-sm sm:text-base">
+            {currencyFormatter(quantity * mainPrice)}
+          </p>
         </div>
       </div>
       <button
@@ -75,13 +103,13 @@ function QuantitySelector({ id, quantity, onModify }) {
       <input
         dir="rtl"
         onChange={(e) => setCurrQuantity(Number(e.target.value))}
-        className="font-cairo flex  w-10 sm:w-20 items-center rounded-s-lg border-[1px] border-gray-400 px-2 py-2 text-center font-bold transition-all sm:text-base text-xs duration-300 focus-within:border-main-text--color focus:outline-none"
+        className="flex w-10 items-center rounded-s-lg border-[1px] border-gray-400 px-2 py-2 text-center font-cairo text-xs font-bold transition-all duration-300 focus-within:border-main-text--color focus:outline-none sm:w-20 sm:text-base"
         type="number"
         defaultValue={quantity}
         min={1}
       />
       <button
-        className={`${`rounded-e-lg`} bg-main-text--color sm:text-base text-xs px-2 py-2 text-white transition-all duration-300 hover:brightness-75`}
+        className={`${`rounded-e-lg`} bg-main-text--color px-2 py-2 text-xs text-white transition-all duration-300 hover:brightness-75 sm:text-base`}
         onClick={() => {
           if (quantity === currQuantity) return;
           onModify(id, currQuantity);

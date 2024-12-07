@@ -60,7 +60,7 @@ export default function NavLinks() {
         >
           {cartLength}
         </div>
-        <img className="h-full w-full" src={cartImg} alt="cart" />
+        <img className="h-full  w-full" src={cartImg} alt="cart" />
       </Link>
     </nav>
   );

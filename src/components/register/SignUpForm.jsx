@@ -1,5 +1,6 @@
 import AuthForm from "src/components/register/Form";
 
+import signupValidate from "src/utils/validateSignUpform";
 export default function SignUpForm({ mainColor }) {
   return (
     <AuthForm
@@ -8,33 +9,48 @@ export default function SignUpForm({ mainColor }) {
       fields={[
         {
           fields: [
-            { label: "الأسم الاول", inputType: "text" },
-            { label: "الأسم الأخير", inputType: "text" },
+            { label: "الأسم الاول", inputType: "text", name: "firstName" },
+            { label: "الأسم الأخير", inputType: "text", name: "lastName" },
           ],
           layout: "inline",
         },
 
         {
           layout: "block",
-          fields: [{ label: "رقم الهاتف", inputType: "text" }],
+          fields: [{ label: "رقم الهاتف", inputType: "text", name: "phone" }],
         },
         {
           layout: "block",
-          fields: [{ label: "تأكيد رقم الهاتف", inputType: "text" }],
+          fields: [
+            {
+              label: "تأكيد رقم الهاتف",
+              inputType: "text",
+              name: "confirmPhone",
+            },
+          ],
         },
         {
           layout: "block",
-          fields: [{ label: "كلمة السر", inputType: "password" }],
+          fields: [
+            { label: "كلمة السر", inputType: "password", name: "password" },
+          ],
         },
         {
           layout: "block",
-          fields: [{ label: "تأكيد كلمة السر", inputType: "password" }],
+          fields: [
+            {
+              label: "تأكيد كلمة السر",
+              inputType: "password",
+              name: "confirmPassword",
+            },
+          ],
         },
       ]}
       buttonText="أنشئ الحساب"
       redirectText="لديك حساب بالفعل ؟"
       redirectLink="/login"
       mainColor={mainColor}
+      validate={signupValidate}
     />
   );
 }

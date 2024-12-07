@@ -1,7 +1,5 @@
 import { createContext, useReducer } from "react";
 
-import useProducts from "src/hooks/useProducts";
-
 import Swal from "sweetalert2";
 
 const cartContext = createContext();
@@ -26,6 +24,7 @@ const reducer = (state, action) => {
       updatedCart.push({
         id: action.payload.id,
         quantity: action.payload.quantity,
+        price: action.payload.price,
       });
     }
     return updatedCart;
@@ -94,12 +93,11 @@ const notify = (title) => {
 
 export default function CartContextProvider({ children }) {
   const [cart, dispatch] = useReducer(reducer, []);
-  const { selectProduct } = useProducts();
 
-  const addToCart = (id, quantity) => {
+  const addToCart = (id, quantity, price) => {
     console.log(quantity);
     notify("تم إضافة المنتج لسلة مشترياتك.");
-    dispatch({ type: "ADD", payload: { id, quantity } });
+    dispatch({ type: "ADD", payload: { id, quantity, price } });
   };
 
   const decreaseCartItem = (id, quantity) => {
@@ -122,12 +120,7 @@ export default function CartContextProvider({ children }) {
 
   const calcAllPice = () => {
     return cart.reduce((total, item) => {
-      console.log(total);
-      const product = selectProduct(item.id);
-      const price =
-        product.pricing.discountedPrice || product.pricing.originalPrice;
-
-      return total + price * item.quantity;
+      return total + item.price * item.quantity;
     }, 0);
   };
 

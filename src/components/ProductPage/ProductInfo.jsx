@@ -1,13 +1,26 @@
 import { useState, useRef, useEffect, memo } from "react";
+import { Link } from "react-router-dom";
+import AddToCartButton from "../AddToCartButton";
+import QuantitySelector from "./QuantitySelector ";
 
-import Divider from "src/components/ui/Divider";
-export default function ProductInfo({ product }) {
+import currencyFormatter from "src/utils/currencyFormatter";
+
+export default function ProductInfo({
+  name,
+  description,
+  price,
+  discountedPrice,
+  id,
+  publisher,
+  grade,
+  subCategory,
+}) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isClipped, setIsClipped] = useState(false);
+  const [quantity, setQuantity] = useState(1);
   const textRef = useRef();
 
-  const { title, publisher, description, detailsList = [] } = product.info;
-
+  // Static sample data
   const toggleExpand = () => setIsExpanded((prevState) => !prevState);
 
   useEffect(() => {
@@ -22,33 +35,43 @@ export default function ProductInfo({ product }) {
     }
   }, [description]);
 
+  discountedPrice = 50;
   return (
-    <div className="order-none flex h-auto w-full flex-col  items-start justify-between gap-y-7 rounded-3xl bg-white p-5 pr-10 text-right text-main-text--color drop-shadow-md sm:w-full md:order-3 xl:order-none xl:w-2/5">
-      <Title title={title} publisher={publisher} />
-      <div className="flex flex-col items-start gap-y-5">
-        <Description
-          {...{ description, isExpanded, isClipped, toggleExpand, textRef }}
-        />
-        <DetailsList detailsList={detailsList} />
-      </div>
+    <div className="w-full font-cairo lg:w-3/4">
+      <Header title={name} />
+      <DetailsSection {...{ publisher, grade, subCategory }} />
+      <Description
+        description={description}
+        isExpanded={isExpanded}
+        isClipped={isClipped}
+        toggleExpand={toggleExpand}
+        textRef={textRef}
+      />
+      <ActionSection
+        {...{ quantity, setQuantity, price, discountedPrice, id }}
+      />
     </div>
   );
 }
 
-const Title = memo(({ title, publisher }) => (
-  <div className="space-y-4">
-    <div className="space-x-3">
-      <h3 className="font-mainFont text-xl leading-relaxed tracking-wide sm:text-2xl">
-        {title}
-      </h3>
-      <p className="pt-3 font-mainFontRegular text-xs sm:text-lg">
-        ل {publisher}
-      </p>
-    </div>
-
-    <Divider />
+const Header = ({ title }) => (
+  <div>
+    <p
+      className="border-b-4 border-main-text--color pb-5 text-3xl font-bold text-main-text--color sm:text-4xl"
+      style={{ lineHeight: "1.5" }}
+    >
+      {title}
+    </p>
   </div>
-));
+);
+
+const DetailsSection = ({ publisher, grade, subCategory }) => (
+  <div className="flex flex-col gap-y-2 border-b-2 border-main-text--color py-6 pb-5 text-sm font-bold md:text-base">
+    {subCategory && <p>📚 {subCategory}</p>}
+    {publisher && <p>✍ {publisher}</p>}
+    {grade && <p>🎓 {grade}</p>}
+  </div>
+);
 
 const Description = ({
   description,
@@ -57,36 +80,64 @@ const Description = ({
   toggleExpand,
   textRef,
 }) => (
-  <>
-    <p className="relative font-mainFontRegular text-lg font-medium after:absolute after:-bottom-1 after:left-1/2 after:h-1 after:w-full after:-translate-x-1/2 after:bg-second-color">
-      نبذة عن الكتاب
-    </p>
-    <div className="flex w-full flex-wrap justify-center text-right">
+  <div className="flex flex-col py-6 text-sm md:text-base">
+    <p className="py-1 font-bold">نبذة عن الكتاب :</p>
+    <div className="text-right">
       <p
         ref={textRef}
-        className={` ${isExpanded ? "line-clamp-none" : "line-clamp-3"} overflow-ellipsis font-mainFontRegular leading-loose tracking-wide text-second-text--color`}
-        style={{ transition: "max-height 0.3s ease" }}
+        className={`font-cairo font-semibold leading-loose tracking-wider text-second-text--color ${
+          isExpanded ? "" : "line-clamp-3"
+        }`}
       >
         {description}
       </p>
       {isClipped && (
-        <button
-          className="mt-2 cursor-pointer font-mainFontRegular text-red-500"
-          onClick={toggleExpand}
-        >
+        <button className="mt-2 font-bold text-red-500" onClick={toggleExpand}>
           {isExpanded ? "عرض أقل" : "عرض المزيد"}
         </button>
       )}
     </div>
-  </>
+  </div>
 );
 
-const DetailsList = memo(({ detailsList }) => (
-  <>
-    <ul className="font-mainFontRegular text-second-text--color">
-      {detailsList.map((detail, index) => (
-        <li key={`detail ${index} `}>-  {detail} </li>
-      ))}
-    </ul>
-  </>
-));
+const ActionSection = ({
+  quantity,
+  setQuantity,
+  price,
+  discountedPrice,
+  id,
+}) => {
+  const formattedOriginalPrice = currencyFormatter(price);
+  const formattedDiscountedPrice = currencyFormatter(discountedPrice);
+  return (
+    <div className="flex flex-col gap-y-5">
+      <div className="flex w-fit flex-col items-start gap-y-3 rounded-2xl bg-main-text--color px-5 py-3 font-bold text-white">
+        {discountedPrice && (
+          <>
+            <p>{formattedDiscountedPrice}</p>
+            <p className="text-sm text-rose-200">
+              <span>سعره كان : </span>
+              <span className="line-through">{formattedOriginalPrice} </span>
+            </p>
+          </>
+        )}
+        {!discountedPrice && formattedOriginalPrice}
+      </div>
+      <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
+      <AddToCartButton
+        quantity={quantity}
+        productId={id}
+        price={discountedPrice || price}
+        className="flex w-full items-center justify-center gap-x-2 rounded-xl bg-second-color px-10 py-3 font-bold text-white hover:brightness-75"
+      >
+        أضف الي السلة
+      </AddToCartButton>
+      <Link
+        to="/cart"
+        className="w-full rounded-xl bg-main-text--color px-10 py-3 text-center font-bold text-white hover:brightness-75"
+      >
+        مراجعة العربة و الذهاب للدفع
+      </Link>
+    </div>
+  );
+};
