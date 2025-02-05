@@ -1,8 +1,13 @@
-import { motion } from "framer-motion";
-
-import { Link } from "react-router-dom";
+/** @jsxImportSource @emotion/react */
 
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { css } from "@emotion/react";
+import useColors from "src/hooks/useColors";
+import Swal from "sweetalert2";
+
+import Loader from "src/components/ui/icons/Loader";
 
 const InputField = ({
   inputType,
@@ -13,22 +18,36 @@ const InputField = ({
   className = "",
   error,
 }) => {
-  const cssClass = `h-16 border-[3px] font-semibold transition-all duration-300 focus:border-${mainColor} rounded-3xl border-[#ebeaea] bg-[#e6eff440] px-5 outline-none ${className}`;
-
   return (
     <div className="space-y-3">
-      <label className="flex items-center gap-x-1 text-[#1e1f22]">
-        {Icon && <Icon size={25} className={`text-${mainColor} `} />}
-        {label}
+      <label
+        style={{
+          color: mainColor,
+        }}
+        className="flex items-center gap-x-1"
+      >
+        {Icon && <Icon size={25} />}
+        <p className="text-[#1e1f22]">{label}</p>
       </label>
       <div className="relative flex flex-col">
-        <input required name={name} className={cssClass} type={inputType} />
+        <input
+          className={`h-16 rounded-3xl border-[3px] border-[#ebeaea] bg-[#e6eff440] px-5 font-semibold outline-none transition-all duration-300 focus:border-[${mainColor}] ${className}`}
+          // eslint-disable-next-line react/no-unknown-property
+          css={css`
+            &:focus {
+              border-color: ${mainColor};
+            }
+          `}
+          required
+          name={name}
+          type={inputType}
+        />
         {error && (
           <motion.p
             key={Date.now()}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-2 rounded-xl bg-rose-400 px-4 py-1 text-sm text-white"
+            className="mt-2 rounded-lg bg-rose-400 px-4 py-1 text-[15px] text-white"
           >
             ⚠ - {error}
           </motion.p>
@@ -43,31 +62,50 @@ const AuthForm = ({
   description,
   fields,
   buttonText,
-  redirectText,
-  redirectLink,
+  redirectText = null,
+  redirectLink = null,
   mainColor,
   validate,
+  mutationFn,
 }) => {
-  const [Errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({}); // Change Errors to errors
+  const { colors } = useColors();
+
+  let color = colors.get(mainColor);
+  const mutation = mutationFn();
 
   const onSubmit = (event) => {
     event.preventDefault();
 
     const data = new FormData(event.target);
-
     const formData = Object.fromEntries(data.entries());
 
-    const validationErrors = validate(formData);
+    const { data: formattedData, errors } = validate(formData);
 
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
       return;
     }
 
-    console.log("Form Submitted:", formData, validationErrors);
-
     setErrors({});
-    event.target.reset();
+
+    mutation.mutate(formattedData, {
+      onError: (error) => {
+        let errMessage;
+        if (error.status === 401) {
+          errMessage = "خطأ في رقم الهاتف او في كلمة المرور";
+        }
+          else if (error.status === 409) {
+          errMessage = "الرقم مسجل بالفعل علي الموقع";
+        } else if (error.status === 400) {
+          errMessage = "خطأ برجاء التواصل مع الدعم";
+        }
+        setErrors({ phone: errMessage });
+      },
+      onSuccess: () => {
+        event.target.reset();
+      },
+    });
   };
 
   return (
@@ -87,7 +125,7 @@ const AuthForm = ({
 
       <motion.div className="space-y-4">
         <motion.form
-          onSubmit={(e) => onSubmit(e)}
+          onSubmit={onSubmit}
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.5, type: "spring" }}
@@ -95,45 +133,59 @@ const AuthForm = ({
           className="flex flex-col gap-y-6"
         >
           {fields.map((fieldGroup, index) => (
-            <div
-              key={`${index}-${fieldGroup.layout}`}
-              // className={`${fieldGroup.layout === "inline" && "flex justify-between gap-x-4"} `}
-            >
+            <div key={`${index}-${fieldGroup.layout}`}>
               {fieldGroup.fields.map((field) => (
                 <InputField
                   key={`${index}-${field.label}`}
                   {...field}
                   className="w-full"
-                  mainColor={mainColor}
+                  mainColor={color}
                   name={field.name}
-                  error={Errors[field.name]}
+                  error={errors[field.name]} // Use errors (lowercase)
                 />
               ))}
             </div>
           ))}
           <motion.button
+            disabled={mutation.isPending}
             type="submit"
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0 }}
+            whileHover={{ scale: 0.95 }}
+            whileTap={{ scale: 0.8, transition: { duration: 0.1 } }}
             transition={{ duration: 0.75, ease: "easeOut", type: "spring" }}
             viewport={{ once: true }}
-            className={`w-full rounded-3xl bg-${mainColor} py-4 text-center text-lg font-bold text-white hover:bg-opacity-80 sm:text-xl`}
+            css={css`
+              background-color: ${color};
+              border: 2px solid ${color};
+              &:hover {
+                background-color: transparent;
+                color: ${color};
+              }
+            `}
+            className="flex w-full items-center justify-center space-x-2 rounded-3xl py-4 text-lg font-bold text-white transition-colors duration-300 hover:bg-opacity-80 sm:text-xl"
           >
-            {buttonText}
+            {mutation.isPending ? <Loader /> : buttonText}
           </motion.button>
         </motion.form>
       </motion.div>
 
-      <div className="space-y-5">
-        <p className="flex w-full justify-center gap-x-2 text-center text-sm sm:text-base">
-          <span>{redirectText}</span>
-          <Link to={redirectLink} className={`font-bold text-${mainColor}`}>
-            {redirectLink === "/login"
-              ? "الدخول الي حسابك"
-              : "انشئ حسابك الآن !"}
-          </Link>
-        </p>
-      </div>
+      {redirectLink && (
+        <div className="space-y-5">
+          <p className="flex w-full justify-center gap-x-2 text-center text-sm sm:text-base">
+            <span>{redirectText}</span>
+            <Link
+              css={css`
+                color: ${color};
+              `}
+              to={redirectLink}
+              className="font-bold"
+            >
+              {redirectLink === "/login" ? "الدخول الي حسابك" : "انشئ حسابك الآن !"}
+            </Link>
+          </p>
+        </div>
+      )}
     </div>
   );
 };

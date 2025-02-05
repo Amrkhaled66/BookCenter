@@ -47,11 +47,11 @@ export default function CartItem({ id, quantity }) {
   return (
     <motion.li variants={itemVariants} key={id} className="relative">
       <div className="flex w-full flex-col justify-between gap-y-10 border-b-2 border-gray-300 py-7 lg:flex-row">
-        <div className="flex w-full gap-x-4 lg:w-1/2">
+        <Link to={`/product/${id}`} className="flex w-full gap-x-4 lg:w-1/2">
           <img
             src={`${import.meta.env.VITE_API_URL}/${imageUrl}`}
             className="h-full w-[14%] shadow-sm shadow-black"
-            alt=""
+            alt="productImage"
           />
           <div className="w-full space-y-3">
             <p className="w-full text-sm font-semibold sm:w-2/3 sm:text-base">
@@ -61,7 +61,7 @@ export default function CartItem({ id, quantity }) {
               {publisher}
             </p>
           </div>
-        </div>
+        </Link>
         <div className="flex w-full items-center justify-between lg:w-1/2">
           <div className="text-sm sm:text-base">
             <p>{currencyFormatter(mainPrice)}</p>

@@ -1,5 +1,9 @@
-export { default as HomePage } from "./HomePage"
-export { default as ProductPage } from "./ProductPage"
-export { default as CartPage } from "./CartPage"
-export { default as LoginPage } from "./LoginPage"
-export { default as SignUpPage } from "./SignUpPage"
+export { default as HomePage } from "./HomePage";
+export { default as ProductPage } from "./ProductPage";
+export { default as CartPage } from "./CartPage";
+export { default as LoginPage } from "./LoginPage";
+export { default as SignUpPage } from "./SignUpPage";
+export { default as ProfilePage } from "./ProfilePage";
+export { default as ProfileInfo } from "./User/ProfileInfo.jsx";
+export { default as Orders } from "./User/Orders";
+export { default as DeliveryInfo } from "./User/DeliveryInfo";

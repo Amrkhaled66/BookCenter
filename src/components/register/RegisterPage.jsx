@@ -1,19 +1,33 @@
+/** @jsxImportSource @emotion/react */
+
+// Components
 import LeftSection from "src/components/register/LeftSection";
 import RightSection from "src/components/register/RightSection";
+
 import { Link } from "react-router-dom";
+import useColors from "src/hooks/useColors";
+
 import HomeIcon from "src/components/ui/icons/HomeIcon";
 import RegisterImg from "src/components/register/registerImg";
 
-// Reusable RegisterPage Component
+import { css } from "@emotion/react";
+
 export default function RegisterPage({
   FormComponent,
   imageSrc,
   imageAlt,
   mainColor,
 }) {
+  const { colors } = useColors();
+  let color = colors.get(mainColor);
+
   return (
     <div
-      className={`flex h-auto min-h-screen w-full bg-${mainColor} flex-col-reverse lg:flex-row`}
+      // eslint-disable-next-line react/no-unknown-property
+      css={css`
+        background-color: ${color};
+      `}
+      className={`flex h-auto min-h-screen w-full flex-col-reverse lg:flex-row`}
     >
       <Link
         className="fixed left-5 top-5 z-10 rounded-full bg-white p-3 transition-all duration-300 hover:brightness-75 hover:drop-shadow-2xl"

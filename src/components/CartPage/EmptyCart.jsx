@@ -4,7 +4,8 @@ import useColors from "src/hooks/useColors";
 import { Link } from "react-router-dom";
 
 export default function EmptyCart() {
-  const { mainTextColor } = useColors();
+  const { colors } = useColors();
+  const bgColor = colors.get("mainTextColor");
   return (
     <div className="flex flex-col items-center space-y-6 py-8 text-xl">
       <img className="w-4/5" src={emptyCart} alt="Empty Cart" />
@@ -14,7 +15,7 @@ export default function EmptyCart() {
       <Link to="/">
         <ScaleButton
           className="border-main-text--color text-white-color"
-          bgColor={mainTextColor}
+          bgColor={bgColor}
         >
           تسوق الأن
         </ScaleButton>

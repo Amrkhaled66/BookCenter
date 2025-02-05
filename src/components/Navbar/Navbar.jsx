@@ -22,6 +22,7 @@ const navVariants = {
 export default function Navbar() {
   const { isSticky } = useIsNavStickyContext();
   const { toggleMenu } = useShowMobileMenu();
+
   return (
     <div
       className={`${isSticky ? "bg-[#3da9fc3f] backdrop-blur-sm" : " "} fixed left-1/2 top-0 z-50 w-screen -translate-x-1/2 rounded-xl bg-transparent transition-all duration-300`}

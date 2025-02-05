@@ -14,6 +14,7 @@ import { useGetProductById } from "src/services/productsServices";
 // imgs
 import pandaLaptop from "src/assets/pandaLaptop.png";
 
+
 const BackgroundWave = function () {
   return (
     <div className="absolute bottom-0 left-0 -z-10 h-full w-full bg-waveBG"></div>
@@ -23,7 +24,7 @@ const BackgroundWave = function () {
 export default function ProductPage() {
   const { id } = useParams();
 
-  const { data, isLoading, isError } = useGetProductById(id);
+  const { data: product, isLoading, isError } = useGetProductById(id);
 
   if (isLoading) {
     return (
@@ -53,7 +54,6 @@ export default function ProductPage() {
     );
   }
 
-  const product = data.product;
 
   const {
     imageUrl,
@@ -66,6 +66,7 @@ export default function ProductPage() {
     grade,
     subCategory,
   } = product || {};
+
 
   return (
     <div

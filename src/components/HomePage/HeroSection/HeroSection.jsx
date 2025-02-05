@@ -3,8 +3,8 @@ import ContentSection from "./ContentSection";
 
 export default function HeroSection() {
   return (
-    <div className="h-screen w-screen bg-[#f4f6f8]">
-      <div className="container relative flex h-auto min-h-full w-full flex-col-reverse items-center justify-center gap-y-8 pt-[100px] md:flex-row md:pt-0">
+    <div className="w-screen bg-[#f4f6f8]">
+      <div className="container relative flex w-full  h-screen  flex-col-reverse items-center justify-center gap-y-8 pt-[100px] md:flex-row md:pt-0">
         <ContentSection />
         <ImageSection />
       </div>

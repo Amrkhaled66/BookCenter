@@ -6,7 +6,7 @@ import {
   updateProduct,
   deleteProduct,
   addProduct,
-} from "src/api/productApi";
+} from "src/services/api/productApi";
 
 const useGetProducts = () => {
   return useQuery({ queryKey: ["products"], queryFn: getAllUserProducts });

@@ -4,17 +4,21 @@ import { PiBooks } from "react-icons/pi";
 import ScaleButton from "src/components/ui/ScaleButton";
 import useColors from "src/hooks/useColors";
 
+
 const ContentSectionTitle = function () {
   return (
     <h2 className="relative flex items-center font-mainFont text-3xl font-black text-main-text--color sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl">
-    <span className="z-10 text-nowrap">كل الكتب ...</span>
+      <span className="z-10 text-nowrap">كل الكتب ...</span>
       <span className="text-nowrap">من مصدر واحد</span>
     </h2>
   );
 };
 
 export default function ContentSection() {
-  const { mainColor } = useColors();
+  const { colors } = useColors();
+  const mainColor = colors.get("mainColor");
+
+
   return (
     <motion.div
       initial={{ opacity: 0 }}

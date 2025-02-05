@@ -4,6 +4,8 @@ import { IoIosUnlock } from "react-icons/io";
 import AuthForm from "src/components/register/Form";
 
 import signinValidate from "src/utils/validateLogInForm";
+
+import { useLogin } from "src/hooks/useAuthMutations";
 export default function LoginForm({ mainColor }) {
   return (
     <AuthForm
@@ -39,6 +41,7 @@ export default function LoginForm({ mainColor }) {
       redirectLink="/signup"
       mainColor={mainColor}
       validate={signinValidate}
+      mutationFn={useLogin}
     />
   );
 }

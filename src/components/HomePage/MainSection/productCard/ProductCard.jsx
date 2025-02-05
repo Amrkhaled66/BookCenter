@@ -13,7 +13,7 @@ export default function ProductCard({
   id,
 }) {
   return (
-    <div className="group relative mx-auto flex min-h-fit w-full flex-col items-center gap-1 overflow-hidden rounded-lg font-mainFontRegular text-main-text--color shadow-xl shadow-[#9aaabb] transition-all duration-300 hover:-translate-y-7 hover:rounded-none md:w-full">
+    <div className="group relative mx-auto flex min-h-fit w-full flex-col items-center gap-1 overflow-hidden rounded-lg font-mainFontRegular text-main-text--color shadow-xl shadow-[#9aaabb] transition-all duration-300 md:w-full">
       {/* Product image */}
       <Link to={"/product/" + id}>
         <div className="w-full overflow-hidden bg-main-text--color">

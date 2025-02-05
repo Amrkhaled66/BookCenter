@@ -12,7 +12,7 @@ import ErrorContainer from "src/components/ui/ErrorContainer";
 import Error from "src/components/ui/icons/error";
 
 // imgs
-import graudatedPanda from "src/assets/graduatePanda.png";
+import graduatedPanda from "src/assets/graduatePanda.png";
 
 export default function Products() {
   const { selectedCategory } = useCategory();
@@ -56,10 +56,13 @@ export default function Products() {
         <p className="relative flex flex-col-reverse items-center gap-x-4 pb-4 text-center font-cairo text-base font-bold tracking-wider drop-shadow-2xl sm:flex-row xl:text-2xl">
           <span>هنضيف منتجات للقسم قريب جدا</span>
           <span>
-            <img
+            <motion.img
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, ease: "easeIn" }}
               className="h-48 w-48 cursor-pointer drop-shadow-md transition-all duration-300 hover:animate-shake"
-              src={graudatedPanda}
-              alt="graudatedPanda"
+              src={graduatedPanda}
+              alt="graduatedPanda"
             />
           </span>
         </p>

@@ -1,6 +1,8 @@
 import AuthForm from "src/components/register/Form";
 
 import signupValidate from "src/utils/validateSignUpform";
+
+import { useSignup } from "src/hooks/useAuthMutations";
 export default function SignUpForm({ mainColor }) {
   return (
     <AuthForm
@@ -51,6 +53,7 @@ export default function SignUpForm({ mainColor }) {
       redirectLink="/login"
       mainColor={mainColor}
       validate={signupValidate}
+      mutationFn={useSignup}
     />
   );
 }

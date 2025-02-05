@@ -1,9 +1,10 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useEffect } from "react";
 
-import Swal from "sweetalert2";
+import { storeCart, clearStoringCart } from "src/services/cartServices";
 
 const cartContext = createContext();
 
+import Toast from "src/components/ui/Toast";
 const reducer = (state, action) => {
   const updatedCart = [...state];
 
@@ -27,6 +28,7 @@ const reducer = (state, action) => {
         price: action.payload.price,
       });
     }
+    console.log(updatedCart);
     return updatedCart;
   } else if (action.type === "DECREASE") {
     const updatedItemIndex = state.findIndex(
@@ -46,7 +48,6 @@ const reducer = (state, action) => {
     const deletedItemIndex = state.findIndex(
       (item) => item.id === action.payload.id,
     );
-    console.log(deletedItemIndex);
     if (deletedItemIndex > -1) {
       updatedCart.splice(deletedItemIndex, 1);
     }
@@ -72,32 +73,19 @@ const reducer = (state, action) => {
   return state; // No matching action; return the original state to prevent unnecessary renders.
 };
 
-const notify = (title) => {
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top",
-    showConfirmButton: false,
-    timer: 1500,
-    timerProgressBar: true,
-    customClass: {
-      popup: "custom-toast",
-    },
-  });
-
-  Toast.fire({
-    icon: "success",
-    title: title,
-    background: "#eafff0",
-  });
-};
-
 export default function CartContextProvider({ children }) {
-  const [cart, dispatch] = useReducer(reducer, []);
+  const initialState = () => JSON.parse(localStorage.getItem("cart")) || [];
+
+  const [cart, dispatch] = useReducer(reducer, [], initialState);
+
+  useEffect(() => {
+    storeCart(cart);
+  }, [cart]);
 
   const addToCart = (id, quantity, price) => {
-    console.log(quantity);
-    notify("تم إضافة المنتج لسلة مشترياتك.");
+    Toast("تم إضافة المنتج لسلة مشترياتك.", "success", "#eafff0");
     dispatch({ type: "ADD", payload: { id, quantity, price } });
+    console.log(cart);
   };
 
   const decreaseCartItem = (id, quantity) => {
@@ -105,20 +93,20 @@ export default function CartContextProvider({ children }) {
   };
 
   const modifyQuantity = (id, quantity) => {
-    notify("تم تعديل الكمية.");
+    Toast("تم تعديل الكمية.", "success", "#eafff0");
     dispatch({ type: "MODIFYQUN", payload: { id, quantity } });
   };
 
   const clearItem = (id) => {
-    console.log(id);
     dispatch({ type: "CLEAR_ITEM", payload: { id } });
   };
 
   const clearCart = () => {
     dispatch({ type: "CLEAR_CART" });
+    clearStoringCart();
   };
 
-  const calcAllPice = () => {
+  const calcAllPrice = () => {
     return cart.reduce((total, item) => {
       return total + item.price * item.quantity;
     }, 0);
@@ -134,7 +122,7 @@ export default function CartContextProvider({ children }) {
     clearCart,
     cartLength,
     modifyQuantity,
-    calcAllPice,
+    calcAllPrice,
   };
 
   return <cartContext.Provider value={value}>{children}</cartContext.Provider>;

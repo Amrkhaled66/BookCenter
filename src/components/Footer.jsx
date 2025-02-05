@@ -7,7 +7,7 @@ import { MdAddCall } from "react-icons/md";
 
 export default function Footer() {
   return (
-    <div className="bg-fit h-fit w-screen bg-main-text--color py-16 font-mainFontRegular text-7xl font-black text-[#d8eefe]">
+    <div className="w-screen bg-main-text--color py-16 font-mainFontRegular text-7xl font-black text-[#d8eefe]">
       <div className="container flex">
         <div className="flex w-full flex-col items-center justify-center gap-y-20">
           <div className="flex w-full flex-col items-center justify-between gap-y-8 md:flex-row">
