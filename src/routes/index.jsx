@@ -43,25 +43,25 @@ export default function AppRouter() {
           <Route
             index
             element={
-              <ProtectedRoute>
-                <ProfileInfo />
-              </ProtectedRoute>
+              // <ProtectedRoute>
+              <ProfileInfo />
+              // </ProtectedRoute>
             }
           />
           <Route
             path="orders"
             element={
-              <ProtectedRoute>
-                <Orders />
-              </ProtectedRoute>
+              // <ProtectedRoute>
+              <Orders />
+              // </ProtectedRoute>
             }
           />
           <Route
             path="address"
             element={
-              <ProtectedRoute>
-                <DeliveryInfo />
-              </ProtectedRoute>
+              // <ProtectedRoute>
+              <DeliveryInfo />
+              // </ProtectedRoute>
             }
           />
         </Route>

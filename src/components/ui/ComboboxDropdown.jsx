@@ -19,14 +19,14 @@ export default function ComboboxDropdown({ value, onChange, options, width }) {
   return (
     <div className={`relative ${width}`}>
       <Combobox value={value} onChange={onChange}>
-        <div className="relative w-full">
+        <div className="relative flex w-full border-2 border-gray-300">
           <ComboboxInput
-            className="w-full rounded-md border-2 border-gray-300 px-2 py-2 text-lg outline-none"
+            className="w-full overflow-hidden text-ellipsis rounded-md px-2 py-2 text-sm outline-none sm:text-lg"
             displayValue={(option) => option?.toString()}
             onChange={(event) => setQuery(event.target.value)}
           />
-          <ComboboxButton className="absolute inset-y-0 left-2 flex items-center">
-            <IoIosArrowDown className="text-2xl" />
+          <ComboboxButton className="flex items-center pl-2">
+            <IoIosArrowDown className="text-lg sm:text-xl" />
           </ComboboxButton>
         </div>
 

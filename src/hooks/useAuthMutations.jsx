@@ -5,18 +5,20 @@ import {
   login as loginRequest,
   signup as signupRequest,
   refreshToken as refreshRequest,
-} from "src/services/api/register";
+  logout as logoutRequest,
+} from "src/services/api/auth";
 
-import { login } from "src/services/authServices";
 import Alert from "src/components/ui/Alert";
+
+import useAuth from "./useAuth";
 
 const useLogin = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   return useMutation({
     mutationFn: ({ phone, password }) => loginRequest(phone, password),
     onSuccess: (data) => {
-      console.log(data);
       login(data);
       navigate("/");
     },
@@ -43,16 +45,27 @@ const useSignup = () => {
 };
 
 const useRefreshToken = () => {
+  const navigate = useNavigate();
+
   return useMutation({
     mutationFn: () => refreshRequest(),
+
+    onError: () => {
+      navigate("/login");
+    },
   });
 };
 
-// const useLogout = () => {
-//   const { logout } = useAuth();
-//   return useMutation({
-//     mutationFn: () => logout(),
-//   });
-// }
+const useLogout = () => {
+  const { logout } = useAuth();
 
-export { useLogin, useSignup, useRefreshToken };
+  return useMutation({
+    mutationFn: logoutRequest,
+    onSuccess: () => {
+      ("useMutationlogout");
+      logout();
+    },
+  });
+};
+
+export { useLogin, useSignup, useRefreshToken, useLogout };

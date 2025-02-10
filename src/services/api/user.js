@@ -1,8 +1,17 @@
-import { axiosPrivate } from "src/utils/axiosInstance";
-
-const getProfileInfo = async () => {
-  const {data}= await axiosPrivate.get("/user/profile");
+const getProfileInfo = async (axiosPrivate) => {
+  const { data } = await axiosPrivate.get("/user/profile");
   return data;
 };
 
-export { getProfileInfo };
+const getUserOrders = async (axiosPrivate) => {
+  const data = await axiosPrivate.get("/user/orders");
+  data;
+  return data;
+};
+
+const updateProfile = async ({ axiosPrivate, data }) => {
+  const { data: response } = await axiosPrivate.patch("/user/profile", data);
+  return response;
+};
+
+export { getProfileInfo, getUserOrders, updateProfile };

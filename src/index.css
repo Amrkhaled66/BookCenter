@@ -14,12 +14,22 @@
   -webkit-text-stroke: 0.1rem #1a472d;
 }
 
+/* Add this to your global CSS file */
+body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
+  padding-right: 0 !important;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 html {
   overflow-x: hidden !important;
-  overflow-y: scroll !important;
-  padding: 0 !important;
-  margin: 0 !important;
+  overflow-y: auto !important;
+  padding-right: 0 !important;
 }
+
 
 :root {
   --main-color: #3da9fc;
@@ -30,6 +40,7 @@ html {
   --second__text-color: #5f6c7b;
   --card-color: #f1f5f9;
   --third-color: #1c5075;
+  --gray-color: #bdbdbd;
 }
 
 .dark {
@@ -70,4 +81,3 @@ html {
   border-radius: 10px; /* Optional: change border radius */
   direction: rtl; /* Ensure right-to-left direction */
 }
-

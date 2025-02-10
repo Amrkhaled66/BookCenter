@@ -46,6 +46,7 @@ export default {
         "black-color": "#000000",
         "white-color": "#ffffff",
         "third-color": "var(--third-color)",
+        "gray-color": "var(--gray-color)",
       },
 
       fontFamily: {

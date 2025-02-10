@@ -8,6 +8,7 @@ export default function ColorsContextProvider({ children }) {
     ["secondColor", "#ef4565"],
     ["thirdColor", "#20C997"],
     ["mainTextColor", "#094067"],
+  
   ]);
 
   return (

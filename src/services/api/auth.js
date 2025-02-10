@@ -1,9 +1,8 @@
-import { axiosPrivate } from "src/utils/axiosInstance";
 import axiosInstance from "src/utils/axiosInstance";
 const login = async (phone, pass) => {
   try {
     const { data } = await axiosInstance.post(
-      "/user/login",
+      "/auth/login",
       { phone, pass },
       {
         headers: { "Content-Type": "application/json" },
@@ -19,7 +18,7 @@ const login = async (phone, pass) => {
 
 const signup = async (sentData) => {
   try {
-    const { response } = await axiosInstance.post("/user/signup", sentData);
+    const { response } = await axiosInstance.post("/auth/signup", sentData);
     return response;
   } catch (err) {
     throw err.response;
@@ -28,14 +27,26 @@ const signup = async (sentData) => {
 
 const refreshToken = async () => {
   try {
-    const { data } = await axiosInstance.get("/user/refreshToken", {
+    const { data } = await axiosInstance.get("/auth/refreshToken", {
       withCredentials: "true",
     });
     return data;
   } catch (err) {
-    console.log(err);
+    err;
     throw err.response;
   }
 };
 
-export { login, signup, refreshToken };
+const logout = async () => {
+  try {
+    const { data } = await axiosInstance.post("/auth/logout", null, {
+      withCredentials: "true",
+    });
+    return data;
+  } catch (err) {
+    err.response;
+    throw err.response;
+  }
+};
+
+export { login, signup, refreshToken, logout };

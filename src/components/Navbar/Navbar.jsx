@@ -45,12 +45,12 @@ export default function Navbar() {
           <img className="mx-auto w-20 md:mx-0" src={logo} alt="Book Center" />
         </Link>
         {/* Mobile Menu Icon */}
-        <button
+        {/* <button
           onClick={toggleMenu}
           className="order-3 text-3xl md:order-none md:hidden"
         >
           <MenuIcon />
-        </button>
+        </button> */}
       </motion.div>
     </div>
   );

@@ -28,7 +28,6 @@ const reducer = (state, action) => {
         price: action.payload.price,
       });
     }
-    console.log(updatedCart);
     return updatedCart;
   } else if (action.type === "DECREASE") {
     const updatedItemIndex = state.findIndex(
@@ -85,7 +84,6 @@ export default function CartContextProvider({ children }) {
   const addToCart = (id, quantity, price) => {
     Toast("تم إضافة المنتج لسلة مشترياتك.", "success", "#eafff0");
     dispatch({ type: "ADD", payload: { id, quantity, price } });
-    console.log(cart);
   };
 
   const decreaseCartItem = (id, quantity) => {

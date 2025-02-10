@@ -21,7 +21,7 @@ export default function DeliveryInfo({}) {
     const { government, state, address, secondaryPhone, deliveryDate } =
       formData;
 
-    console.log(formData);
+    formData;
     // onSubmit?.({
     //   government,
     //   state,
@@ -38,7 +38,7 @@ export default function DeliveryInfo({}) {
       />
       <div className="mx-auto flex h-auto w-full flex-1 flex-col items-center pt-10">
         <form
-          className="flex w-[50%] flex-col space-y-12"
+          className="flex w-[80%] flex-col space-y-12 sm:w-[50%]"
           onSubmit={handleSubmit}
         >
           {/* Government ComboboxDropdown */}

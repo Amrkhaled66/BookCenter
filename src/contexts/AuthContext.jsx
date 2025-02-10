@@ -1,9 +1,59 @@
-// import { createContext, useState, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 
-// import { getToken, getUser, login } from "src/services/authServices";
+const AuthContext = createContext();
 
-// export const authContext = createContext({});
+import {
+  setUser,
+  setToken,
+  clearToken,
+  clearUser,
+  getToken,
+  getUser,
+} from "src/services/authServices";
 
-// export default function AuthContextProvider({ children }) {
- 
-// }
+import { clearStoringCart } from "src/services/cartServices";
+
+import useCart from "src/hooks/useCart";
+
+const AuthContextProvider = ({ children }) => {
+  const [authData, setAuthData] = useState(null);
+  const { clearCart } = useCart();
+
+  const login = async (data) => {
+    ("login");
+    setAuthData({
+      token: data.accessToken,
+      user: data.user,
+    });
+    setToken(data.accessToken);
+    setUser(data.user);
+  };
+
+  const logout = async () => {
+    ("logout");
+    clearToken();
+    clearUser();
+    clearCart();
+    setAuthData(null);
+  };
+
+  const isAuth = () => {
+    return authData?.token ? true : false;
+  };
+
+  useEffect(() => {
+    const token = getToken();
+    const user = getUser();
+    if (token) setAuthData({ token, user });
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ authData, login, logout, isAuth }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export default AuthContextProvider;
+
+export { AuthContext };

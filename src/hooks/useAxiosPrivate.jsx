@@ -1,75 +1,92 @@
-// import { axiosPrivate } from "src/utils/axiosInstance";
-// import { useEffect } from "react";
-// import { refreshToken } from "src/services/api/register";
+import { useEffect, useCallback } from "react";
+import { refreshToken } from "src/services/api/auth";
+import { useNavigate } from "react-router-dom";
+import Alert from "src/components/ui/Alert";
+import { getToken } from "src/services/authServices";
 
-// import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-// import Alert from "src/components/ui/Alert";
+import useAuth from "./useAuth";
+import { useLogout } from "./useAuthMutations";
 
-// import { login, logout, getToken } from "src/services/authServices";
-// // eslint-disable-next-line react-refresh/only-export-components
-// function EndedSessionModal() {
-//   return Alert(
-//     "انتهت جلست تسجيل الدخول",
-//     "برجاء تسجيل الدخول مرة اخري",
-//     "warning",
-//     "حسنا",
-//   );
-// }
+// Create a single axios instance outside the hook ✅
+const axiosPrivate = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+  withCredentials: true,
+});
 
-// export default function useAxiosPrivate() {
-//   const navigate = useNavigate();
-//   useEffect(() => {
-//     console.log("useAxiosPrivate");
-//     const requestIntercept = axiosPrivate.interceptors.request.use(
-//       (config) => {
-//         // Check if the Authorization header exists; if not, add it
-//         if (!config.headers["Authorization"]) {
-//           config.headers["Authorization"] = `Bearer ${getToken()}`;
-//         }
-//         return config;
-//       },
-//       (error) => Promise.reject(error),
-//     );
+// Function for showing session end modal
+function EndedSessionModal() {
+  return Alert(
+    "انتهت جلسة تسجيل الدخول",
+    "برجاء تسجيل الدخول مرة أخرى",
+    "warning",
+    "حسنا",
+  );
+}
 
-//     const responseIntercept = axiosPrivate.interceptors.response.use(
-//       (response) => response, // Returning the response if no error
-//       async (error) => {
-//         const prevRequest = error?.config;
+export default function useAxiosPrivate() {
+  const navigate = useNavigate();
+  const { login } = useAuth();
+  const logoutMutate = useLogout();
 
-//         // Only attempt to refresh the token if the status is 401 (Unauthorized) and the request wasn't previously sent
-//         if (error?.response?.status === 401 && !prevRequest?.sent) {
-//           prevRequest.sent = true;
+  // Ensure session end handler is stable ✅
+  const handleSessionEnd = () => {
+    ("handleSessionEnd");
+    logoutMutate.mutate(null, {
+      onSuccess: () => {
+        navigate("/login", { replace: true });
+        EndedSessionModal();
+      },
+      onError: () => {
+        ("Logout failed");
+      },
+    });
+  };
 
-//           try {
-//             // Attempt to refresh the token
-//             const data = await refreshToken();
-//             login(data);
-//             const newAccessToken = data?.accessToken;
-//             prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+  useEffect(() => {
+    // Request Interceptor ✅
+    const requestIntercept = axiosPrivate.interceptors.request.use(
+      (config) => {
+        if (!config.headers["Authorization"]) {
+          config.headers["Authorization"] = `Bearer ${getToken()}`;
+        }
+        return config;
+      },
+      (error) => Promise.reject(error),
+    );
 
-//             // Retry the failed request with the new token
-//             return axiosPrivate(prevRequest);
-//           } catch (err) {
-//             logout();
-//             EndedSessionModal();
-//             window.location.href = "/login";
-//             // If refreshing the token fails, reject the error
-//             return Promise.reject(err); // Pass the error to the next handler
-//           }
-//         }
+    // Response Interceptor ✅
+    const responseIntercept = axiosPrivate.interceptors.response.use(
+      (response) => response,
+      async (error) => {
+        const prevRequest = error?.config;
 
-//         // In case of any other error, propagate it
-//         return Promise.reject(error);
-//       },
-//     );
+        // Ensure prevRequest exists before modifying it ✅
+        if (error?.response?.status === 401) {
+          prevRequest.sent = true; // Mark the request as retried
+          try {
+            const data = await refreshToken();
+            login(data);
+            prevRequest.headers["Authorization"] =
+              `Bearer ${data?.accessToken}`;
+            return axiosPrivate(prevRequest);
+          } catch (err) {
+            ("refresh token failed");
+            err;
+            handleSessionEnd();
+            return Promise.reject(err);
+          }
+        }
+        return Promise.reject(error);
+      },
+    );
 
-//     // Cleanup function: Eject interceptors when the component is unmounted or when dependencies change
-//     return () => {
-//       axiosPrivate.interceptors.request.eject(requestIntercept);
-//       axiosPrivate.interceptors.response.eject(responseIntercept);
-//     };
-//   }, []);
+    return () => {
+      axiosPrivate.interceptors.request.eject(requestIntercept);
+      axiosPrivate.interceptors.response.eject(responseIntercept);
+    };
+  }, [handleSessionEnd]); // ✅ Only re-run when session handling logic changes
 
-//   return axiosPrivate; // Remove refreshToken from the dependency array if it's stable
-// }
+  return axiosPrivate;
+}

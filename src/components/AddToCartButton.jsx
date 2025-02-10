@@ -1,14 +1,13 @@
 import ScaleIn from "src/components/ui/ScaleIn ";
 import useCart from "src/hooks/useCart";
-
+import { useNavigate } from "react-router-dom";
 import { FaCartPlus } from "react-icons/fa";
 
 import { motion } from "framer-motion";
 
 import Alert from "src/components/ui/Alert";
 
-import { isAuth } from "src/services/authServices";
-
+import useAuth from "src/hooks/useAuth";
 import { useAddToCartValidation } from "src/hooks/useCart";
 
 export default function AddToCartButton({
@@ -18,6 +17,8 @@ export default function AddToCartButton({
   price,
   ...props
 }) {
+  const { isAuth } = useAuth();
+
   const { cart, addToCart } = useCart();
 
   const productIndex = cart.findIndex((item) => item.id === productId);
@@ -25,6 +26,8 @@ export default function AddToCartButton({
   const mutation = useAddToCartValidation();
 
   const quantityInCart = productIndex > -1 ? cart[productIndex].quantity : 0;
+
+  const navigate = useNavigate();
 
   const handleClick = () => {
     if (!isAuth()) {
@@ -35,7 +38,7 @@ export default function AddToCartButton({
         "تسجيل الدخول",
       ).then((res) => {
         if (res.isConfirmed) {
-          window.location.href = "/login";
+          navigate("/login");
         }
       });
       return;

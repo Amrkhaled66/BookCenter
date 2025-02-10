@@ -1,61 +1,14 @@
 /** @jsxImportSource @emotion/react */
 
-import { useState } from "react";
+import useColors from "src/hooks/useColors";
+import useFormValidation from "src/hooks/useFormValidation";
+
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { css } from "@emotion/react";
-import useColors from "src/hooks/useColors";
-import Swal from "sweetalert2";
 
 import Loader from "src/components/ui/icons/Loader";
-
-const InputField = ({
-  inputType,
-  label,
-  Icon,
-  name,
-  mainColor,
-  className = "",
-  error,
-}) => {
-  return (
-    <div className="space-y-3">
-      <label
-        style={{
-          color: mainColor,
-        }}
-        className="flex items-center gap-x-1"
-      >
-        {Icon && <Icon size={25} />}
-        <p className="text-[#1e1f22]">{label}</p>
-      </label>
-      <div className="relative flex flex-col">
-        <input
-          className={`h-16 rounded-3xl border-[3px] border-[#ebeaea] bg-[#e6eff440] px-5 font-semibold outline-none transition-all duration-300 focus:border-[${mainColor}] ${className}`}
-          // eslint-disable-next-line react/no-unknown-property
-          css={css`
-            &:focus {
-              border-color: ${mainColor};
-            }
-          `}
-          required
-          name={name}
-          type={inputType}
-        />
-        {error && (
-          <motion.p
-            key={Date.now()}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-2 rounded-lg bg-rose-400 px-4 py-1 text-[15px] text-white"
-          >
-            ⚠ - {error}
-          </motion.p>
-        )}
-      </div>
-    </div>
-  );
-};
+import FormInputField from "./FormInputField";
 
 const AuthForm = ({
   title,
@@ -68,10 +21,11 @@ const AuthForm = ({
   validate,
   mutationFn,
 }) => {
-  const [errors, setErrors] = useState({}); // Change Errors to errors
   const { colors } = useColors();
-
   let color = colors.get(mainColor);
+
+  const { errors, handleValidation, handleError } = useFormValidation(validate);
+
   const mutation = mutationFn();
 
   const onSubmit = (event) => {
@@ -80,28 +34,12 @@ const AuthForm = ({
     const data = new FormData(event.target);
     const formData = Object.fromEntries(data.entries());
 
-    const { data: formattedData, errors } = validate(formData);
+    const { isValid, formattedData } = handleValidation(formData);
 
-    if (Object.keys(errors).length > 0) {
-      setErrors(errors);
-      return;
-    }
-
-    setErrors({});
+    if (!isValid) return;
 
     mutation.mutate(formattedData, {
-      onError: (error) => {
-        let errMessage;
-        if (error.status === 401) {
-          errMessage = "خطأ في رقم الهاتف او في كلمة المرور";
-        }
-          else if (error.status === 409) {
-          errMessage = "الرقم مسجل بالفعل علي الموقع";
-        } else if (error.status === 400) {
-          errMessage = "خطأ برجاء التواصل مع الدعم";
-        }
-        setErrors({ phone: errMessage });
-      },
+      onError: handleError,
       onSuccess: () => {
         event.target.reset();
       },
@@ -135,13 +73,13 @@ const AuthForm = ({
           {fields.map((fieldGroup, index) => (
             <div key={`${index}-${fieldGroup.layout}`}>
               {fieldGroup.fields.map((field) => (
-                <InputField
+                <FormInputField
                   key={`${index}-${field.label}`}
                   {...field}
                   className="w-full"
                   mainColor={color}
                   name={field.name}
-                  error={errors[field.name]} // Use errors (lowercase)
+                  error={errors[field.name]}
                 />
               ))}
             </div>
@@ -181,7 +119,9 @@ const AuthForm = ({
               to={redirectLink}
               className="font-bold"
             >
-              {redirectLink === "/login" ? "الدخول الي حسابك" : "انشئ حسابك الآن !"}
+              {redirectLink === "/login"
+                ? "الدخول الي حسابك"
+                : "انشئ حسابك الآن !"}
             </Link>
           </p>
         </div>

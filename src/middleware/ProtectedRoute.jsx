@@ -1,9 +1,12 @@
-import { Navigate, Outlet } from "react-router-dom";
-
-import { isAuth } from "src/services/authServices";
+import useAuth from "src/hooks/useAuth";
+import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-  if (!isAuth()) return <Navigate to="/login" replace />;
+  const { isAuth } = useAuth();
+
+  if (!isAuth) {
+    return <Navigate to="/login" replace />;
+  }
 
   return children;
 };

@@ -1,12 +1,10 @@
 const storeCart = (cart) => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  };
-
-  const clearStoringCart = () => {
-    localStorage.setItem("cart", JSON.stringify([]));
+  localStorage.setItem("cart", JSON.stringify(cart));
 };
-  
-export {
-    storeCart,
-    clearStoringCart
-}
+
+const clearStoringCart = () => {
+  ("clearStoringCart");
+  localStorage.removeItem("cart");
+};
+
+export { storeCart, clearStoringCart };

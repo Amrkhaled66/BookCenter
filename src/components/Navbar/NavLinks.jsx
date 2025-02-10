@@ -1,6 +1,7 @@
 // UI Components
 import ShadowButton from "components/ui/ShadowButton";
 import ScaleButton from "components/ui/ScaleButton";
+import UserMenu from "./UserMenu";
 
 // Hooks
 import useColors from "src/hooks/useColors";
@@ -14,12 +15,12 @@ import cartImg from "src/assets/cart.svg";
 
 import { Link } from "react-router-dom";
 
-import { isAuth } from "src/services/authServices.js";
-
-import UserMenu from "./UserMenu";
+import useAuth from "src/hooks/useAuth";
 export default function NavLinks() {
   const { cartLength } = useCart();
   const { colors } = useColors();
+  const { isAuth } = useAuth();
+
   const secondColor = colors.get("secondColor");
 
   return (

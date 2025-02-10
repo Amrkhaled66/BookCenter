@@ -4,7 +4,9 @@ import { cartContext } from "../contexts/cart";
 
 import { useMutation } from "@tanstack/react-query";
 
-import { addToCartValidation } from "src/services/api/cart";
+import { addToCartValidation as AddToCartRequest } from "src/services/api/cart";
+
+import useAxiosPrivate from "./useAxiosPrivate";
 
 import Alert from "src/components/ui/Alert";
 
@@ -13,8 +15,11 @@ export default function useCart() {
 }
 
 function useAddToCartValidation() {
+  const axiosPrivate = useAxiosPrivate();
+
   return useMutation({
-    mutationFn: addToCartValidation,
+    mutationFn: ({ id, quantity }) =>
+      AddToCartRequest({ axiosPrivate, id, quantity }),
     onSuccess: (data) => {
       const { id, quantity, price } = data.product;
     },
@@ -28,9 +33,7 @@ function useAddToCartValidation() {
           "error",
           "حسنا",
         );
-      } else if (response.status === 400) {
-        Alert("خطاء", "برجاء التواصل مع الدعم", "error", "حسنا");
-      } else if (response.status === 404) {
+      } else if (response.status === 400 || response.status === 404) {
         Alert("خطاء", "برجاء التواصل مع الدعم", "error", "حسنا");
       }
     },

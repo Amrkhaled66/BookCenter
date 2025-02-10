@@ -5,8 +5,6 @@ import DeliveryCar from "src/assets/DeliveryCar.png";
 
 import { NavLink } from "react-router-dom";
 
-const grayColor = "bg-gray-100";
-
 const barElements = [
   {
     text: "بياناتي",
@@ -26,7 +24,7 @@ const barElements = [
 ];
 
 const BarElement = ({ text, imgSrc, link }) => {
-  const BarElementClass = `relative flex w-full items-center gap-x-3 py-2 pr-8 font-cairo ${grayColor} text-lg font-semibold text-main-text--color overflow-hidden border-third-color hover:bg-third-color hover:text-white transition-all duration-300`;
+  const BarElementClass = `relative flex w-full rounded-lg bg-white  items-center gap-x-3 py-2 pr-3 font-cairo text-lg font-semibold text-main-text--color overflow-hidden border-third-color hover:bg-third-color hover:text-white transition-all duration-300`;
 
   return (
     <NavLink
@@ -47,17 +45,18 @@ const BarElement = ({ text, imgSrc, link }) => {
 export default function ContainerBar() {
   return (
     <div
-      className={`flex h-auto w-[17%] flex-col gap-y-10 border-l-4 border-l-${grayColor} pt-5`}
+      className={`border-l-gray-color px-2  flex  w-full flex-col gap-y-10 xl:border-l-[1px] pt-5 xl:w-[25%]`}
     >
       {/* circle section */}
-      <div className={`w-full py-6 border-b-${grayColor} border-b-4`}>
+      <div className={`border-b-gray-color w-full xl:border-b-[1px] py-8`}>
         <div className="mx-auto flex h-[150px] w-[150px] items-center justify-center rounded-full bg-main-text--color">
           <p className="text-4xl font-bold text-white">AK</p>
         </div>
-        <h3 className="align-center mt-2 text-center font-mainFontRegular text-2xl font-semibold text-third-color">
+        <h3 className="align-center  mt-2 text-center font-mainFontRegular text-2xl font-semibold text-third-color">
           Amr Khaled
         </h3>
       </div>
+
       {/* Pages section */}
       <div className="w-full space-y-1">
         {barElements.map((element) => (

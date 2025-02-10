@@ -7,7 +7,7 @@ import CartContextProvider from "./contexts/cart.jsx";
 import ProductContextProvider from "./contexts/category.jsx";
 import UserDataProvider from "./contexts/userData";
 
-// import AuthContextProvider from "./contexts/AuthContext";
+import AuthContextProvider from "./contexts/AuthContext";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -18,9 +18,9 @@ import { BrowserRouter } from "react-router-dom";
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      {/* <AuthContextProvider> */}
-        <ProductContextProvider>
-          <CartContextProvider>
+      <CartContextProvider>
+        <AuthContextProvider>
+          <ProductContextProvider>
             <IsNavStickyContextProvider>
               <ShowMobileMenuContextProvider>
                 <ColorsContextProvider>
@@ -30,9 +30,9 @@ function App() {
                 </ColorsContextProvider>
               </ShowMobileMenuContextProvider>
             </IsNavStickyContextProvider>
-          </CartContextProvider>
-        </ProductContextProvider>
-      {/* </AuthContextProvider> */}
+          </ProductContextProvider>
+        </AuthContextProvider>
+      </CartContextProvider>
     </QueryClientProvider>
   );
 }

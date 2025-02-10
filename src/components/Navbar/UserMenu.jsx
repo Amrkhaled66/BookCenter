@@ -3,33 +3,39 @@ import { Menu, Transition } from "@headlessui/react";
 import LogOutModal from "src/components/ui/LogOutModal";
 
 // services
-import useCart from "src/hooks/useCart";
-import { useNavigate, NavLink } from "react-router-dom";
-import { logout, getUser } from "src/services/authServices";
-
+import useAuth from "src/hooks/useAuth";
+import { NavLink } from "react-router-dom";
 //  imgs & icons
 import pandaAvatar from "src/assets/pandaAvatar.svg";
-import { HiOutlineUserCircle } from "react-icons/hi";
 import { IoLogOutSharp } from "react-icons/io5";
 
-import { BiLogOut } from "react-icons/bi";
 import { FaUser } from "react-icons/fa";
 
-const PROFILE_PATH = "/profile";
-const HOME_PATH = "/";
+import { useLogout } from "src/hooks/useAuthMutations";
+
+import { useNavigate } from "react-router-dom";
+import Alert from "src/components/ui/Alert";
 
 export default function UserMenu() {
-  const { clearCart } = useCart();
+  const { authData } = useAuth();
   const navigate = useNavigate();
 
-  const userName = getUser().name;
-
+  const logoutMutation = useLogout();
   const handleLogout = () => {
-    logout();
-    navigate(HOME_PATH);
-    clearCart();
-    LogOutModal();
+    logoutMutation.mutate(null, {
+      onError: (err) => {
+        if (err.status === 400) {
+          Alert("حدث خطأ", "برجاء التواصل مع الدعم", "error", "حسنا");
+        }
+      },
+      onSuccess: () => {
+        navigate("/");
+        LogOutModal();
+      },
+    });
   };
+
+  const userName = authData?.user?.name.split(" ")[0];
 
   const renderMenuItem = (to, icon, label, onClick = null) => (
     <Menu.Item>
@@ -37,7 +43,7 @@ export default function UserMenu() {
         <NavLink
           to={to}
           onClick={onClick}
-          className={`flex w-full font-cairo items-center gap-2 rounded-md px-3 py-2 text-sm transition-all duration-300 ${
+          className={`flex w-full items-center gap-2 rounded-md px-3 py-2 font-cairo text-sm transition-all duration-300 ${
             active ? "bg-gray-300" : ""
           }`}
         >
@@ -71,7 +77,7 @@ export default function UserMenu() {
           </p>
           <div className="p-1">
             {renderMenuItem(
-              PROFILE_PATH,
+              "/profile",
               <FaUser className="h-3 w-3 text-main-text--color" />,
               "الملف الشخصي",
             )}

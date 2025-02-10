@@ -1,69 +1,115 @@
 import LinkIcon from "src/assets/LinkIconsvg.svg";
 
+import currencyFormatter from "src/utils/currencyFormatter";
 
-export default function OrderCard() {
+const OrderCardElement = ({ className = " ", right, left }) => {
   return (
-    <div className="w-[45%] rounded-xl border-[3px] border-third-color bg-card-color p-3 font-cairo drop-shadow-xl">
-      <div className="space-y-3 border-b-2 border-black/30 pb-3">
+    <div className="flex items-center justify-between">
+      <span className={`rounded-lg ${className} p-2 text-sm`}>{right}</span>
+      <span className="font-bold">{left}</span>
+    </div>
+  );
+};
+
+const paidStatus = {
+  paid: {
+    text: "مدفوع",
+    className: "bg-green-50  text-green-700",
+  },
+  pending: {
+    text: "في انتظار الدفع",
+    className: "bg-yellow-50 text-yellow-700",
+  },
+  failed: {
+    text: "تم الغاء الفاتورة",
+    className: "bg-red-50 text-red-900",
+  },
+};
+
+export default function OrderCard({
+  products,
+  productsPrice,
+  shippingPrice,
+  totalPrice,
+  invoiceLink,
+  paymentStatus,
+  deliveryStatus,
+  createdAt,
+}) {
+  const orderData = new Date(createdAt);
+  const arabicData = orderData.toLocaleDateString("ar-Eg", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    weekday: "long",
+  });
+
+  return (
+    <div className="mx-auto  w-[100%] rounded-xl border-[1px] border-third-color bg-white p-3 font-cairo text-sm drop-shadow-xl sm:w-[80%] lg:w-[90%]">
+      <div className="space-y-3 border-b-2 border-black/10 pb-3">
         <p className="text-center font-bold text-third-color">
-          تاريخ الشراء : 01:39 الثلاثاء، ٢١ يناير ٢٠٢٥
+          تاريخ الشراء : {arabicData}
         </p>
-        <p className="mx-auto w-fit rounded-xl bg-third-color px-3 py-2 text-center text-white">
-          📚 الكتب اللي اشتريتها{" "}
+        <p className="w-full rounded-sm bg-blue-50 px-3 py-2 text-right font-bold tracking-wider text-blue-900">
+          📚 الكتب اللي اشتريتها
         </p>
         <div className="space-y-2">
-          <div className="flex justify-between">
-            <span>الثالث الثانوى - الكيمياء العضوية - أ. خالد صقر</span>
-            <span className="font-bold">x1</span>
-          </div>
-          <div className="flex justify-between">
-            <span>الثالث الثانوى - الكيمياء العضوية - أ. خالد صقر</span>
-            <span className="font-bold">x1</span>
-          </div>
+          {products.map((product) => (
+            <div key={product._id} className="flex justify-between">
+              <span>{product.name}</span>
+              <span className="font-bold">x{product.quantity}</span>
+            </div>
+          ))}
         </div>
       </div>
-      <div className="flex flex-col gap-y-4 border-b-2 border-black/30 py-3 pb-3">
-        <div className="flex items-center justify-between">
-          <span className="rounded-xl border-2 border-black bg-blue-200 p-1 text-base font-semibold">
-            سعر الشحن
-          </span>
-          <span className="font-bold">50 جنيهاً </span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="rounded-xl border-2 border-black bg-green-200 p-1 text-base font-semibold">
-            سعر الكتب
-          </span>
-          <span className="font-bold">500 جنيهاً </span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="rounded-xl border-2 border-black bg-orange-200 p-1 text-base font-semibold">
-            السعر الكلي
-          </span>
-          <span className="font-bold">550 جنيهاً </span>
-        </div>
+      <div className="flex flex-col gap-y-2 border-b-2 border-black/10 py-2 pb-3">
+        <OrderCardElement
+          className="bg-blue-100 text-blue-900"
+          right={"سعر الشحن"}
+          left={currencyFormatter(shippingPrice)}
+        />
+
+        <OrderCardElement
+          className="bg-green-100 text-green-900"
+          right={"سعر الكتب"}
+          left={currencyFormatter(productsPrice)}
+        />
+
+        <OrderCardElement
+          className="bg-orange-100 text-orange-900"
+          right={"السعر الكلي"}
+          left={currencyFormatter(totalPrice)}
+        />
       </div>
-      <div className="flex flex-col gap-y-2 border-b-2 border-black/30 py-3 pb-3">
+      <div className="flex flex-col gap-y-2 border-b-2 border-black/10 py-2 pb-3 font-semibold">
         <div className="flex items-center justify-between">
-          <span className="rounded-xl border-2 border-black bg-violet-200 p-1 text-base font-semibold">
-            لينك الفانورة
+          <span className="rounded-lg bg-violet-100 p-2 text-violet-900">
+            لينك الفاتورة
           </span>
-          <span className="rounded-xl bg-second-color px-3 py-2 font-bold text-white">
-            <img className="h-6 w-6" src={LinkIcon} alt="InvoiceLink" />
-          </span>
+          <a
+            href={invoiceLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-lg bg-second-color px-3 py-2 font-bold text-white outline outline-2 outline-second-color transition-all duration-300 hover:bg-transparent"
+          >
+            <img className="h-6 w-6" src={LinkIcon} alt="Invoice Link" />
+          </a>
         </div>
         <div className="flex items-center justify-between">
-          <span className="rounded-xl border-2 border-black bg-red-100 p-1 text-base font-semibold">
+          <span className="rounded-lg bg-blue-50 p-2 text-blue-900">
             حالة الدفع
           </span>
-          <span className="font-bold text-red-700">غير مدفوعة</span>
+          <span
+            className={`rounded-sm px-2 py-1 font-bold ${paidStatus[paymentStatus].className}`}
+          >
+            {paidStatus[paymentStatus].text}
+          </span>
         </div>
       </div>
-      <div className="flex flex-col gap-y-2 py-3 pb-3">
+      <div className="flex flex-col gap-y-2 py-2   pb-3">
         <div className="flex items-center justify-between">
-          <span className="rounded-xl p-1 text-base font-bold">
-            حالة التوصيل
-          </span>
-          <span className="text--900 rounded-xl px-3 py-2 font-bold">
+          <span className="rounded-lg p-1">حالة التوصيل</span>
+          <span className="rounded-lg px-3 py-2 font-bold text-red-500">
             لسا مش مدفوع
           </span>
         </div>
