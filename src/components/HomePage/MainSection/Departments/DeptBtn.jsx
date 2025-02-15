@@ -29,7 +29,7 @@ export default function DeptBtn({ children, index, isSelected, ...props }) {
         stiffness: 400,
         damping: 10,
       }}
-      className={` ${isSelected ? "bg-main-color font-bold text-white" : ""} rounded-xl border-2 border-main-color px-4 py-2 text-darkAndWhite-color`}
+      className={` ${isSelected ? "bg-main-color font-bold text-white" : ""} rounded-xl border-2 border-main-color px-5 py-[5px] font-semibold  text-main-color`}
       {...props}
     >
       {children}

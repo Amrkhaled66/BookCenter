@@ -13,6 +13,7 @@ import Error from "src/components/ui/icons/error";
 
 // imgs
 import graduatedPanda from "src/assets/graduatePanda.png";
+import CurvedLine from "src/assets/CurvedLine.svg?react";
 
 export default function Products() {
   const { selectedCategory } = useCategory();
@@ -21,7 +22,7 @@ export default function Products() {
 
   if (isLoading)
     return (
-      <div className="flex h-[200px] flex-1 items-center gap-x-2 text-center font-cairo text-xl font-bold">
+      <div className="flex h-[500px] items-center gap-x-2 text-center font-cairo text-xl font-bold">
         <span>يتم الان تحميل المنتجات</span>
         <span>
           <Loader />
@@ -52,7 +53,7 @@ export default function Products() {
 
   if (selectedProducts.length === 0) {
     return (
-      <ErrorContainer>
+      <div className="flex h-[500px] items-center">
         <p className="relative flex flex-col-reverse items-center gap-x-4 pb-4 text-center font-cairo text-base font-bold tracking-wider drop-shadow-2xl sm:flex-row xl:text-2xl">
           <span>هنضيف منتجات للقسم قريب جدا</span>
           <span>
@@ -66,7 +67,7 @@ export default function Products() {
             />
           </span>
         </p>
-      </ErrorContainer>
+      </div>
     );
   }
 
@@ -77,13 +78,72 @@ export default function Products() {
       initial={{ opacity: 0, y: 100 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.85, type: "spring" }}
-      className="container mb-20 grid w-full grid-cols-2 place-items-center justify-center gap-x-3 gap-y-10 px-32 md:grid-cols-3 lg:w-4/5 xl:grid-cols-3"
+      className="px-34 container mx-auto grid grid-cols-1 justify-between gap-x-8 gap-y-10 pt-14 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
     >
+      <CurvedLine className="absolute -bottom-[150px] -right-32 hidden animate-pulse sm:block" />
+
       {selectedProducts.map((product) => {
         return (
           <ProductCard
             key={product._id}
             title={product.name}
+            stockQuantity={product.stockQuantity}
+            image={`${import.meta.env.VITE_API_URL}/${product.imageUrl}`}
+            originalPrice={product.price}
+            discountedPrice={product.discountedPrice}
+            publisher={product.publisher}
+            id={product._id}
+          />
+        );
+      })}
+      {selectedProducts.map((product) => {
+        return (
+          <ProductCard
+            key={product._id}
+            title={product.name}
+            stockQuantity={product.stockQuantity}
+            image={`${import.meta.env.VITE_API_URL}/${product.imageUrl}`}
+            originalPrice={product.price}
+            discountedPrice={product.discountedPrice}
+            publisher={product.publisher}
+            id={product._id}
+          />
+        );
+      })}
+      {selectedProducts.map((product) => {
+        return (
+          <ProductCard
+            key={product._id}
+            title={product.name}
+            stockQuantity={product.stockQuantity}
+            image={`${import.meta.env.VITE_API_URL}/${product.imageUrl}`}
+            originalPrice={product.price}
+            discountedPrice={product.discountedPrice}
+            publisher={product.publisher}
+            id={product._id}
+          />
+        );
+      })}
+      {selectedProducts.map((product) => {
+        return (
+          <ProductCard
+            key={product._id}
+            title={product.name}
+            stockQuantity={product.stockQuantity}
+            image={`${import.meta.env.VITE_API_URL}/${product.imageUrl}`}
+            originalPrice={product.price}
+            discountedPrice={product.discountedPrice}
+            publisher={product.publisher}
+            id={product._id}
+          />
+        );
+      })}
+      {selectedProducts.map((product) => {
+        return (
+          <ProductCard
+            key={product._id}
+            title={product.name}
+            stockQuantity={product.stockQuantity}
             image={`${import.meta.env.VITE_API_URL}/${product.imageUrl}`}
             originalPrice={product.price}
             discountedPrice={product.discountedPrice}

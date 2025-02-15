@@ -10,7 +10,7 @@ export default function ScaleButton({
 
   let buttonClass =
     className +
-    ` gap-1 !font-mainFontRegular flex items-center text-nowrap rounded-lg border-2 bg-[${bgColor}] text-[${textColor}]  px-4 py-2 `;
+    ` gap-1 !font-mainFontRegular font-thin  flex items-center text-nowrap rounded-lg border-2 bg-[${bgColor}] text-[${textColor}]  px-4 py-2 `;
   return (
     <motion.button
       whileHover={{

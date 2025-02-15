@@ -1,23 +1,38 @@
 import PriceDisplay from "./PriceDisplay";
-import { memo } from "react";
+
+import currencyFormatter from "src/utils/currencyFormatter";
+
+import Stikes from "src/assets/Stikes.svg?react";
+
 function CardInfo({ originalPrice, discountedPrice, title, publisher }) {
   return (
-    <div className="relative  flex h-fit min-h-[200px] w-full flex-col items-center justify-between md:pt-5">
-      <h3 className="my-auto w-full px-3 text-center font-mainFont text-sm font-bold leading-8 md:text-lg">
+    <div className="relative flex h-fit w-full flex-col items-center justify-between">
+      <h3 className="relative my-auto w-full border-b-[1px] border-black px-4 py-6 text-center font-mainFont text-xl font-bold">
         {title}
       </h3>
-      <div className="bg-cover pt-3">
-        <div className="mx-auto h-[6px] w-5/6 rounded-[120%] bg-gray-200"></div>
-        <p className="w-full font-cairo px-3 pt-6 text-center text-xs font-medium tracking-wide md:text-sm">
+      <div className="flex w-full flex-col gap-y-3 border-b-[1px] border-black py-5">
+        <p className="w-full px-3 text-center font-cairo text-sm font-semibold tracking-wide text-black">
           {publisher}
         </p>
-        <PriceDisplay
+        <div className="flex">
+          {discountedPrice && (
+            <div className="bg-fourth-color relative mx-auto w-fit rounded-lg border-[1px] border-black px-2 py-2 text-base font-black text-black">
+              <Stikes className="absolute -bottom-[30px] left-[5px] -z-10 w-[90%]" />
+              <p>{currencyFormatter(discountedPrice)}</p>
+            </div>
+          )}
+          <div className="bg-fourth-color relative mx-auto w-fit rounded-lg border-[1px] border-black px-2 py-2 text-base font-black text-black">
+            <Stikes className="absolute -bottom-[30px] left-[5px] -z-10 w-[90%]" />
+            <p>{currencyFormatter(originalPrice)}</p>
+          </div>
+        </div>
+        {/* <PriceDisplay
           originalPrice={originalPrice}
           discountedPrice={discountedPrice}
-        />
+        /> */}
       </div>
     </div>
   );
 }
 
-export default memo(CardInfo);
+export default CardInfo;

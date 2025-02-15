@@ -14,8 +14,9 @@ const useGetOrders = () => {
 };
 
 const useUpdateProfile = () => {
+  const axiosPrivate = useAxiosPrivate();
   return useMutation({
-    mutationFn: (data) => updateProfileRequest(data),
+    mutationFn: (data) => updateProfileRequest({ axiosPrivate, data}),
   });
 };
 

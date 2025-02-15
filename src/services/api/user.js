@@ -10,7 +10,7 @@ const getUserOrders = async (axiosPrivate) => {
 };
 
 const updateProfile = async ({ axiosPrivate, data }) => {
-  const { data: response } = await axiosPrivate.patch("/user/profile", data);
+  const { data: response } = await axiosPrivate.patch("/user/updateProfile", data);
   return response;
 };
 

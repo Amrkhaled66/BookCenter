@@ -1,14 +1,14 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 
-import MobileMenuButton from "./MobileMenuButton";
+import { Icon } from "@iconify/react";
 
-// react Icons
-import { IoHomeSharp } from "react-icons/io5";
-import { GiBookshelf } from "react-icons/gi";
-import { IoTrailSignOutline } from "react-icons/io5";
+import Book from "src/assets/Frame.svg?react";
 
 // hooks
 import useShowMobileMenu from "src/hooks/useShowMobileMenu";
+
+import MobileMenuButton from "./MobileMenuButton";
 
 //  variants
 const containerVariants = {
@@ -17,44 +17,34 @@ const containerVariants = {
   exit: { opacity: 0, y: 100, scale: 0.8 },
 };
 
-const menuVariants = {
-  animate: {
-    transition: {
-      delayChildren: 0.1,
-      staggerChildren: 0.2,
-    },
-  },
-};
-
 export default function MobileMenu() {
   const { showMobileMenu } = useShowMobileMenu();
 
   return (
     <AnimatePresence>
       {showMobileMenu && (
-        <motion.div
-          variants={containerVariants}
+        <motion.nav
           initial="initial"
           animate="animate"
           exit="exit"
-          transition={{ duration: 0.5 }}
-          className="fixed font-mainFontRegular font-thin bottom-3 z-10 w-full"
+          variants={containerVariants}
+          className="fixed left-0 right-0 top-24 mx-auto w-[90%] rounded-xl bg-main-color py-5 font-cairo text-base font-semibold tracking-wider text-black"
         >
-          <motion.ul
-            variants={menuVariants}
-            className="mx-auto flex w-[90%] justify-between rounded-3xl bg-main-color px-5 py-3"
-          >
-            <MobileMenuButton
-              text={"تسجيل الدخول"}
-              icon={<IoTrailSignOutline />}
-            />
-            <MobileMenuButton
-              text={"الصفحه الرئيسية"}
-              icon={<IoHomeSharp />}
-            />
-            <MobileMenuButton text={"اِنشئ حساب جديد"} icon={<GiBookshelf />} />
-          </motion.ul>
-        </motion.div>
+          <ul className="flex w-full flex-col gap-y-5">
+            <MobileMenuButton>
+              <Link to="/login" className="flex gap-x-2">
+                <Book /> سجل الدخول
+              </Link>
+            </MobileMenuButton>
+
+            <MobileMenuButton>
+              <Link to="/signup" className="flex gap-x-2">
+                <Icon icon="cuida:user-add-outline" width="24" height="24" />
+                أنشئ حسابك
+              </Link>
+            </MobileMenuButton>
+          </ul>
+        </motion.nav>
       )}
     </AnimatePresence>
   );

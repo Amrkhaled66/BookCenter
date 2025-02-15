@@ -1,9 +1,7 @@
 import AddToCartButton from "src/components/AddToCartButton";
-
-import { Suspense, lazy } from "react";
+import CardInfo from "./CardInfo";
 
 import { Link } from "react-router-dom";
-const CardInfo = lazy(() => import("./CardInfo"));
 export default function ProductCard({
   title,
   image,
@@ -11,41 +9,50 @@ export default function ProductCard({
   discountedPrice,
   publisher,
   id,
+  stockQuantity,
 }) {
+  
   return (
-    <div className="group relative mx-auto flex min-h-fit w-full flex-col items-center gap-1 overflow-hidden rounded-lg font-mainFontRegular text-main-text--color shadow-xl shadow-[#9aaabb] transition-all duration-300 md:w-full">
+    <div className="mx-auto flex min-h-fit flex-col items-center gap-y-3 overflow-hidden rounded-lg border-[1px] border-black bg-card-color py-2 font-cairo text-main-text--color drop-shadow-md w-full max-w-[300px] transition-all duration-300 md:w-full">
       {/* Product image */}
       <Link to={"/product/" + id}>
-        <div className="w-full overflow-hidden bg-main-text--color">
+        <div className="bg-main-text--colo w-full overflow-hidden px-4">
           <img
             src={image}
             loading="lazy"
-            className="h-full w-full object-cover"
+            className="h-full w-full rounded-3xl object-cover"
             alt={title}
           />
         </div>
-        {/*  hover:rotate-6 hover:scale-110 hover:brightness-110 */}
-        <Suspense className="Loading...">
-          <CardInfo
-            originalPrice={originalPrice}
-            discountedPrice={discountedPrice}
-            title={title}
-            publisher={publisher}
-          />
-        </Suspense>
+        <CardInfo
+          originalPrice={originalPrice}
+          discountedPrice={discountedPrice}
+          title={title}
+          publisher={publisher}
+        />
       </Link>
 
       {/* CTA Button */}
-      <div className="relative h-fit w-full bg-main-text--color">
-        <AddToCartButton
-          whileTap={{ scale: 0.75 }}
-          whileHover={{ scale: 0.9 }}
-          className="mx-auto flex w-full items-center justify-center gap-x-4 py-3 text-xs text-white md:text-base"
-          quantity={1}
-          productId={id}
-          price={discountedPrice || originalPrice}
-        ></AddToCartButton>
-      </div>
+      {stockQuantity > 0 && (
+        <div className="relative h-fit w-full px-4 py-2">
+          <AddToCartButton
+            whileTap={{ scale: 0.75 }}
+            whileHover={{ scale: 0.9 }}
+            className="mx-auto flex w-full items-center justify-center gap-x-4 rounded-xl bg-main-color py-2  text-white text-base"
+            quantity={1}
+            productId={id}
+            price={discountedPrice || originalPrice}
+          ></AddToCartButton>
+        </div>
+      )}
+
+      {
+        stockQuantity === 0 && (
+          <div className="px-4 py-2" >
+            <p className="bg-red-700 rounded-md text-white font-mainFont py-2 px-3" >الكتاب هيتوفر قريب جدا تاني</p>
+          </div>
+        )
+      }
     </div>
   );
 }

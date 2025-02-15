@@ -1,99 +1,78 @@
-import { useState } from "react";
-import ContainerHeader from "src/components/Profile/ContainerHeader";
-import DateSelector from "src/components/Profile/DateSelector";
-import { days, months, years } from "src/utils/dateConstants";
 import { getUser } from "src/services/authServices";
+import ContainerHeader from "src/components/Profile/ContainerHeader";
+import Stikes from "src/assets/Stikes.svg?react";
 
-const validateName = (name) => {
-  if (name.split(" ").length > 2) return;
-};
+import { IoMdPerson } from "react-icons/io";
+import { FaPhoneFlip } from "react-icons/fa6";
+import { GrMapLocation } from "react-icons/gr";
+import { IoLocationOutline } from "react-icons/io5";
+import { MdOutlineLocationCity } from "react-icons/md";
 
-export default function ProfileInfo() {
-  const userName = getUser().name;
+const InfoRow = ({ title, value, icon }) => (
+  <div className="flex flex-wrap items-center justify-between gap-x-3 font-bold tracking-wide">
+    <span className="flex items-center gap-x-3 font-mainFontRegular font-thin">
+      {icon} {title}
+    </span>
+    <span>{value}</span>
+  </div>
+);
 
-  // Initial form state
-  const initialFormData = {
-    name: userName,
-    birthdate: {
-      day: "يوم",
-      month: "شهر",
-      year: "سنة",
-    },
-  };
+const ProfileSection = ({
+  title,
+  children,
+  bgColor = "bg-card-color",
+}) => (
+  <div className={` w-full sm:w-[65%] lg:w-1/2 drop-shadow-xl`}>
+    <div
+      className={`relative mx-auto w-fit items-center border-8 border-wood-color ${bgColor} px-6 py-1 font-semibold`}
+    >
+      <span>{title}</span>
+      <Stikes className="absolute left-1/2 -z-10 w-[80%] -translate-x-1/2" />
+    </div>
+    <div
+      className={`mx-auto mt-5 h-auto min-h-72 w-[95%] space-y-6 rounded-lg border-4 border-wood-color px-4 py-6 ${bgColor} px-3 py-4`}
+    >
+      {children}
+    </div>
+  </div>
+);
 
-  const [formData, setFormData] = useState(initialFormData);
+export default function UserProfileDetails() {
+  const user = getUser();
 
-  // Check if form data has changed
-  const isFormChanged =
-    formData.name !== initialFormData.name ||
-    JSON.stringify(formData.birthdate) !==
-      JSON.stringify(initialFormData.birthdate);
+  const { city, state, descriptiveAddress } = user.address;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { name, birthdate } = formData;
-    validateName(name);
-    name, birthdate;
-  };
-
+  const { name, phone, secondaryPhone } = user;
   return (
     <div className="drop flex h-auto w-full flex-1 flex-col pt-3 font-cairo">
       <ContainerHeader
         title="بيانات الحساب"
         subTitle="لو حابب تعدل بيانات حسابك"
       />
-      <div className="flex h-auto w-full flex-1 flex-col pt-10 md:pr-10">
-        <div className="px-5 pt-10 md:pr-10">
-          <form
-            className="w-full space-y-10 md:w-[80%]"
-            onSubmit={handleSubmit}
-          >
-            {/* Name Input */}
-            <div className="flex w-full flex-col justify-between gap-y-6 text-gray-700 md:flex-row md:items-center">
-              <label className="text-2xl font-semibold">الرقم</label>
-              <input
-                disabled
-                className="w-full rounded-sm bg-white px-3 py-2 text-xl font-semibold caret-third-color outline-none outline-[1px] outline-gray-color transition-all duration-150 md:w-[65%]"
-                type="text"
-                value={"01066244158"}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-              />
-            </div>
-            <div className="flex w-full flex-col justify-between gap-y-6 text-gray-700 md:flex-row md:items-center">
-              <label className="text-2xl font-semibold">الاسم</label>
-              <input
-                className="w-full rounded-sm bg-white px-3 py-2 text-xl font-semibold caret-third-color outline-none outline-[1px] outline-gray-color transition-all duration-150 md:w-[65%]"
-                type="text"
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-              />
-            </div>
-
-            {/* Date of Birth */}
-            <div className="flex w-full flex-col justify-between gap-y-6 md:flex-row md:items-center">
-              <label className="text-2xl font-semibold">تاريخ الميلاد</label>
-              <DateSelector
-                selectedDate={formData.birthdate}
-                onDateChange={(birthdate) =>
-                  setFormData({ ...formData, birthdate })
-                }
-              />
-            </div>
-
-            <div className="flex pt-10">
-              <button
-                type="submit"
-                disabled={!isFormChanged} // Disable if no changes
-                className={`font-Cairo rounded-md px-12 py-3 text-xl font-semibold text-white transition-all duration-300 ${isFormChanged ? "bg-second-color hover:brightness-90" : "cursor-not-allowed bg-gray-400"}`}
-              >
-                حفظ التعديلات
-              </button>
-            </div>
-          </form>
+      <div className="mx-auto flex h-auto min-h-screen w-[90%] flex-1 flex-col gap-y-14 pt-10">
+        <div className="flex flex-col items-center justify-between gap-x-5 gap-y-4 lg:flex-row">
+          <ProfileSection title="البيانات الشخصية">
+            <InfoRow icon={<IoMdPerson />} title="الاسم" value={name} />
+            <InfoRow icon={<FaPhoneFlip />} title="رقم الهاتف" value={phone} />
+          </ProfileSection>
+          <ProfileSection title="بيانات الاستلام" bgColor="bg-[#FFFCE5]">
+            <InfoRow icon={<GrMapLocation />} title="المحافظة" value={city} />
+            <InfoRow
+              icon={<IoLocationOutline />}
+              title="المركز"
+              value={state}
+            />
+            <InfoRow
+              icon={<MdOutlineLocationCity />}
+              title="العنوان"
+              value={descriptiveAddress}
+            />
+            <InfoRow
+              icon={<FaPhoneFlip />}
+              title="الرقم البديل"
+              value={secondaryPhone}
+            />
+          </ProfileSection>
         </div>
       </div>
     </div>

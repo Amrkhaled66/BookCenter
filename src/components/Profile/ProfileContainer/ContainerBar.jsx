@@ -2,6 +2,7 @@ import house from "src/assets/house.png";
 import info from "src/assets/info.png";
 import order from "src/assets/order.png";
 import DeliveryCar from "src/assets/DeliveryCar.png";
+import { getUser } from "src/services/authServices";
 
 import { NavLink } from "react-router-dom";
 
@@ -43,18 +44,24 @@ const BarElement = ({ text, imgSrc, link }) => {
 };
 
 export default function ContainerBar() {
+  const user = getUser();
+
+  const userAvatar = user.name.split(" ")[0][0] + user.name.split(" ")[1][0];
   return (
     <div
-      className={`border-l-gray-color px-2  flex  w-full flex-col gap-y-10 xl:border-l-[1px] pt-5 xl:w-[25%]`}
+      className={`flex w-full flex-col gap-y-10 border-l-gray-color px-2 pt-5 xl:w-[25%] xl:border-l-[1px]`}
     >
       {/* circle section */}
-      <div className={`border-b-gray-color w-full xl:border-b-[1px] py-8`}>
+      <div className={`w-full border-b-gray-color py-8 xl:border-b-[1px]`}>
         <div className="mx-auto flex h-[150px] w-[150px] items-center justify-center rounded-full bg-main-text--color">
-          <p className="text-4xl font-bold text-white">AK</p>
+          <p className="text-4xl font-bold text-white">{userAvatar.toUpperCase()}</p>
         </div>
-        <h3 className="align-center  mt-2 text-center font-mainFontRegular text-2xl font-semibold text-third-color">
-          Amr Khaled
+        <h3 className="align-center mt-2 text-center font-mainFontRegular text-2xl font-semibold text-third-color">
+          {user.name}
         </h3>
+        <p className="text-center font-semibold text-third-color">
+          {user.phone}
+        </p>
       </div>
 
       {/* Pages section */}

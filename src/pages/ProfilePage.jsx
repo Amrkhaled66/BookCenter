@@ -13,7 +13,7 @@ export default function ProfilePage() {
         {/* <PageHeader /> */}
         <div className="mx-auto  flex h-full min-h-screen w-full -translate-y-6 scale-95 flex-col rounded-[5px] border-[1px] border-gray-color lg:w-[80%] xl:flex-row">
           <ContainerBar />
-          <div className="w-full  h-screen pb-8" >
+          <div className="w-full   pb-8" >
             <Outlet />
           </div>
         </div>

@@ -44,7 +44,7 @@ export default function Orders() {
         subTitle="تقدر تتابع كل أوردراتك وحالة التوصيل من هنا"
       />
       {/* <Departments /> */}
-      <button
+      {/* <button
         onClick={() =>
           mutate({
             products: ["67538a91812d8d27998fb3b3"],
@@ -56,10 +56,10 @@ export default function Orders() {
         }
       >
         add
-      </button>
+      </button> */}
       {isLoading ? (
-        <div className="flex h-full w-full items-center justify-center">
-          <div className="flex items-center gap-x-2 text-center font-cairo text-xl font-bold">
+        <div className="flex h-screen w-full items-center justify-center">
+          <div className="flex min-h-full items-center gap-x-2 text-center font-cairo text-xl font-bold">
             <span>يتم الان تحميل أوردراتك</span>
             <span>
               <Loader />

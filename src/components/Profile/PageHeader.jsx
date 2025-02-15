@@ -7,10 +7,10 @@ export default function PageHeader() {
   const user = getUser().name.split(" ")[0];
   return (
     <div className="flex w-full flex-col font-cairo items-center py-10 justify-center text-third-color">
-      <p className=" text-5xl font-bold ">أهلا بيك يـ {user}</p>
-      <span className="pt-3">
+      <p className=" text-3xl font-bold ">أهلا بيك يـ {user}</p>
+      {/* <span className="pt-3  ">
         <img src={UserProfileLine} />
-      </span>
+      </span> */}
     </div>
   );
 }

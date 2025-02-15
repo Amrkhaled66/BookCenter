@@ -5,10 +5,11 @@ export default {
   theme: {
     extend: {
       boxShadow: {
-        'container-shadow':"rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;"
+        "container-shadow":
+          "rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;",
       },
       screens: {
-        xMd:"777px"
+        xMd: "777px",
       },
       keyframes: {
         shake: {
@@ -24,7 +25,7 @@ export default {
         "product-bg": "url('/src/assets/asset.png')",
         footerBg: "url('/src/assets/footerBg.png')",
         waveBG: "url('/src/assets/waveBG.svg')",
-        dots:"url('/src/assets/dotsBg.png')",
+        dots: "url('/src/assets/dotsBg.png')",
       },
       container: {
         center: true,
@@ -39,22 +40,24 @@ export default {
       colors: {
         "main-color": "var(--main-color)",
         "second-color": "var(--second-color)",
+        "fourth-color": "var(--fourth-color)",
         "darkAndWhite-color": "var(--darkAndWhite-color)",
         "main-text--color": "var(--main__text-color)",
         "second-text--color": "var(--second__text-color)",
-        "card-color":"var(--card-color)",
+        "card-color": "var(--card-color)",
         "black-color": "#000000",
         "white-color": "#ffffff",
-        "third-color": "var(--third-color)",
         "gray-color": "var(--gray-color)",
+        "wood-color": "var(--wood-color)",
+        "footer-color": "var(--footer-color)",
       },
 
       fontFamily: {
-        mainFont: ["RadyPro", "sans-serif"],
-        mainFontRegular: ["RadyProRegular", "sans-serif"],
+        mainFont: ["El Messiri", "sans-serif"],
         secondFont: ["Blabeloo", "sans-serif"],
         Poppins: ["Poppins", "sans-serif"],
         cairo: ["Cairo", "sans-serif"],
+        // elMessiri: ["El Messiri", "sans-serif"],
       },
     },
   },
