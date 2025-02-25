@@ -9,7 +9,8 @@ export const useDeliveryForm = () => {
     city: city || "",
     state: state || "",
     descriptiveAddress: descriptiveAddress || "",
-    secondaryPhone: user.secondaryPhone || "",
+    secondPhone: user.secondaryPhone || "",
+    firstPhone: user.phone,
   });
 
   const updateFormData = (field, value) => {

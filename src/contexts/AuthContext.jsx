@@ -20,7 +20,6 @@ const AuthContextProvider = ({ children }) => {
   const { clearCart } = useCart();
 
   const login = async (data) => {
-    ("login");
     setAuthData({
       token: data.accessToken,
       user: data.user,
@@ -30,7 +29,6 @@ const AuthContextProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    ("logout");
     clearToken();
     clearUser();
     clearCart();
@@ -38,7 +36,7 @@ const AuthContextProvider = ({ children }) => {
   };
 
   const isAuth = () => {
-    return authData?.token ? true : false;
+    return getToken() ? true : false;
   };
 
   useEffect(() => {

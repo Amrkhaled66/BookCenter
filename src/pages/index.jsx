@@ -7,3 +7,4 @@ export { default as ProfilePage } from "./ProfilePage";
 export { default as ProfileInfo } from "./User/ProfileInfo.jsx";
 export { default as Orders } from "./User/Orders";
 export { default as DeliveryInfo } from "./User/DeliveryInfo";
+export { default as Checkout } from "./Checkout";

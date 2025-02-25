@@ -15,7 +15,7 @@ const menuVariants = {
 
 const CartItemsHeader = () => {
   return (
-    <div className="hidden w-full justify-between border-b-2 border-gray-200 py-3 lg:flex">
+    <div className="hidden w-full justify-between border-b-2 border-gray-200 py-3 md:flex">
       <div className="w-1/2">المنتج</div>
       <div className="flex w-1/2 justify-between">
         <p>السعر</p>
@@ -43,7 +43,11 @@ export default function CartList() {
         className="w-full space-y-6"
       >
         {cart.map((item) => (
-          <CartItem key={item.id} id={item.id} quantity={item.quantity} />
+          <CartItem
+            quantity={item.quantity}
+            productInfo={item.productInfo}
+            key={item.productInfo.id}
+          />
         ))}
       </motion.ul>
     </div>

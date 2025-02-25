@@ -15,20 +15,18 @@ export default function Orders() {
   const { mutate } = useAddOrder();
   const { colors } = useColors();
 
-  if (!isLoading) {
-    console.log(data?.data);
-  }
+
 
   if (data?.data.length === 0) {
     return (
-      <div className="flex h-full w-full flex-1 flex-col font-cairo">
+      <div className="flex h-screen w-full flex-1 flex-col font-cairo">
         <ContainerHeader
           title="كل اوردراتك"
           subTitle="تقدر تتابع كل أوردراتك وحالة التوصيل من هنا"
         />
         {/* <Departments /> */}
         <div className="flex h-full w-full items-center justify-center">
-          <div className="flex items-center gap-x-2 text-center font-cairo  text-2xl font-bold">
+          <div className="flex items-center  gap-x-2 text-center font-cairo  text-2xl font-bold">
             <span>لسا معملتش ولا اوردر </span> 
             <Icon icon="line-md:emoji-angry" color="red" width="40" height="40" />
           </div>

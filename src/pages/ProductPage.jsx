@@ -5,15 +5,12 @@ import {
   ProductNotFound,
 } from "src/components/ProductPage";
 import ErrorContainer from "src/components/ui/ErrorContainer";
-import PageHeader from "src/components/ui/PageHeader";
 
 // Hooks
 import { useParams } from "react-router-dom";
 import { useGetProductById } from "src/services/productsServices";
 
-// imgs
-import pandaLaptop from "src/assets/pandaLaptop.png";
-
+import Loader from "src/components/ui/icons/Loader";
 
 const BackgroundWave = function () {
   return (
@@ -28,17 +25,12 @@ export default function ProductPage() {
 
   if (isLoading) {
     return (
-      <div className={`relative flex min-h-screen w-screen items-center`}>
+      <div
+        className={`relative flex min-h-screen w-screen items-center bg-card-color`}
+      >
         <ErrorContainer>
-          <span className="flex w-full justify-center">
-            <img
-              className="w-3/5 animate-pulse md:w-[50%] lg:w-[30%]"
-              src={pandaLaptop}
-              alt=""
-            />
-          </span>
           <span className="flex w-full justify-center gap-x-4 font-cairo text-2xl">
-            يتم الان تحميل المنتج
+            يتم الان تحميل المنتج <Loader />
           </span>
         </ErrorContainer>
       </div>
@@ -54,12 +46,10 @@ export default function ProductPage() {
     );
   }
 
-
   const {
     imageUrl,
     description,
     name,
-    note,
     price,
     discountedPrice,
     publisher,
@@ -67,13 +57,11 @@ export default function ProductPage() {
     subCategory,
   } = product || {};
 
-
   return (
     <div
-      className={`relative flex w-screen flex-col items-center py-[100px] lg:px-[100px]`}
+      className={`relative flex w-screen flex-col items-center bg-card-color py-[100px]`}
     >
-      <PageHeader>{note}</PageHeader>
-      <div className="container flex w-full flex-col-reverse items-center justify-center gap-y-16 py-[50px] lg:flex-row lg:items-start lg:px-[100px]">
+      <div className="container flex w-full flex-col-reverse items-center justify-center gap-x-14 gap-y-10 py-[50px] lg:flex-row lg:items-start">
         <div className="w-[90%] justify-center lg:w-1/2">
           <ProductInfo
             {...{
@@ -88,7 +76,7 @@ export default function ProductPage() {
             }}
           />
         </div>
-        <div className="flex w-full justify-center lg:w-1/2 lg:justify-end">
+        <div className="flex w-full justify-center lg:w-[40%] lg:justify-end">
           <ProductImg imageUrl={imageUrl} />
         </div>
       </div>

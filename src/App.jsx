@@ -15,6 +15,7 @@ const queryClient = new QueryClient();
 
 import { BrowserRouter } from "react-router-dom";
 
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>

@@ -1,6 +1,10 @@
 import { createContext, useReducer, useEffect } from "react";
 
-import { storeCart, clearStoringCart } from "src/services/cartServices";
+import {
+  storeCart,
+  clearStoringCart,
+  getCart,
+} from "src/services/cartServices";
 
 const cartContext = createContext();
 
@@ -23,9 +27,8 @@ const reducer = (state, action) => {
       updatedCart[updatedItemIndex] = updatedItem;
     } else {
       updatedCart.push({
-        id: action.payload.id,
-        quantity: action.payload.quantity,
-        price: action.payload.price,
+        productInfo: action.payload.productInfo,
+        quantity: 1,
       });
     }
     return updatedCart;
@@ -73,17 +76,20 @@ const reducer = (state, action) => {
 };
 
 export default function CartContextProvider({ children }) {
-  const initialState = () => JSON.parse(localStorage.getItem("cart")) || [];
-
-  const [cart, dispatch] = useReducer(reducer, [], initialState);
+  const [cart, dispatch] = useReducer(reducer, [], getCart);
 
   useEffect(() => {
     storeCart(cart);
   }, [cart]);
 
-  const addToCart = (id, quantity, price) => {
+  const addToCart = ({ productInfo, quantity }) => {
     Toast("تم إضافة المنتج لسلة مشترياتك.", "success", "#eafff0");
-    dispatch({ type: "ADD", payload: { id, quantity, price } });
+    dispatch({
+      type: "ADD",
+      payload: { productInfo, quantity },
+    });
+
+    //  id, name, publisher,discountPrice,price, img, quantity
   };
 
   const decreaseCartItem = (id, quantity) => {
@@ -106,7 +112,9 @@ export default function CartContextProvider({ children }) {
 
   const calcAllPrice = () => {
     return cart.reduce((total, item) => {
-      return total + item.price * item.quantity;
+      const mainPrice =
+        item.productInfo.discountPrice || item.productInfo.originalPrice;
+      return total + mainPrice * item.quantity;
     }, 0);
   };
 

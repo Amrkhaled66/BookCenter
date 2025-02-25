@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 
 import useIsNavStickyContext from "src/hooks/useIsNavSticky";
 import useShowMobileMenu from "src/hooks/useShowMobileMenu";
+import useAuth from "src/hooks/useAuth";
 
 import Progressbar from "./Progressbar";
 import NavLinks from "./NavLinks";
@@ -22,6 +23,7 @@ const navVariants = {
 export default function Navbar() {
   const { isSticky } = useIsNavStickyContext();
   const { toggleMenu } = useShowMobileMenu();
+  const { isAuth } = useAuth();
 
   return (
     <div
@@ -45,12 +47,14 @@ export default function Navbar() {
           <img className="mx-auto w-20 md:mx-0" src={logo} alt="Book Center" />
         </Link>
         {/* Mobile Menu Icon */}
-        <button
-          onClick={toggleMenu}
-          className="order-3 text-3xl md:order-none md:hidden"
-        >
-          <MenuIcon />
-        </button>
+        {!isAuth() && (
+          <button
+            onClick={toggleMenu}
+            className="order-3 text-3xl md:order-none md:hidden"
+          >
+            <MenuIcon />
+          </button>
+        )}
       </motion.div>
     </div>
   );

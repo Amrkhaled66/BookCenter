@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getCities,getCityStates } from "src/services/api/address";
+import { getCities, getCityStates } from "src/services/api/address";
 import useAxiosPrivate from "./useAxiosPrivate";
 
 export const useGetAddress = () => {
@@ -8,14 +8,14 @@ export const useGetAddress = () => {
   return useQuery({
     queryKey: ["cities"],
     queryFn: () => getCities({ axiosPrivate }),
+    refetchInterval: false,
   });
 };
 
-
-export const useGetCityState = () => { 
+export const useGetCityState = () => {
   const axiosPrivate = useAxiosPrivate();
 
-    return useMutation({
-    mutationFn: (cityId) => getCityStates({ axiosPrivate,cityId }),
-  })
-}
+  return useMutation({
+    mutationFn: (cityId) => getCityStates({ axiosPrivate, cityId }),
+  });
+};

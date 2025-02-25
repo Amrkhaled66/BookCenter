@@ -40,9 +40,8 @@ const ProfileSection = ({
 export default function UserProfileDetails() {
   const user = getUser();
 
-  const { city, state, descriptiveAddress } = user.address;
+  // const { name, phone, secondaryPhone } = ;
 
-  const { name, phone, secondaryPhone } = user;
   return (
     <div className="drop flex h-auto w-full flex-1 flex-col pt-3 font-cairo">
       <ContainerHeader
@@ -52,25 +51,25 @@ export default function UserProfileDetails() {
       <div className="mx-auto flex h-auto min-h-screen w-[90%] flex-1 flex-col gap-y-14 pt-10">
         <div className="flex flex-col items-center justify-between gap-x-5 gap-y-4 lg:flex-row">
           <ProfileSection title="البيانات الشخصية">
-            <InfoRow icon={<IoMdPerson />} title="الاسم" value={name} />
-            <InfoRow icon={<FaPhoneFlip />} title="رقم الهاتف" value={phone} />
+            <InfoRow icon={<IoMdPerson />} title="الاسم" value={user?.name} />
+            <InfoRow icon={<FaPhoneFlip />} title="رقم الهاتف" value={user?.phone} />
           </ProfileSection>
           <ProfileSection title="بيانات الاستلام" bgColor="bg-[#FFFCE5]">
-            <InfoRow icon={<GrMapLocation />} title="المحافظة" value={city} />
+            <InfoRow icon={<GrMapLocation />} title="المحافظة" value={user?.address?.city} />
             <InfoRow
               icon={<IoLocationOutline />}
               title="المركز"
-              value={state}
+              value={user?.address?.state}
             />
             <InfoRow
               icon={<MdOutlineLocationCity />}
               title="العنوان"
-              value={descriptiveAddress}
+              value={user?.address?.descriptiveAddress}
             />
             <InfoRow
               icon={<FaPhoneFlip />}
               title="الرقم البديل"
-              value={secondaryPhone}
+              value={user?.secondaryPhone}
             />
           </ProfileSection>
         </div>

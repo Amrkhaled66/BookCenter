@@ -1,13 +1,14 @@
-export default function PageHeader({ children }) {
+import CartLine from "src/assets/cartLine.svg?react";
+
+import useCart from "src/hooks/useCart";
+export default function PageHeader({ title, children }) {
   return (
-    <div className="relative w-screen bg-main-text--color bg-no-repeat">
-      <div className="flex items-center justify-center gap-x-3 py-9 font-cairo font-bold text-white">
-        {children ? (
-          <div className="flex items-center text-2xl">{children}</div>
-        ) : (
-          <p className="text-4xl">BOOK CENTER</p>
-        )}
-      </div>
+    <div className="bg-red relative flex items-center justify-end gap-x-5">
+      <p className="text-center font-mainFont text-4xl font-bold text-footer-color sm:text-5xl">
+        {title}
+      </p>
+      <CartLine className="absolute -bottom-7 left-1/2 block w-[100%] -translate-x-1/2" />
+      {children}
     </div>
   );
 }

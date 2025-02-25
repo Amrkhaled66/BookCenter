@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 export default function ProductNotFound() {
   return (
     <div className="flex h-auto min-h-screen w-screen flex-col-reverse items-center justify-center gap-y-10 pb-5 pt-[100px]">
-      <div className="flex w-full flex-col space-y-5 p-5 text-center font-mainFontRegular font-extrabold text-black">
+      <div className="flex w-full flex-col space-y-5 p-5 text-center font-mainFont font-extrabold text-black">
         <p className="text-2xl sm:text-4xl"> للأسف المنتج مش موجود</p>
         <Divider />
         <Link

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-
-const InputError = ({ error }) => {
+import { memo } from "react";
+const InputError = memo(({ error }) => {
   return (
     <motion.p
       key={Date.now()}
@@ -11,6 +11,6 @@ const InputError = ({ error }) => {
       ⚠ - {error}
     </motion.p>
   );
-};
+});
 
 export default InputError;

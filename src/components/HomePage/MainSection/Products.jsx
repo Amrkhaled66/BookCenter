@@ -13,7 +13,6 @@ import Error from "src/components/ui/icons/error";
 
 // imgs
 import graduatedPanda from "src/assets/graduatePanda.png";
-import CurvedLine from "src/assets/CurvedLine.svg?react";
 
 export default function Products() {
   const { selectedCategory } = useCategory();
@@ -80,64 +79,7 @@ export default function Products() {
       transition={{ duration: 0.85, type: "spring" }}
       className="px-34 container mx-auto grid grid-cols-1 justify-between gap-x-8 gap-y-10 pt-14 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
     >
-      <CurvedLine className="absolute -bottom-[150px] -right-32 hidden animate-pulse sm:block" />
 
-      {selectedProducts.map((product) => {
-        return (
-          <ProductCard
-            key={product._id}
-            title={product.name}
-            stockQuantity={product.stockQuantity}
-            image={`${import.meta.env.VITE_API_URL}/${product.imageUrl}`}
-            originalPrice={product.price}
-            discountedPrice={product.discountedPrice}
-            publisher={product.publisher}
-            id={product._id}
-          />
-        );
-      })}
-      {selectedProducts.map((product) => {
-        return (
-          <ProductCard
-            key={product._id}
-            title={product.name}
-            stockQuantity={product.stockQuantity}
-            image={`${import.meta.env.VITE_API_URL}/${product.imageUrl}`}
-            originalPrice={product.price}
-            discountedPrice={product.discountedPrice}
-            publisher={product.publisher}
-            id={product._id}
-          />
-        );
-      })}
-      {selectedProducts.map((product) => {
-        return (
-          <ProductCard
-            key={product._id}
-            title={product.name}
-            stockQuantity={product.stockQuantity}
-            image={`${import.meta.env.VITE_API_URL}/${product.imageUrl}`}
-            originalPrice={product.price}
-            discountedPrice={product.discountedPrice}
-            publisher={product.publisher}
-            id={product._id}
-          />
-        );
-      })}
-      {selectedProducts.map((product) => {
-        return (
-          <ProductCard
-            key={product._id}
-            title={product.name}
-            stockQuantity={product.stockQuantity}
-            image={`${import.meta.env.VITE_API_URL}/${product.imageUrl}`}
-            originalPrice={product.price}
-            discountedPrice={product.discountedPrice}
-            publisher={product.publisher}
-            id={product._id}
-          />
-        );
-      })}
       {selectedProducts.map((product) => {
         return (
           <ProductCard

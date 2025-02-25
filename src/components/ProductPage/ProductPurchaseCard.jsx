@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import currencyFormatter from "src/utils/currencyFormatter";
 
-import QuantitySelector from "src/components/ProductPage/QuantitySelector ";
+import QuantitySelector from "src/components/ProductPage/QuantitySelector";
 
 import AddToCartButton from "../AddToCartButton";
 import { Link } from "react-router-dom";

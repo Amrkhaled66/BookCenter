@@ -12,6 +12,7 @@ import {
   ProfileInfo,
   Orders,
   DeliveryInfo,
+  Checkout,
 } from "src/pages";
 import AdminLogIn from "src/pages/DashBoard/AdminLogInPage";
 
@@ -32,6 +33,14 @@ export default function AppRouter() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="checkout"
+          element={
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          }
+        ></Route>
         <Route
           path="profile"
           element={

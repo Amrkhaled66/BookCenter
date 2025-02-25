@@ -55,7 +55,7 @@ export default function UserMenu() {
   );
 
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className="relative order-0 inline-block text-left">
       <div>
         <Menu.Button className="flex items-center gap-2 rounded-full focus:outline-none">
           <img src={pandaAvatar} alt="pandaAvatar" className="h-12 w-12" />

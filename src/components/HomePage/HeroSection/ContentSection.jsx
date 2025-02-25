@@ -14,7 +14,7 @@ import useAuth from "src/hooks/useAuth";
 const ContentSectionTitle = function () {
   return (
     <h2 className="font-elMessiri relative flex items-center text-3xl font-bold text-main-color sm:text-4xl lg:text-5xl xl:text-5xl">
-      <CurlyLine className="absolute w-32 md:w-36 lg:w-auto -bottom-6" />
+      <CurlyLine className="absolute -bottom-6 w-32 md:w-36 lg:w-auto" />
       <Quotes className="absolute -top-12" />
       <span className="z-10 text-nowrap">كل الكتب ...</span>
       <span className="text-nowrap">من مصدر واحد</span>
@@ -26,7 +26,7 @@ export default function ContentSection() {
   const { isAuth } = useAuth();
   const { colors } = useColors();
   const secondColor = colors.get("secondColor");
-  console.log(isAuth, secondColor);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}

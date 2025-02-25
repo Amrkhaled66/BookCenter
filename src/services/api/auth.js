@@ -18,8 +18,8 @@ const login = async (phone, pass) => {
 
 const signup = async (sentData) => {
   try {
-    const { response } = await axiosInstance.post("/auth/signup", sentData);
-    return response;
+    const { data } = await axiosInstance.post("/auth/signup", sentData);
+    return data;
   } catch (err) {
     throw err.response;
   }

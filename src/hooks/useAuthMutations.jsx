@@ -27,9 +27,12 @@ const useLogin = () => {
 
 const useSignup = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
+
   return useMutation({
     mutationFn: (data) => signupRequest(data),
-    onSuccess: () => {
+    onSuccess: (data) => {
+      login(data.response);
       Alert(
         "تم انشاء الحساب و تسجيل الدخول بنجاح",
         "اهلا بيك يا باندا 🐼",
@@ -37,7 +40,7 @@ const useSignup = () => {
         "حسنا",
       ).then((res) => {
         if (res.isConfirmed) {
-          navigate("/login");
+          navigate("/");
         }
       });
     },
@@ -63,6 +66,9 @@ const useLogout = () => {
     mutationFn: logoutRequest,
     onSuccess: () => {
       ("useMutationlogout");
+      logout();
+    },
+    onError: () => {
       logout();
     },
   });

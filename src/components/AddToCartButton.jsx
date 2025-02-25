@@ -11,19 +11,19 @@ import useAuth from "src/hooks/useAuth";
 import { useAddToCartValidation } from "src/hooks/useCart";
 
 export default function AddToCartButton({
-  productId,
+  productInfo,
   quantity,
   className,
-  price,
   ...props
 }) {
   const { isAuth } = useAuth();
 
   const { cart, addToCart } = useCart();
 
-  const productIndex = cart.findIndex((item) => item.id === productId);
+  const productIndex = cart.findIndex((item) => item.productInfo.id === productInfo?.id);
 
   const mutation = useAddToCartValidation();
+
 
   const quantityInCart = productIndex > -1 ? cart[productIndex].quantity : 0;
 
@@ -45,9 +45,13 @@ export default function AddToCartButton({
     }
 
     mutation.mutate(
-      { id: productId, quantity: quantityInCart + 1 },
+      { id: productInfo.id, quantity: quantityInCart + 1 },
       {
-        onSuccess: () => addToCart(productId, quantity, price),
+        onSuccess: () =>
+          addToCart({
+            productInfo,
+            quantity,
+          }),
       },
     );
   };

@@ -12,7 +12,7 @@ export default function ({
   let data = {};
 
   let phoneValidation = validatePhoneNum(phone);
-  let confirmPhoneValidation = validatePhoneNum(phone);
+  let confirmPhoneValidation = validatePhoneNum(confirmPhone);
   const phoneRegex = /^01[0125][0-9]{8}$/;
 
   firstName = firstName.trim();
