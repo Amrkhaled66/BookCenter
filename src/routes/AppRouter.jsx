@@ -13,11 +13,27 @@ import {
   Orders,
   DeliveryInfo,
   Checkout,
+  // DashBoard Pages
+  LoginAsUser,
+  UserProfile,
+  AddNewSubject,
+  AddNewProduct,
+  AddNewGrade,
+  AddManualOrder,
+  AdminLogInPage,
+  GetUserProfile,
 } from "src/pages";
-import AdminLogIn from "src/pages/DashBoard/AdminLogInPage";
 
-import { ProtectedRoute, OnlyGuestUser } from "src/middleware";
+import {
+  ProtectedRoute,
+  OnlyGuestUser,
+  IfAdmin,
+  OnlyAdmin,
+} from "src/middleware";
 
+import DashBoardLayout from "src/layout/DashBoardLayout";
+
+import { ADMIN_PATH } from "src/services/defaultSettings";
 export default function AppRouter() {
   return (
     <Routes>
@@ -49,30 +65,9 @@ export default function AppRouter() {
             </ProtectedRoute>
           }
         >
-          <Route
-            index
-            element={
-              // <ProtectedRoute>
-              <ProfileInfo />
-              // </ProtectedRoute>
-            }
-          />
-          <Route
-            path="orders"
-            element={
-              // <ProtectedRoute>
-              <Orders />
-              // </ProtectedRoute>
-            }
-          />
-          <Route
-            path="address"
-            element={
-              // <ProtectedRoute>
-              <DeliveryInfo />
-              // </ProtectedRoute>
-            }
-          />
+          <Route index element={<ProfileInfo />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="address" element={<DeliveryInfo />} />
         </Route>
       </Route>
       <Route
@@ -91,9 +86,24 @@ export default function AppRouter() {
           </OnlyGuestUser>
         }
       />
-      <Route path="book-center-adminDashBoard">
+      <Route path={ADMIN_PATH}>
         <Route index element={<Navigate to="login" replace />}></Route>
-        <Route path="login" element={<AdminLogIn />}></Route>
+        <Route path="login" element={<AdminLogInPage />}></Route>
+        <Route
+          path="panel"
+          element={
+            <OnlyAdmin>
+              <DashBoardLayout />
+            </OnlyAdmin>
+          }
+        >
+          <Route path="loginAsUser" element={<LoginAsUser />} />
+          <Route path="GetUserProfile" element={<GetUserProfile />} />
+          <Route path="addNewSubject" element={<AddNewSubject />} />
+          <Route path="addNewProduct" element={<AddNewProduct />} />
+          <Route path="addNewGrade" element={<AddNewGrade />} />
+          <Route path="addManualOrder" element={<AddManualOrder />} />
+        </Route>
       </Route>
     </Routes>
   );

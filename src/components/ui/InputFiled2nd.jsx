@@ -13,7 +13,7 @@ export default function InputFiled2nd({ icon, error, label, type, ...props }) {
         />
         <label
           htmlFor="input"
-          className="peer-valid:text-third-color peer-focus:text-third-color absolute right-0 top-0 -z-50 flex items-center gap-x-1 text-gray-400 transition-all duration-300 ease-in-out peer-placeholder-shown:top-0 peer-placeholder-shown:text-gray-300 peer-valid:top-[-20px] peer-valid:text-xs peer-focus:top-[-20px] peer-focus:text-xs"
+          className="peer-valid:text-third-color text-base peer-focus:text-third-color absolute right-0 top-0 -z-50 flex items-center gap-x-1  text-gray-500 transition-all duration-300 ease-in-out peer-placeholder-shown:top-0 peer-placeholder-shown:text-gray-300 peer-focus:text-main-color peer-valid:top-[-20px] peer-valid:text-xs peer-focus:top-[-20px] peer-focus:text-xs"
         >
           {icon}
           {label}

@@ -1,5 +1,5 @@
+import FormatePhoneNum from "./formatePhoneNum";
 import validatePhoneNum from "./validatePhoneNum";
-
 export default function ({
   firstName,
   lastName,
@@ -11,9 +11,8 @@ export default function ({
   const errors = {};
   let data = {};
 
-  let phoneValidation = validatePhoneNum(phone);
-  let confirmPhoneValidation = validatePhoneNum(confirmPhone);
-  const phoneRegex = /^01[0125][0-9]{8}$/;
+  let FormattedPhone = FormatePhoneNum(phone);
+  let formattedConfirmPhone = FormatePhoneNum(confirmPhone);
 
   firstName = firstName.trim();
   lastName = lastName.trim();
@@ -26,14 +25,14 @@ export default function ({
     errors.lastName = "لازم الاسم الأخير يبقا علي الاقل 3 احرف";
   }
 
-  if (!phoneRegex.test(phoneValidation)) {
+  if (!validatePhoneNum(FormattedPhone)) {
     errors.phone = "الرقم مكتوب غلط ، يرجى التأكد من كتابة رقم الهاتف";
   }
-  if (!phoneRegex.test(confirmPhoneValidation)) {
+  if (!validatePhoneNum(formattedConfirmPhone)) {
     errors.phone = "الرقم مكتوب غلط ، يرجى التأكد من كتابة رقم الهاتف";
   }
 
-  if (confirmPhoneValidation !== phoneValidation) {
+  if (formattedConfirmPhone !== FormattedPhone) {
     errors.phone = "يرجى التأكد من كتابة تأكيد رقم الهاتف بنجاح";
   }
 
@@ -47,7 +46,7 @@ export default function ({
   }
   data = {
     name: firstName + " " + lastName,
-    phone: phoneValidation,
+    phone: FormattedPhone,
     password,
   };
   return { data, errors };

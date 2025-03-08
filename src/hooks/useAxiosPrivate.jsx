@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import { refreshToken } from "src/services/api/auth";
 import { useNavigate } from "react-router-dom";
 import Alert from "src/components/ui/Alert";
@@ -9,7 +9,6 @@ import axios from "axios";
 import useAuth from "./useAuth";
 import { useLogout } from "./useAuthMutations";
 
-// Create a single axios instance outside the hook ✅
 const axiosPrivate = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
@@ -25,7 +24,7 @@ function EndedSessionModal() {
   );
 }
 
-export default function useAxiosPrivate() {
+export default function useAxiosPrivate(role = "user") {
   const navigate = useNavigate();
   const { login } = useAuth();
   const logoutMutate = useLogout();

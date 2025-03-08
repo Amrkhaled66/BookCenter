@@ -19,6 +19,8 @@ export default function Products() {
 
   const { data, isLoading, isError } = useGetProducts();
 
+
+
   if (isLoading)
     return (
       <div className="flex h-[500px] items-center gap-x-2 text-center font-cairo text-xl font-bold">
@@ -50,7 +52,7 @@ export default function Products() {
 
   const selectedProducts = data[selectedCategory];
 
-  if (selectedProducts.length === 0) {
+  if (selectedProducts?.length === 0) {
     return (
       <div className="flex h-[500px] items-center">
         <p className="relative flex flex-col-reverse items-center gap-x-4 pb-4 text-center font-cairo text-base font-bold tracking-wider drop-shadow-2xl sm:flex-row xl:text-2xl">
@@ -79,8 +81,7 @@ export default function Products() {
       transition={{ duration: 0.85, type: "spring" }}
       className="px-34 container mx-auto grid grid-cols-1 justify-between gap-x-8 gap-y-10 pt-14 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
     >
-
-      {selectedProducts.map((product) => {
+      {selectedProducts?.map((product) => {
         return (
           <ProductCard
             key={product._id}

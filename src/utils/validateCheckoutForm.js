@@ -1,4 +1,5 @@
 import { error } from "jquery";
+import formatePhoneNum from "./formatePhoneNum";
 import validatePhoneNum from "./validatePhoneNum";
 
 const savedErrors = {
@@ -12,7 +13,7 @@ const savedErrors = {
 };
 
 export default function ({
-  name="d d d",
+  name = "d d d",
   firstPhone,
   secondPhone,
   city,
@@ -21,11 +22,8 @@ export default function ({
 }) {
   const fullName = name.trim().split(" ");
   const errors = {};
-  firstPhone = validatePhoneNum(firstPhone);
-  secondPhone = validatePhoneNum(secondPhone);
-  const phoneRegex = /^01[0125][0-9]{8}$/;
-
-
+  firstPhone = formatePhoneNum(firstPhone);
+  secondPhone = formatePhoneNum(secondPhone);
 
   if (fullName.length < 3) {
     errors.name = savedErrors.name;
@@ -42,11 +40,11 @@ export default function ({
     errors.descriptiveAddress = savedErrors.descriptiveAddress;
   }
 
-  if (!phoneRegex.test(firstPhone)) {
+  if (!validatePhoneNum(firstPhone)) {
     errors.firstPhone = savedErrors.wrongPhone;
   }
 
-  if (!phoneRegex.test(secondPhone)) {
+  if (!validatePhoneNum(secondPhone)) {
     errors.secondPhone = savedErrors.wrongPhone;
   }
 

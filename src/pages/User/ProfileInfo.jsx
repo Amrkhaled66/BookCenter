@@ -1,6 +1,7 @@
 import { getUser } from "src/services/authServices";
 import ContainerHeader from "src/components/Profile/ContainerHeader";
 import Stikes from "src/assets/Stikes.svg?react";
+import ProfileDetails from "./ProfileDetails";
 
 import { IoMdPerson } from "react-icons/io";
 import { FaPhoneFlip } from "react-icons/fa6";
@@ -40,39 +41,15 @@ const ProfileSection = ({
 export default function UserProfileDetails() {
   const user = getUser();
 
-  // const { name, phone, secondaryPhone } = ;
-
   return (
     <div className="drop flex h-auto w-full flex-1 flex-col pt-3 font-cairo">
       <ContainerHeader
         title="بيانات الحساب"
         subTitle="لو حابب تعدل بيانات حسابك"
       />
+      {/* profile details */}
       <div className="mx-auto flex h-auto min-h-screen w-[90%] flex-1 flex-col gap-y-14 pt-10">
-        <div className="flex flex-col items-center justify-between gap-x-5 gap-y-4 lg:flex-row">
-          <ProfileSection title="البيانات الشخصية">
-            <InfoRow icon={<IoMdPerson />} title="الاسم" value={user?.name} />
-            <InfoRow icon={<FaPhoneFlip />} title="رقم الهاتف" value={user?.phone} />
-          </ProfileSection>
-          <ProfileSection title="بيانات الاستلام" bgColor="bg-[#FFFCE5]">
-            <InfoRow icon={<GrMapLocation />} title="المحافظة" value={user?.address?.city} />
-            <InfoRow
-              icon={<IoLocationOutline />}
-              title="المركز"
-              value={user?.address?.state}
-            />
-            <InfoRow
-              icon={<MdOutlineLocationCity />}
-              title="العنوان"
-              value={user?.address?.descriptiveAddress}
-            />
-            <InfoRow
-              icon={<FaPhoneFlip />}
-              title="الرقم البديل"
-              value={user?.secondaryPhone}
-            />
-          </ProfileSection>
-        </div>
+        <ProfileDetails user={user} />
       </div>
     </div>
   );

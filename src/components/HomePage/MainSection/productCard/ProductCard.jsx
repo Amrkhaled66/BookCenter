@@ -21,7 +21,7 @@ export default function ProductCard({
   };
 
   return (
-    <div className="mx-auto flex min-h-fit w-full max-w-[300px] flex-col items-center gap-y-3 overflow-hidden rounded-lg border-[1px] border-black bg-card-color py-2 font-cairo text-main-text--color drop-shadow-md transition-all duration-300 md:w-full">
+    <div className="mx-auto flex min-h-fit w-full max-w-[300px] flex-col items-center gap-y-3 overflow-hidden rounded-lg border-[1px] border-black bg-card-color py-7 sm:py-2 font-cairo text-main-text--color drop-shadow-md transition-all duration-300 md:w-full">
       {/* Product image */}
       <Link to={"/product/" + id}>
         <div className="bg-main-text--colo w-full overflow-hidden px-5 drop-shadow-xl">

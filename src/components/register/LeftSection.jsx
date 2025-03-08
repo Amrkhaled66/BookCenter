@@ -3,7 +3,6 @@ export default function LeftSection({ children, className = "" }) {
   return (
     <div className={cssClass}>
         {children}
-      
     </div>
   );
 }

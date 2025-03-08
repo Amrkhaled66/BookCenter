@@ -1,37 +1,57 @@
 import Cookies from "js-cookie";
 
-// Store user object in localStorage
+const userToken = "token";
+const adminToken = "adminToken";
+
 const setUser = (user) => {
   localStorage.setItem("user", JSON.stringify(user));
 };
 
-// Retrieve user object from localStorage
 const getUser = () => {
   const user = localStorage.getItem("user");
   return user ? JSON.parse(user) : null; // Handle missing data gracefully
 };
 
-// Clear user object from localStorage
 const clearUser = () => {
   localStorage.removeItem("user");
 };
 
-// Set token in a secure cookie
 const setToken = (token) => {
-  Cookies.set("token", token, { secure: true, sameSite: "Strict" });
+  Cookies.set(userToken, token, { secure: true, sameSite: "Strict" });
 };
 
-// Get token from cookie
 const getToken = () => {
-  return Cookies.get("token");
+  return Cookies.get(userToken);
 };
 
-// Clear token from cookie
 const clearToken = () => {
-  Cookies.remove("token");
+  Cookies.remove(userToken);
 };
 
-// Check if the user is authenticated dynamically
+const setAdmin = (admin) => {
+  localStorage.setItem("admin", JSON.stringify(admin));
+};
+
+const getAdmin = () => {
+  localStorage.getItem("admin");
+};
+
+const clearAdmin = () => {
+  localStorage.removeItem("admin");
+};
+
+const setAdminToken = (token) => {
+  Cookies.set(adminToken, token, { secure: true, sameSite: "Strict" });
+};
+
+const getAdminToken = () => {
+  return Cookies.get(adminToken);
+};
+
+const clearAdminToken = () => {
+  return Cookies.remove(adminToken);
+};
+
 const isAuth = () => !!getToken();
 
 const login = (data) => {
@@ -44,6 +64,15 @@ const logout = () => {
   clearUser();
 };
 
+const loginAdmin = (data) => {
+  setAdmin(data.admin);
+  setAdminToken(data.adminToken);
+};
+
+const logoutAdmin = () => {
+  clearAdmin();
+  clearAdminToken();
+};
 export {
   getUser,
   isAuth,
@@ -54,4 +83,12 @@ export {
   login,
   logout,
   clearUser,
+  setAdminToken,
+  getAdminToken,
+  clearAdminToken,
+  setAdmin,
+  getAdmin,
+  clearAdmin,
+  loginAdmin,
+  logoutAdmin,
 };

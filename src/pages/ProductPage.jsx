@@ -10,6 +10,8 @@ import ErrorContainer from "src/components/ui/ErrorContainer";
 import { useParams } from "react-router-dom";
 import { useGetProductById } from "src/services/productsServices";
 
+import { useEffect } from "react";
+
 import Loader from "src/components/ui/icons/Loader";
 
 const BackgroundWave = function () {
@@ -23,10 +25,14 @@ export default function ProductPage() {
 
   const { data: product, isLoading, isError } = useGetProductById(id);
 
+  useEffect(() => {
+    console.log("er");
+    window.scrollTo(0, 0); // Move to top on route change
+  }, []);
   if (isLoading) {
     return (
       <div
-        className={`relative flex min-h-screen w-screen items-center bg-card-color`}
+        className={`relative flex h-screen w-screen items-center bg-card-color`}
       >
         <ErrorContainer>
           <span className="flex w-full justify-center gap-x-4 font-cairo text-2xl">
@@ -62,7 +68,7 @@ export default function ProductPage() {
       className={`relative flex w-screen flex-col items-center bg-card-color py-[100px]`}
     >
       <div className="container flex w-full flex-col-reverse items-center justify-center gap-x-14 gap-y-10 py-[50px] lg:flex-row lg:items-start">
-        <div className="w-[90%] justify-center lg:w-1/2">
+        <div className="w-full justify-center sm:w-[90%] lg:w-1/2">
           <ProductInfo
             {...{
               name,
@@ -76,7 +82,7 @@ export default function ProductPage() {
             }}
           />
         </div>
-        <div className="flex w-full justify-center lg:w-[40%] lg:justify-end">
+        <div className="flex w-full items-center justify-center lg:w-[40%] lg:justify-end">
           <ProductImg imageUrl={imageUrl} />
         </div>
       </div>

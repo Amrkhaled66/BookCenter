@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 const AuthContext = createContext();
 
@@ -10,8 +11,6 @@ import {
   getToken,
   getUser,
 } from "src/services/authServices";
-
-import { clearStoringCart } from "src/services/cartServices";
 
 import useCart from "src/hooks/useCart";
 
@@ -50,6 +49,10 @@ const AuthContextProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
+};
+
+AuthContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default AuthContextProvider;

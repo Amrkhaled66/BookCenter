@@ -45,6 +45,9 @@ html {
   overflow-y: auto !important;
   padding-right: 0 !important;
 }
+body{
+  overflow: visible !important;
+}
 
 :root {
   --main-color: #094067;
@@ -97,4 +100,30 @@ html {
   font-family: "RadyProRegular", sans-serif; /* Change font family */
   border-radius: 10px; /* Optional: change border radius */
   direction: rtl; /* Ensure right-to-left direction */
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+.rdt_TableHeadRow div {
+  width: 150px;
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow: visible !important;
 }

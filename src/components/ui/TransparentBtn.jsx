@@ -2,16 +2,18 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
+import Loader from "src/components/ui/icons/Loader";
 
 export default function TransparentBtn({
   children,
   bgColor,
   className,
+  loading = null,
   ...props
 }) {
   return (
     <button
-      className={`border-2 rounded-md transition-all duration-300 px-3 py-2 ${className} `}
+      className={`rounded-md border-2 px-3 py-2 text-base transition-all duration-300 ${className} `}
       css={css`
         background-color: ${bgColor};
         border: 2px solid ${bgColor};
@@ -22,7 +24,7 @@ export default function TransparentBtn({
       `}
       {...props}
     >
-      {children}
+      {loading ? <Loader /> : children}
     </button>
   );
 }

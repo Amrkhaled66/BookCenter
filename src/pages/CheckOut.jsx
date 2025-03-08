@@ -24,7 +24,7 @@ const CheckOut = () => {
   });
   const [errors, setErrors] = useState();
 
-  const { mutate } = useCreateInvoice();
+  const mutate = useCreateInvoice();
   const handleSubmit = useCallback(() => {
     const errors = validateCheckoutForm(formData);
     if (Object.keys(errors).length > 0) {
@@ -35,11 +35,13 @@ const CheckOut = () => {
         "تمام",
       );
       setErrors(errors);
+      return;
     }
-    mutate({
+    mutate.mutate({
       cart,
       deliveryInfo: formData,
     });
+    setErrors({});
   }, [formData]);
 
   return (

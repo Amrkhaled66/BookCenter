@@ -4,10 +4,10 @@ const useFormValidation = (validate) => {
   const [errors, setErrors] = useState({});
 
   const handleValidation = (formData) => {
-    const { data: formattedData, errors } = validate(formData);
+    const { data: formattedData, errors: formErrors } = validate(formData);
 
-    if (Object.keys(errors).length > 0) {
-      setErrors(errors);
+    if (formErrors && Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
       return { isValid: false, formattedData: null };
     }
 
@@ -16,6 +16,7 @@ const useFormValidation = (validate) => {
   };
 
   const handleError = (error) => {
+    console.log(error)
     let errMessage;
     if (error.status === 401) {
       errMessage = "خطأ في رقم الهاتف او في كلمة المرور";
@@ -23,11 +24,13 @@ const useFormValidation = (validate) => {
       errMessage = "الرقم مسجل بالفعل علي الموقع";
     } else if (error.status === 400) {
       errMessage = "خطأ برجاء التواصل مع الدعم";
+    } else if (error.status === 404) {
+      errMessage = "مفيش اكونت للرقم ده";
     }
-    setErrors({ phone: errMessage });
+    setErrors({ phone: errMessage, email: errMessage });
   };
 
   return { errors, handleValidation, handleError };
 };
 
-export default useFormValidation; 
+export default useFormValidation;

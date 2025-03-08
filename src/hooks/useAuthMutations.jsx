@@ -1,16 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+import useAxiosAdmin from "./useAxiosAdmin";
 
 import {
   login as loginRequest,
   signup as signupRequest,
-  refreshToken as refreshRequest,
   logout as logoutRequest,
+  adminLogin as adminLoginRequest,
+  loginAsUser,
 } from "src/services/api/auth";
 
 import Alert from "src/components/ui/Alert";
 
 import useAuth from "./useAuth";
+import useAdminContext from "./useAdminContext";
+
+import { logoutAdmin } from "src/services/authServices";
+
+import { ADMIN_PATH } from "src/services/defaultSettings";
 
 const useLogin = () => {
   const navigate = useNavigate();
@@ -47,25 +54,12 @@ const useSignup = () => {
   });
 };
 
-const useRefreshToken = () => {
-  const navigate = useNavigate();
-
-  return useMutation({
-    mutationFn: () => refreshRequest(),
-
-    onError: () => {
-      navigate("/login");
-    },
-  });
-};
-
 const useLogout = () => {
   const { logout } = useAuth();
 
   return useMutation({
-    mutationFn: logoutRequest,
+    mutationFn: () => logoutRequest(),
     onSuccess: () => {
-      ("useMutationlogout");
       logout();
     },
     onError: () => {
@@ -74,4 +68,44 @@ const useLogout = () => {
   });
 };
 
-export { useLogin, useSignup, useRefreshToken, useLogout };
+const useAdminLogin = () => {
+  const navigate = useNavigate();
+  const { adminLogin } = useAdminContext();
+
+  return useMutation({
+    mutationFn: ({ email, password }) => adminLoginRequest(email, password),
+    onSuccess: (data) => {
+      adminLogin(data);
+      navigate(`/${ADMIN_PATH}/panel`);
+    },
+  });
+};
+
+const useAdminLogout = () => {
+  const { logoutAdmin } = useAdminContext();
+  return useMutation({
+    mutationFn: () => logoutRequest("admin"),
+    onSuccess: () => {
+      logoutAdmin();
+    },
+    onError: () => {
+      logoutAdmin();
+    },
+  });
+};
+
+const useLoginAsUser = () => {
+  const axiosAdmin = useAxiosAdmin();
+  return useMutation({
+    mutationFn: (phone) => loginAsUser(axiosAdmin,phone),
+  });
+};
+
+export {
+  useLogin,
+  useSignup,
+  useLogout,
+  useAdminLogout,
+  useLoginAsUser,
+  useAdminLogin,
+};

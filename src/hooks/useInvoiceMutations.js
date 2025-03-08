@@ -7,7 +7,7 @@ const useCreateInvoice = () => {
 
   return useMutation({
     mutationFn: (invoiceData) => createInvoice({ axiosPrivate, invoiceData }),
-    onSuccess: (data) => console.log(data),
+    onSuccess: (data) => (window.location.href = data?.invoice),
   });
 };
 

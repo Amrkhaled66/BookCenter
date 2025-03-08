@@ -3,7 +3,8 @@ import { IoIosUnlock } from "react-icons/io";
 
 import AuthForm from "src/components/register/Form";
 
-import signinValidate from "src/utils/validateLogInForm";
+import validateAdminLogin from "src/utils/validateAdminLogin";
+import { useAdminLogin } from "src/hooks/useAuthMutations";
 export default function AdminLogInForm({ mainColor }) {
   return (
     <AuthForm
@@ -15,10 +16,10 @@ export default function AdminLogInForm({ mainColor }) {
           layout: "block",
           fields: [
             {
-              label: "اسم المستخدم",
-              inputType: "text",
+              label: "الايميل",
+              inputType: "email",
               Icon: AiFillPhone,
-              name: "phone",
+              name: "email",
               error: Error.phone,
             },
           ],
@@ -36,7 +37,8 @@ export default function AdminLogInForm({ mainColor }) {
         },
       ]}
       mainColor={mainColor}
-      validate={signinValidate}
+      validate={validateAdminLogin}
+      mutationFn={useAdminLogin}
     />
   );
 }

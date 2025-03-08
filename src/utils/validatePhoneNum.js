@@ -1,6 +1,5 @@
-export default function validatePhoneNum(num) {
-  
-  num = num?.replace(/[٠-٩]/g, (d) => "٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/ /g, "");
+export default function validatePhoneNum(phone) {
+  const phoneRegex = /^01[0125][0-9]{8}$/;
 
-  return num;
+  return phoneRegex.test(phone);
 }

@@ -1,39 +1,42 @@
-import AppRouter from "src/routes/index";
+import AppRouter from "src/routes/AppRouter";
 
 import IsNavStickyContextProvider from "./contexts/isNavSticky";
 import ShowMobileMenuContextProvider from "./contexts/showMobileMenu.jsx";
 import ColorsContextProvider from "./contexts/colors";
 import CartContextProvider from "./contexts/cart.jsx";
 import ProductContextProvider from "./contexts/category.jsx";
-import UserDataProvider from "./contexts/userData";
+import WidthContextProvider from "./contexts/widthContext";
+import SideBarContextProvider from "./contexts/useSideBar";
+import AdminContextProvider from "./contexts/AdminContext";
 
-import AuthContextProvider from "./contexts/AuthContext";
+import AuthContextProvider from "./contexts/authContext";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
-import { BrowserRouter } from "react-router-dom";
-
-
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <CartContextProvider>
-        <AuthContextProvider>
-          <ProductContextProvider>
-            <IsNavStickyContextProvider>
-              <ShowMobileMenuContextProvider>
-                <ColorsContextProvider>
-                  <UserDataProvider>
-                    <AppRouter />
-                  </UserDataProvider>
-                </ColorsContextProvider>
-              </ShowMobileMenuContextProvider>
-            </IsNavStickyContextProvider>
-          </ProductContextProvider>
-        </AuthContextProvider>
-      </CartContextProvider>
+      <WidthContextProvider>
+        <SideBarContextProvider>
+          <CartContextProvider>
+            <AuthContextProvider>
+              <ProductContextProvider>
+                <IsNavStickyContextProvider>
+                  <ShowMobileMenuContextProvider>
+                    <ColorsContextProvider>
+                      <AdminContextProvider>
+                        <AppRouter />
+                      </AdminContextProvider>
+                    </ColorsContextProvider>
+                  </ShowMobileMenuContextProvider>
+                </IsNavStickyContextProvider>
+              </ProductContextProvider>
+            </AuthContextProvider>
+          </CartContextProvider>
+        </SideBarContextProvider>
+      </WidthContextProvider>
     </QueryClientProvider>
   );
 }

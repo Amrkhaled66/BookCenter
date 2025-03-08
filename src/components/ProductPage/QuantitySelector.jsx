@@ -15,7 +15,7 @@ export default function QuantitySelector({ setQuantity, quantity }) {
 
   return (
     <div className="flex w-full items-center justify-start gap-x-3">
-      <form className="font-mainFontRegular group flex w-2/5 items-center justify-start gap-x-1 rounded-xl border-2 border-main-text--color px-2 py-1 text-lg font-bold transition-all duration-300 focus-within:border-main-text--color">
+      <form className="font-mainFontRegular group flex w-full sm:w-2/5 items-center justify-start gap-x-1 rounded-xl border-2 border-main-text--color px-2 py-1 text-lg font-bold transition-all duration-300 focus-within:border-main-text--color">
         <label>الكمية : </label>
         <input
           value={quantity}

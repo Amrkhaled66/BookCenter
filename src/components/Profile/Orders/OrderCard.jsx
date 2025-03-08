@@ -14,7 +14,7 @@ const OrderCardElement = ({ className = " ", right, left }) => {
 const paidStatus = {
   paid: {
     text: "مدفوع",
-    className: "bg-green-50  text-green-700",
+    className: "bg-green-100  text-green-700",
   },
   pending: {
     text: "في انتظار الدفع",
@@ -45,9 +45,9 @@ export default function OrderCard({
   });
 
   return (
-    <div className="mx-auto  w-[100%] rounded-xl border-[1px] border-third-color bg-white p-3 font-cairo text-sm drop-shadow-xl sm:w-[80%] lg:w-[90%]">
+    <div className="border-third-color mx-auto w-[100%] rounded-xl border-[1px] bg-white p-3 font-cairo text-sm drop-shadow-xl sm:w-[80%] lg:w-[90%]">
       <div className="space-y-3 border-b-2 border-black/10 pb-3">
-        <p className="text-center font-bold text-third-color">
+        <p className="text-third-color text-center font-bold">
           تاريخ الشراء : {arabicData}
         </p>
         <p className="w-full rounded-sm bg-blue-50 px-3 py-2 text-right font-bold tracking-wider text-blue-900">
@@ -56,8 +56,8 @@ export default function OrderCard({
         <div className="space-y-2">
           {products.map((product) => (
             <div key={product._id} className="flex justify-between">
-              <span>{product.name}</span>
-              <span className="font-bold">x{product.quantity}</span>
+              <span>{product.product?.name}</span>
+              <span className="font-bold">{product.quantity}x</span>
             </div>
           ))}
         </div>
@@ -106,7 +106,7 @@ export default function OrderCard({
           </span>
         </div>
       </div>
-      <div className="flex flex-col gap-y-2 py-2   pb-3">
+      <div className="flex flex-col gap-y-2 py-2 pb-3">
         <div className="flex items-center justify-between">
           <span className="rounded-lg p-1">حالة التوصيل</span>
           <span className="rounded-lg px-3 py-2 font-bold text-red-500">
