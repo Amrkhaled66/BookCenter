@@ -1,15 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "react-router-dom";
 
 import {
   getAllUserProducts,
   getProductById,
   updateProduct,
   deleteProduct,
-  addProduct,
 } from "src/services/api/productApi";
 
 const useGetProducts = () => {
-  return useQuery({ queryKey: ["products"], queryFn: getAllUserProducts });
+  const { pathname } = useLocation();
+  return useQuery({
+    queryKey: ["products",pathname],
+    queryFn: () => getAllUserProducts(pathname),
+  });
 };
 
 const useGetProductById = (id) => {

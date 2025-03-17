@@ -5,15 +5,20 @@ import OrderSummary from "src/components/CheckOut/OrderSummary";
 import { useState, useCallback } from "react";
 import { useCreateInvoice } from "src/hooks/useInvoiceMutations";
 import useCart from "src/hooks/useCart";
+import useGoToPageTop from "src/hooks/useGoToPageTop";
+import { useNavigate } from "react-router-dom";
 
 import validateCheckoutForm from "src/utils/validateCheckoutForm";
 import { getUser } from "src/services/authServices";
 
 import Alert from "src/components/ui/Alert";
 const CheckOut = () => {
-  const { name, phone, secondaryPhone, address } = getUser();
-  const { cart } = useCart();
+  useGoToPageTop();
 
+  const { cart, cartLength } = useCart();
+  const navigate = useNavigate();
+
+  const { name, phone, secondaryPhone, address } = getUser();
   const [formData, setFormData] = useState({
     name,
     firstPhone: phone || "",
@@ -22,7 +27,7 @@ const CheckOut = () => {
     state: address.state,
     descriptiveAddress: address.descriptiveAddress || "",
   });
-  const [errors, setErrors] = useState();
+
 
   const mutate = useCreateInvoice();
   const handleSubmit = useCallback(() => {
@@ -43,7 +48,9 @@ const CheckOut = () => {
     });
     setErrors({});
   }, [formData]);
+  const [errors, setErrors] = useState();
 
+  if (cartLength <= 0) return navigate(-1);
   return (
     <div className="relative flex min-h-screen flex-col items-center bg-white-color py-[100px] font-cairo">
       <div className="container flex w-full flex-col items-center gap-y-10 py-[100px] sm:pt-0">

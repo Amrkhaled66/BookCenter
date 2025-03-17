@@ -4,8 +4,11 @@ import { CartList, CartSummary, EmptyCart } from "src/components/CartPage";
 
 import CartImg from "src/assets/cart.svg?react";
 import PageHeader from "src/components/ui/PageHeader";
+
+import useGoToPageTop from "src/hooks/useGoToPageTop";
 export default function CartPage() {
   const { cartLength } = useCart();
+  useGoToPageTop();
 
   return (
     <div className="relative flex min-h-screen flex-col items-center pt-[100px] font-cairo">

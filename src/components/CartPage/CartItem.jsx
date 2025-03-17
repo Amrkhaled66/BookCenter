@@ -19,10 +19,11 @@ const itemVariants = {
 
 export default function CartItem({ productInfo, quantity }) {
   const { clearItem, modifyQuantity } = useCart();
-  const { id, image, originalPrice, discountedPrice, publisher, title } =
+  const { id, image, originalPrice, discountPrice, publisher, title } =
     productInfo;
 
-  const mainPrice = originalPrice || discountedPrice;
+  const mainPrice = discountPrice || originalPrice;
+
 
   return (
     <motion.li variants={itemVariants} key={id} className="relative">
@@ -52,11 +53,11 @@ export default function CartItem({ productInfo, quantity }) {
           {/* Price, Quantity, and Total */}
           <div className="flex w-full flex-col items-start justify-between gap-2 sm:flex-row sm:items-center">
             {/* Price */}
-            <div className="text-lg sm:text-base">
+            <div className="text-lg text-center sm:text-base">
               <p>{currencyFormatter(mainPrice)}</p>
-              {discountedPrice && (
+              {discountPrice > 0 && (
                 <p className="text-red-600 line-through">
-                  {currencyFormatter(price)}
+                  {currencyFormatter(originalPrice)}
                 </p>
               )}
             </div>

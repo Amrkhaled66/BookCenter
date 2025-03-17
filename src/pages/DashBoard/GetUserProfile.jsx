@@ -1,21 +1,17 @@
 import AdminContainer from "src/components/ui/AdminContainer";
-import UserProfile from "./UserProfile";
 import Alert from "src/components/ui/Alert";
 
-import InputFiled2nd from "src/components/ui/InputFiled2nd";
-import TransparentBtn from "src/components/ui/TransparentBtn";
+import AdminForm from "src/components/ui/AdminForm";
 
-import useColors from "src/hooks/useColors";
-import { useGetUserProfile } from "src/hooks/useAdminMutations";
+import { useGetUserId } from "src/hooks/useAdminMutations";
 import useFormValidation from "src/hooks/useFormValidation";
-import { useState } from "react";
 
 import { CgProfile } from "react-icons/cg";
 import { FaPhone } from "react-icons/fa";
 
 import FormatePhoneNum from "src/utils/formatePhoneNum";
 import validatePhoneNum from "src/utils/validatePhoneNum";
-
+import { useNavigate } from "react-router-dom";
 
 const validate = (phone) => {
   const errors = {};
@@ -30,14 +26,10 @@ const validate = (phone) => {
 };
 
 const GetUserProfile = () => {
-  const [userData, setUserData] = useState({});
-  const { colors } = useColors();
+  const navigate = useNavigate();
   const { errors, handleValidation, handleError } = useFormValidation(validate);
+  const { mutate, isPending } = useGetUserId();
 
-  const mainColor = colors.get("mainColor");
-
-  const { mutate, isPending } = useGetUserProfile();
-  
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -51,10 +43,10 @@ const GetUserProfile = () => {
       onSuccess: (data) => {
         Alert(
           "تم العثور علي المستخدم",
-          `تم العثور علي ${data.user.name}`,
+          `لقيناه الحمد لله`,
           "success",
           "حسناً",
-        ).then(() => setUserData(data));
+        ).then(() => navigate(`${data.id}`));
       },
       onError: (error) => {
         handleError(error);
@@ -64,37 +56,14 @@ const GetUserProfile = () => {
 
   return (
     <AdminContainer title="ملف المستخدم" Icon={<CgProfile />}>
-      {userData ? (
-        <UserProfile
-          onSearchAnotherUser={() => setUserData(null)}
-          data={userData}
-        />
-      ) : (
-        <div className="w-full">
-          <form
-            onSubmit={handleSubmit}
-            className="mx-auto flex w-[85%] flex-col gap-y-9 text-sm sm:w-[50%]"
-            action=""
-          >
-            <InputFiled2nd
-              name="phone"
-              icon={<FaPhone />}
-              label="رقم الهاتف"
-              type="text"
-              error={errors.phone}
-            />
-            <TransparentBtn
-              type="submit"
-              bgColor={mainColor}
-              className="flex items-center justify-center text-white"
-              disabled={isPending}
-              loading={isPending}
-            >
-              بحث
-            </TransparentBtn>
-          </form>
-        </div>
-      )}
+      <AdminForm
+        inputName="phone"
+        onSubmit={handleSubmit}
+        icon={<FaPhone />}
+        error={errors.phone}
+        label="رقم الهاتف"
+        isLoading={isPending}
+      />
     </AdminContainer>
   );
 };

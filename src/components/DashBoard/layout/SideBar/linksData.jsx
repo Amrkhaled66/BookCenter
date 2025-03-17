@@ -2,6 +2,10 @@
 import { CiLogin } from "react-icons/ci";
 import { VscDiffAdded } from "react-icons/vsc";
 import { CgProfile } from "react-icons/cg";
+import { MdOutlineCategory } from "react-icons/md";
+import { GiMaterialsScience } from "react-icons/gi";
+import { GiTeacher } from "react-icons/gi";
+import { FaBoxOpen } from "react-icons/fa";
 
 export const links = [
   {
@@ -17,21 +21,26 @@ export const links = [
   {
     name: "ملف المستخدم",
     icon: <CgProfile />,
-    to: "GetUserProfile",
+    to: "UserProfile",
   },
   {
-    name: "أضافة منتج",
-    icon: <CgProfile />,
-    to: "addNewProduct",
+    name: "أضافة و تعديل منتج",
+    icon: <FaBoxOpen />,
+    to: "product",
   },
   {
-    name: "أضافة مادة جديدة",
-    icon: <CgProfile />,
-    to: "addNewSubject",
+    name: "أضافة وتعديل المواد",
+    icon: <GiMaterialsScience />,
+    to: "subject",
   },
   {
-    name: "أضافة صف جديد",
-    icon: <CgProfile />,
-    to: "addNewGrade",
+    name: "أضافة وتعديل الاقسام",
+    icon: <MdOutlineCategory />,
+    to: "category",
+  },
+  {
+    name: "أضافة وتعديل البائعين",
+    icon: <GiTeacher />,
+    to: "seller",
   },
 ];

@@ -19,6 +19,7 @@ export default function ComboboxDropdown({
   label,
   error,
   defaultValue,
+  name,
 }) {
   const [query, setQuery] = useState("");
 
@@ -33,16 +34,16 @@ export default function ComboboxDropdown({
     );
 
   return (
-    <div className={`relative space-y-2 font-cairo ${width}`}>
+    <div className={`relative  bg-white space-y-2 font-cairo ${width}`}>
       <label className="text-sm font-bold text-black" htmlFor="">
         {label}
       </label>
-      <Combobox value={value} onChange={onChange}>
-        <div className="rounded-lg border-2 border-gray-color bg-white px-3 py-2 font-cairo font-semibold outline-none ring-main-color transition-all duration-300 ease-in-out focus-within:ring-[1px]">
+      <Combobox   name={name} value={value} onChange={onChange}>
+        <div className="rounded-lg  border-[1px]  border-gray-color bg-white px-3 py-2 font-cairo font-semibold outline-none transition-all duration-300 ease-in-out focus-within:border-main-color">
           <ComboboxButton className="flex w-full items-center pl-2">
             <ComboboxInput
               placeholder={defaultValue}
-              className="w-full overflow-hidden text-ellipsis rounded-md outline-none placeholder:font-cairo placeholder:text-base placeholder:font-semibold placeholder:text-black"
+              className="w-full overflow-hidden text-ellipsis rounded-sm outline-none placeholder:font-cairo placeholder:text-sm placeholder:font-semibold placeholder:text-black"
               displayValue={(option) => option?.toString()}
               onChange={(event) => setQuery(event.target.value)}
             />
@@ -50,13 +51,13 @@ export default function ComboboxDropdown({
           </ComboboxButton>
         </div>
         {filteredOptions.length > 0 && (
-          <ComboboxOptions className="absolute z-50 mt-1 max-h-48 w-full overflow-y-auto rounded-md border bg-white shadow-md">
+          <ComboboxOptions defaultValue="لا توجد بيانات" className="absolute z-50 mt-1  max-h-48 w-full overflow-y-auto rounded-md border bg-white drop-shadow-2xl">
             {filteredOptions.map((option) => (
               <ComboboxOption
                 key={option}
                 value={option}
                 className={({ active }) =>
-                  `cursor-pointer p-2 ${active ? "bg-black text-white" : ""}`
+                  `cursor-pointer  border-b-[1px] border-b-gray-200 px-3 p-2 ${active ? "bg-gray-200 " : ""}`
                 }
               >
                 {option}

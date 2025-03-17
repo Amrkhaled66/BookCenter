@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 // hooks
 import useCategory from "src/hooks/useCategory";
-import { useGetProducts } from "src/services/productsServices";
+import { useProducts } from "src/contexts/products";
 
 // components
 import ProductCard from "./productCard/ProductCard";
@@ -17,9 +17,7 @@ import graduatedPanda from "src/assets/graduatePanda.png";
 export default function Products() {
   const { selectedCategory } = useCategory();
 
-  const { data, isLoading, isError } = useGetProducts();
-
-
+  const { filteredProducts, isLoading, isError } = useProducts();
 
   if (isLoading)
     return (
@@ -50,9 +48,9 @@ export default function Products() {
     );
   }
 
-  const selectedProducts = data[selectedCategory];
 
-  if (selectedProducts?.length === 0) {
+
+  if (filteredProducts?.length === 0 || !filteredProducts) {
     return (
       <div className="flex h-[500px] items-center">
         <p className="relative flex flex-col-reverse items-center gap-x-4 pb-4 text-center font-cairo text-base font-bold tracking-wider drop-shadow-2xl sm:flex-row xl:text-2xl">
@@ -79,18 +77,18 @@ export default function Products() {
       initial={{ opacity: 0, y: 100 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.85, type: "spring" }}
-      className="px-34 container mx-auto grid grid-cols-1 justify-between gap-x-8 gap-y-10 pt-14 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
+      className="px-34 container mx-auto grid grid-cols-1  justify-between gap-x-8 gap-y-10 pt-14 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
     >
-      {selectedProducts?.map((product) => {
+      {filteredProducts?.map((product) => {
         return (
           <ProductCard
             key={product._id}
             title={product.name}
-            stockQuantity={product.stockQuantity}
-            image={`${import.meta.env.VITE_API_URL}/${product.imageUrl}`}
+            stockQuantity={product.inStock}
+            image={`${import.meta.env.VITE_API_URL}/${product.image}`}
             originalPrice={product.price}
-            discountedPrice={product.discountedPrice}
-            publisher={product.publisher}
+            discountPrice={product.discountPrice}
+            seller={product.seller.name}
             id={product._id}
           />
         );

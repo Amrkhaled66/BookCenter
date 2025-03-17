@@ -10,8 +10,7 @@ import ErrorContainer from "src/components/ui/ErrorContainer";
 import { useParams } from "react-router-dom";
 import { useGetProductById } from "src/services/productsServices";
 
-import { useEffect } from "react";
-
+import useGoToPageTop from "src/hooks/useGoToPageTop";
 import Loader from "src/components/ui/icons/Loader";
 
 const BackgroundWave = function () {
@@ -21,14 +20,11 @@ const BackgroundWave = function () {
 };
 
 export default function ProductPage() {
-  const { id } = useParams();
+  useGoToPageTop();
 
+  const { id } = useParams();
   const { data: product, isLoading, isError } = useGetProductById(id);
 
-  useEffect(() => {
-    console.log("er");
-    window.scrollTo(0, 0); // Move to top on route change
-  }, []);
   if (isLoading) {
     return (
       <div
@@ -53,14 +49,18 @@ export default function ProductPage() {
   }
 
   const {
-    imageUrl,
+    image,
     description,
     name,
     price,
-    discountedPrice,
+    discountPrice,
     publisher,
     grade,
     subCategory,
+    items,
+    isUnAvailable,
+    unAvailabilityNote,
+    seller,
   } = product || {};
 
   return (
@@ -74,16 +74,21 @@ export default function ProductPage() {
               name,
               description,
               price,
-              discountedPrice,
+              discountPrice,
               id,
               publisher,
               grade,
               subCategory,
+              items,
+              isUnAvailable,
+              unAvailabilityNote,
+              image,
+              seller: seller.name,
             }}
           />
         </div>
         <div className="flex w-full items-center justify-center lg:w-[40%] lg:justify-end">
-          <ProductImg imageUrl={imageUrl} />
+          <ProductImg image={image} />
         </div>
       </div>
     </div>

@@ -16,7 +16,6 @@ const useFormValidation = (validate) => {
   };
 
   const handleError = (error) => {
-    console.log(error)
     let errMessage;
     if (error.status === 401) {
       errMessage = "خطأ في رقم الهاتف او في كلمة المرور";

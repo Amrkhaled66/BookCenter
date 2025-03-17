@@ -13,7 +13,7 @@ export default function TransparentBtn({
 }) {
   return (
     <button
-      className={`rounded-md border-2 px-3 py-2 text-base transition-all duration-300 ${className} `}
+      className={`rounded-md flex items-center justify-center border-2 px-3 py-2 text-base transition-all duration-300 ${className} `}
       css={css`
         background-color: ${bgColor};
         border: 2px solid ${bgColor};

@@ -13,15 +13,18 @@ import {
   Orders,
   DeliveryInfo,
   Checkout,
+  Products,
+  Support,
   // DashBoard Pages
   LoginAsUser,
   UserProfile,
-  AddNewSubject,
-  AddNewProduct,
-  AddNewGrade,
+  Subject,
+  Product,
   AddManualOrder,
   AdminLogInPage,
   GetUserProfile,
+  Category,
+  Seller,
 } from "src/pages";
 
 import {
@@ -40,6 +43,8 @@ export default function AppRouter() {
       <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
         <Route path="product/:id" element={<ProductPage />} />
+        <Route path="products" element={<Products />} />
+        <Route path="support" element={<Support />} />
 
         <Route
           path="cart"
@@ -98,11 +103,13 @@ export default function AppRouter() {
           }
         >
           <Route path="loginAsUser" element={<LoginAsUser />} />
-          <Route path="GetUserProfile" element={<GetUserProfile />} />
-          <Route path="addNewSubject" element={<AddNewSubject />} />
-          <Route path="addNewProduct" element={<AddNewProduct />} />
-          <Route path="addNewGrade" element={<AddNewGrade />} />
+          <Route path="UserProfile" element={<GetUserProfile />} />
+          <Route path="UserProfile/:id" element={<UserProfile />} />
+          <Route path="subject" element={<Subject />} />
+          <Route path="product" element={<Product />} />
           <Route path="addManualOrder" element={<AddManualOrder />} />
+          <Route path="category" element={<Category />} />
+          <Route path="seller" element={<Seller />} />
         </Route>
       </Route>
     </Routes>

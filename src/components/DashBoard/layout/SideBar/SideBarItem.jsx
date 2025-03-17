@@ -6,7 +6,7 @@ export default function SideBarItem({ children, to, icon, ...props }) {
   const { collapsed, closed, closeSideBar } = useSideBar();
   const { isSmallScreen } = useWidth();
   const NavClassName =
-    "flex items-center gap-x-2 rounded-lg py-3 text-main-color   normal-case transition-colors duration-300 hover:bg-gray-100 mb-1   hover:bg-gray-200 font-cairo font-semibold bg-rose-50/20 pr-2 ";
+    "flex items-center gap-x-2 rounded-lg py-3 text-main-color   normal-case transition-colors duration-300 hover:bg-gray-100 mb-1   hover:bg-gray-200 font-cairo font-semibold bg-card-color drop-shadow-md  pr-2 ";
 
   if (collapsed && !closed) {
     return (
@@ -15,8 +15,8 @@ export default function SideBarItem({ children, to, icon, ...props }) {
         className={({ isActive }) =>
           isActive
             ? NavClassName +
-              " m-0 scale-110 justify-center !bg-main-color text-white pl-4"
-            : `${NavClassName} justify-center py-0`
+              " m-0 scale-110 !bg-main-color text-white pl-4"
+            : `${NavClassName}   py-0`
         }
         {...props}
       >

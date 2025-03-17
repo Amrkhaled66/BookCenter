@@ -14,9 +14,8 @@ const reducer = (state, action) => {
 
   if (action.type === "ADD") {
     const updatedItemIndex = state.findIndex(
-      (item) => item.id === action.payload.id,
+      (item) => item.productInfo.id === action.payload.productInfo.id,
     );
-
     if (updatedItemIndex > -1) {
       const existingItem = state[updatedItemIndex];
       const updatedItem = {
@@ -34,7 +33,7 @@ const reducer = (state, action) => {
     return updatedCart;
   } else if (action.type === "DECREASE") {
     const updatedItemIndex = state.findIndex(
-      (item) => item.id === action.payload.id,
+      (item) => item.productInfo.id === action.payload.id,
     );
     if (updatedItemIndex > -1 && state[updatedItemIndex].quantity > 1) {
       const existingItem = state[updatedItemIndex];
@@ -48,7 +47,7 @@ const reducer = (state, action) => {
     return updatedCart;
   } else if (action.type === "CLEAR_ITEM") {
     const deletedItemIndex = state.findIndex(
-      (item) => item.id === action.payload.id,
+      (item) => item.productInfo.id === action.payload.id,
     );
     if (deletedItemIndex > -1) {
       updatedCart.splice(deletedItemIndex, 1);
@@ -58,10 +57,12 @@ const reducer = (state, action) => {
     return [];
   } else if (action.type === "MODIFYQUN") {
     const updatedItemIndex = state.findIndex(
-      (item) => item.id === action.payload.id,
+      (item) => item.productInfo.id === action.payload.id,
     );
 
+    if (updatedItemIndex === -1) return state;
     const existingItem = state[updatedItemIndex];
+
     const updatedItem = {
       ...existingItem,
       quantity: action.payload.quantity,
@@ -83,13 +84,12 @@ export default function CartContextProvider({ children }) {
   }, [cart]);
 
   const addToCart = ({ productInfo, quantity }) => {
+    console.log(productInfo, quantity);
     Toast("تم إضافة المنتج لسلة مشترياتك.", "success", "#eafff0");
     dispatch({
       type: "ADD",
       payload: { productInfo, quantity },
     });
-
-    //  id, name, publisher,discountPrice,price, img, quantity
   };
 
   const decreaseCartItem = (id, quantity) => {
@@ -102,6 +102,7 @@ export default function CartContextProvider({ children }) {
   };
 
   const clearItem = (id) => {
+    console.log(id);
     dispatch({ type: "CLEAR_ITEM", payload: { id } });
   };
 

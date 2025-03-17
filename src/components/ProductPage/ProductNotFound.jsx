@@ -12,7 +12,7 @@ export default function ProductNotFound() {
         <p className="text-2xl sm:text-4xl"> للأسف المنتج مش موجود</p>
         <Divider />
         <Link
-          to="/contact"
+          to="/support"
           className="text-sm text-second-color underline sm:text-base"
         >
           تواصل معانا من هنا !

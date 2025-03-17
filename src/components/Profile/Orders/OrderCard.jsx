@@ -1,6 +1,8 @@
 import LinkIcon from "src/assets/LinkIconsvg.svg";
 
 import currencyFormatter from "src/utils/currencyFormatter";
+import arabicData from "src/utils/arabicData";
+import { paidStatus } from "src/services/defaultSettings";
 
 const OrderCardElement = ({ className = " ", right, left }) => {
   return (
@@ -9,21 +11,6 @@ const OrderCardElement = ({ className = " ", right, left }) => {
       <span className="font-bold">{left}</span>
     </div>
   );
-};
-
-const paidStatus = {
-  paid: {
-    text: "مدفوع",
-    className: "bg-green-100  text-green-700",
-  },
-  pending: {
-    text: "في انتظار الدفع",
-    className: "bg-yellow-50 text-yellow-700",
-  },
-  failed: {
-    text: "تم الغاء الفاتورة",
-    className: "bg-red-50 text-red-900",
-  },
 };
 
 export default function OrderCard({
@@ -36,19 +23,11 @@ export default function OrderCard({
   deliveryStatus,
   createdAt,
 }) {
-  const orderData = new Date(createdAt);
-  const arabicData = orderData.toLocaleDateString("ar-Eg", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    weekday: "long",
-  });
-
   return (
     <div className="border-third-color mx-auto w-[100%] rounded-xl border-[1px] bg-white p-3 font-cairo text-sm drop-shadow-xl sm:w-[80%] lg:w-[90%]">
       <div className="space-y-3 border-b-2 border-black/10 pb-3">
         <p className="text-third-color text-center font-bold">
-          تاريخ الشراء : {arabicData}
+          تاريخ الشراء : {arabicData(createdAt)}
         </p>
         <p className="w-full rounded-sm bg-blue-50 px-3 py-2 text-right font-bold tracking-wider text-blue-900">
           📚 الكتب اللي اشتريتها

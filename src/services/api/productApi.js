@@ -1,7 +1,13 @@
 import axiosInstance from "src/utils/axiosInstance";
 
-const getAllUserProducts = async () => {
-  const { data } = await axiosInstance.get("/products");
+const getAllUserProducts = async (location) => {
+  const limit = location === "/" ? 4 : null;
+  const { data } = await axiosInstance.get("/products", {
+    params: {
+      limit,
+    },
+  });
+
   return data;
 };
 
