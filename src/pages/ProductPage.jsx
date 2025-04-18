@@ -61,6 +61,7 @@ export default function ProductPage() {
     isUnAvailable,
     unAvailabilityNote,
     seller,
+    inStock
   } = product || {};
 
   return (
@@ -84,6 +85,7 @@ export default function ProductPage() {
               unAvailabilityNote,
               image,
               seller: seller.name,
+              inStock,
             }}
           />
         </div>

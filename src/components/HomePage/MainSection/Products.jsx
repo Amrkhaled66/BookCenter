@@ -48,8 +48,6 @@ export default function Products() {
     );
   }
 
-
-
   if (filteredProducts?.length === 0 || !filteredProducts) {
     return (
       <div className="flex h-[500px] items-center">
@@ -77,7 +75,7 @@ export default function Products() {
       initial={{ opacity: 0, y: 100 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.85, type: "spring" }}
-      className="px-34 container mx-auto grid grid-cols-1  justify-between gap-x-8 gap-y-10 pt-14 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
+      className="container mx-auto grid grid-cols-1 justify-between gap-x-8 gap-y-10  pt-0 sm:grid-cols-2 sm:py-4 lg:grid-cols-3 md:py-14 xl:grid-cols-4"
     >
       {filteredProducts?.map((product) => {
         return (

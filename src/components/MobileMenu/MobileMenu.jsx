@@ -28,21 +28,21 @@ export default function MobileMenu() {
           animate="animate"
           exit="exit"
           variants={containerVariants}
-          className="fixed left-0 right-0 top-24 mx-auto w-[90%] rounded-xl bg-main-color py-5 font-cairo text-base font-semibold tracking-wider text-black"
+          className="fixed left-0 right-0 top-24 z-[1000] mx-auto w-[90%] rounded-xl bg-main-color py-5 font-cairo text-base font-semibold tracking-wider text-black"
         >
-          <ul className="flex w-full flex-col gap-y-5">
-            <MobileMenuButton>
-              <Link to="/login" className="flex gap-x-2">
+          <ul className="flex w-full flex-col  gap-y-4">
+            <Link to="/login" className="flex   w-full gap-x-2">
+              <MobileMenuButton>
                 <Book /> سجل الدخول
-              </Link>
-            </MobileMenuButton>
+              </MobileMenuButton>
+            </Link>
 
-            <MobileMenuButton>
-              <Link to="/signup" className="flex gap-x-2">
+            <Link to="/signup" className="flex w-full gap-x-2">
+              <MobileMenuButton>
                 <Icon icon="cuida:user-add-outline" width="24" height="24" />
                 أنشئ حسابك
-              </Link>
-            </MobileMenuButton>
+              </MobileMenuButton>
+            </Link>
           </ul>
         </motion.nav>
       )}

@@ -23,7 +23,7 @@ export default function Category() {
         onChange={(value) => setState(value)}
         options={["أضافة", "تعديل", "حذف"]}
         defaultValue="هنعمل ايه دلوقتي ؟"
-        width=" w-[85%] sm:w-[50%]"
+        width="sm:w-[50%] w-[85%] "
       />
       {statePages[state]}
     </AdminContainer>

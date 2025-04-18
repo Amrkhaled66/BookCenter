@@ -7,7 +7,7 @@ export default function DashBoardLayout() {
   return (
     <div className="relative flex h-auto min-h-screen w-screen">
       <SideBar />
-      <div className="w-[60%] flex-1 overflow-y-hidden dark:bg-black">
+      <div className="w-[60%] flex-1 pb-16 overflow-y-hidden dark:bg-black">
         <NavBar />
         <div className="flex h-full flex-col items-center">
           <TopSection />

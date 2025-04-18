@@ -13,6 +13,7 @@ export default function AdminForm({
   inputName,
   SubmitText = "بحث",
   defaultInputValue,
+  type = "text",
 }) {
   const { colors } = useColors();
   const mainColor = colors.get("mainColor");
@@ -28,13 +29,13 @@ export default function AdminForm({
           name={inputName}
           icon={icon}
           label={label}
-          type="text"
+          type={type}
           error={error}
           required={true}
           defaultValue={defaultInputValue}
         />
         {children}
-        
+
         <TransparentBtn
           type="submit"
           bgColor={SubmitText === "حذف" ? secondColor : mainColor}

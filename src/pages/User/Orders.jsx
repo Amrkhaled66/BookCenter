@@ -33,27 +33,14 @@ export default function Orders() {
       </div>
     );
   }
-
+  const Orders = data?.data ? [...data.data].reverse() : [];
+  
   return (
     <div className="flex h-full w-full flex-1 flex-col font-cairo">
       <ContainerHeader
         title="كل اوردراتك"
         subTitle="تقدر تتابع كل أوردراتك وحالة التوصيل من هنا"
       />
-      {/* <Departments /> */}
-      {/* <button
-        onClick={() =>
-          mutate({
-            products: ["67538a91812d8d27998fb3b3"],
-            productsPrice: 150,
-            shippingPrice: 50,
-            totalPrice: 200,
-            invoiceLink: "https://fawaterk.com/arabic/",
-          })
-        }
-      >
-        add
-      </button> */}
       {isLoading ? (
         <div className="flex h-screen w-full items-center justify-center">
           <div className="flex min-h-full items-center gap-x-2 text-center font-cairo text-xl font-bold">
@@ -65,7 +52,7 @@ export default function Orders() {
         </div>
       ) : (
         <div className="mx-auto grid w-[85%] grid-cols-1 justify-between gap-y-6 pt-10 lg:grid-cols-2">
-          {data?.data.map((order) => {
+          {Orders.map((order) => {
             if (!order) return;
             return (
               <OrderCard

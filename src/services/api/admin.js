@@ -104,6 +104,26 @@ const getProductsOptions = async (category) => {
   return data;
 };
 
+const getStockRecord = async ({ axiosAdmin, id }) => {
+  const { data } = await axiosAdmin.get(`/stock/${id}`);
+  return data;
+};
+
+const updateStock = async ({ axiosAdmin, sentData }) => {
+  const { data } = await axiosAdmin.patch(`/stock/addToStock`, sentData);
+  return data;
+};
+
+const getExpiredOrders = async ({ axiosAdmin }) => {
+  const { data } = await axiosAdmin.get(`/order/getExpiredOrders`);
+  return data;
+};
+
+const releaseReservedStock = async ({ axiosAdmin }) => {
+  const { data } = await axiosAdmin.post(`/stock/releaseReservedStock`);
+  return data;
+};
+
 export {
   getUserProfile,
   getUserId,
@@ -124,4 +144,8 @@ export {
   updateProduct,
   deleteProduct,
   getProductsOptions,
+  getStockRecord,
+  updateStock,
+  getExpiredOrders,
+  releaseReservedStock
 };

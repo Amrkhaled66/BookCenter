@@ -12,6 +12,7 @@ export { default as Checkout } from "./Checkout";
 export { default as Support } from "./Support";
 
 
+
 // DashBoard directory
 export { default as LoginAsUser } from "./DashBoard/LoginAsUser";
 export { default as GetUserProfile } from "./DashBoard/GetUserProfile";
@@ -22,3 +23,4 @@ export { default as AddManualOrder } from "./DashBoard/AddManualOrder";
 export { default as AdminLogInPage } from "./DashBoard/AdminLogInPage";
 export { default as Category } from "./DashBoard/Category";
 export { default as Seller } from "./DashBoard/Seller";
+export { default as ProductsQuantity } from "./DashBoard/ProductsQuantity";

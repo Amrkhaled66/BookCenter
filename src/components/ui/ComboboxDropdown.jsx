@@ -34,12 +34,12 @@ export default function ComboboxDropdown({
     );
 
   return (
-    <div className={`relative  bg-white space-y-2 font-cairo ${width}`}>
+    <div className={`relative  bg-white font-cairo ${width}`}>
       <label className="text-sm font-bold text-black" htmlFor="">
         {label}
       </label>
-      <Combobox   name={name} value={value} onChange={onChange}>
-        <div className="rounded-lg  border-[1px]  border-gray-color bg-white px-3 py-2 font-cairo font-semibold outline-none transition-all duration-300 ease-in-out focus-within:border-main-color">
+      <Combobox name={name} value={value} onChange={onChange}>
+        <div className="rounded-lg border-[1px] border-gray-color bg-white px-3 py-2 font-cairo font-semibold outline-none transition-all duration-300 ease-in-out focus-within:border-main-color">
           <ComboboxButton className="flex w-full items-center pl-2">
             <ComboboxInput
               placeholder={defaultValue}
@@ -51,13 +51,16 @@ export default function ComboboxDropdown({
           </ComboboxButton>
         </div>
         {filteredOptions.length > 0 && (
-          <ComboboxOptions defaultValue="لا توجد بيانات" className="absolute z-50 mt-1  max-h-48 w-full overflow-y-auto rounded-md border bg-white drop-shadow-2xl">
+          <ComboboxOptions
+            defaultValue="لا توجد بيانات"
+            className="absolute z-50 mt-1 max-h-48 w-full overflow-y-auto rounded-md border bg-white drop-shadow-2xl"
+          >
             {filteredOptions.map((option) => (
               <ComboboxOption
                 key={option}
                 value={option}
                 className={({ active }) =>
-                  `cursor-pointer  border-b-[1px] border-b-gray-200 px-3 p-2 ${active ? "bg-gray-200 " : ""}`
+                  `cursor-pointer border-b-[1px] border-b-gray-200 p-2 px-3 ${active ? "bg-gray-200" : ""}`
                 }
               >
                 {option}

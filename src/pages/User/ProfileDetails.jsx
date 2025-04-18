@@ -1,4 +1,3 @@
-import React from "react";
 import { IoMdPerson } from "react-icons/io";
 import { FaPhoneFlip } from "react-icons/fa6";
 import { GrMapLocation } from "react-icons/gr";

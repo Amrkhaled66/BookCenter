@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 
-import useColors from "src/hooks/useColors";
 import useFormValidation from "src/hooks/useFormValidation";
 
 import { Link } from "react-router-dom";
@@ -21,8 +20,7 @@ const AuthForm = ({
   validate,
   mutationFn,
 }) => {
-  const { colors } = useColors();
-  let color = colors.get(mainColor);
+
 
   const { errors, handleValidation, handleError } = useFormValidation(validate);
 
@@ -77,7 +75,7 @@ const AuthForm = ({
                   key={`${index}-${field.label}`}
                   {...field}
                   className="w-full"
-                  mainColor={color}
+                  mainColor={mainColor}
                   name={field.name}
                   error={errors[field.name]}
                 />
@@ -94,11 +92,11 @@ const AuthForm = ({
             transition={{ duration: 0.75, ease: "easeOut", type: "spring" }}
             viewport={{ once: true }}
             css={css`
-              background-color: ${color};
-              border: 2px solid ${color};
+              background-color: ${mainColor};
+              border: 2px solid ${mainColor};
               &:hover {
                 background-color: transparent;
-                color: ${color};
+                color: ${mainColor};
               }
             `}
             className="flex w-full items-center justify-center space-x-2 rounded-3xl py-4 text-lg font-bold text-white transition-colors duration-300 hover:bg-opacity-80 sm:text-xl"
@@ -114,7 +112,7 @@ const AuthForm = ({
             <span>{redirectText}</span>
             <Link
               css={css`
-                color: ${color};
+                color: ${mainColor};
               `}
               to={redirectLink}
               className="font-bold"

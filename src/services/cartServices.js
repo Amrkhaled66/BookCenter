@@ -6,8 +6,11 @@ const storeCart = (cart) => {
 
 const getCart = () => {
   if (!isAuth()) localStorage.removeItem("cart");
-  return JSON.parse(localStorage.getItem("cart")) || [];
+
+  const cart = localStorage.getItem("cart");
+  return cart ? JSON.parse(cart) : [];
 };
+
 
 const clearStoringCart = () => {
   localStorage.removeItem("cart");

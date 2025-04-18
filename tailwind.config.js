@@ -20,6 +20,7 @@ export default {
       },
       animation: {
         shake: "shake 2s ease-in-out 0s 1,shake 2s ease-in-out 3s infinite",
+        pingSlow: 'ping linear infinite',
       },
       backgroundImage: {
         "product-bg": "url('/src/assets/asset.png')",

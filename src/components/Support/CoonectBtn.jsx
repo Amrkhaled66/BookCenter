@@ -5,7 +5,7 @@ export default function ConnectBtn({ channel, img, color }) {
     <button
       // eslint-disable-next-line react/no-unknown-property
 
-      className={`group relative transition-all duration-300 shadow-[${color}]shadow-md w-full rounded-2xl bg-white px-5 py-4 font-cairo underline drop-shadow-xl sm:w-[90%] lg:w-[80%]`}
+      className={`group relative transition-all duration-300 shadow-[${color}]shadow-md w-full rounded-2xl bg-white px-5 py-4 font-cairo underline drop-shadow-xl text-sm lg:text-base sm:w-[90%] lg:w-[80%]`}
     >
       <span className="absolute  -top-5 right-0 h-9 w-9 group-hover:animate-shake">
         <img src={img} alt="" />

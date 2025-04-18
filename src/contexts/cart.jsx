@@ -71,6 +71,8 @@ const reducer = (state, action) => {
     updatedCart[updatedItemIndex] = updatedItem;
 
     return updatedCart;
+  } else if (action.type === "UPDATE") {
+    return action.payload.cart;
   }
 
   return state; // No matching action; return the original state to prevent unnecessary renders.
@@ -84,7 +86,6 @@ export default function CartContextProvider({ children }) {
   }, [cart]);
 
   const addToCart = ({ productInfo, quantity }) => {
-    console.log(productInfo, quantity);
     Toast("تم إضافة المنتج لسلة مشترياتك.", "success", "#eafff0");
     dispatch({
       type: "ADD",
@@ -102,13 +103,17 @@ export default function CartContextProvider({ children }) {
   };
 
   const clearItem = (id) => {
-    console.log(id);
     dispatch({ type: "CLEAR_ITEM", payload: { id } });
   };
 
   const clearCart = () => {
     dispatch({ type: "CLEAR_CART" });
     clearStoringCart();
+  };
+
+  const updateCart = (cart) => {
+    storeCart(cart)
+    dispatch({ type: "UPDATE", payload: { cart } });
   };
 
   const calcAllPrice = () => {
@@ -130,6 +135,7 @@ export default function CartContextProvider({ children }) {
     cartLength,
     modifyQuantity,
     calcAllPrice,
+    updateCart
   };
 
   return <cartContext.Provider value={value}>{children}</cartContext.Provider>;

@@ -16,6 +16,7 @@ import { useLogout } from "src/hooks/useAuthMutations";
 import { useNavigate } from "react-router-dom";
 import Alert from "src/components/ui/Alert";
 
+
 export default function UserMenu() {
   const { authData } = useAuth();
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ export default function UserMenu() {
   );
 
   return (
-    <Menu as="div" className="relative order-0 inline-block text-left">
+    <Menu as="div" className="relative order-1 lg:order-none inline-block text-left">
       <div>
         <Menu.Button className="flex items-center gap-2 rounded-full focus:outline-none">
           <img src={pandaAvatar} alt="pandaAvatar" className="h-12 w-12" />

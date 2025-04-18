@@ -8,10 +8,11 @@ const paidStatus = {
     text: "في انتظار الدفع",
     className: "bg-yellow-50 text-yellow-800",
   },
-  failed: {
+  expired: {
     text: "تم الغاء الفاتورة",
     className: "bg-red-50 text-red-900",
   },
 };
+const NEXT_ITEM_FEES = 6;
 
-export { ADMIN_PATH, paidStatus };
+export { ADMIN_PATH, paidStatus,NEXT_ITEM_FEES };

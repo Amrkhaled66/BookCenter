@@ -33,13 +33,16 @@ export default function SubCategories() {
   if (subjectsLoading || sellersLoading) return;
 
   return (
-    <form className="z-20 flex w-[80%] flex-col justify-between gap-x-8 gap-y-3 drop-shadow-xl sm:w-full sm:flex-row lg:w-[60%]">
+    <form className="z-20 flex w-[80%] flex-col justify-between gap-x-8 gap-y-3 sm:w-full sm:flex-row lg:w-[60%]">
       {/* Seller Selection */}
       <ComboboxDropdown
         onChange={(value) => handleFilterChange("seller", sellers, value)}
         width="w-full"
         defaultValue="اختر المدرس"
-        options={["كل المدرسين", ...sellers?.map((seller) => seller.name)]} // Add "All" option
+        options={[
+          "كل المدرسين",
+          ...(sellers?.map((seller) => seller.name) || []),
+        ]} // Add "All" option
       />
 
       {/* Year Selection */}
@@ -60,7 +63,7 @@ export default function SubCategories() {
         }}
         width="w-full"
         defaultValue="اختر الصف الدراسي"
-        options={["كل الصفوف", ...years?.map((year) => year.text)]} // Add "All" option
+        options={["كل الصفوف", ...(years?.map((year) => year.text) || [])]} // Add "All" option
       />
 
       {/* Subject Selection */}
@@ -68,7 +71,10 @@ export default function SubCategories() {
         onChange={(value) => handleFilterChange("subject", subjects, value)}
         width="w-full"
         defaultValue="اختر المادة"
-        options={["كل المواد", ...subjects?.map((subject) => subject.name)]} // Add "All" option
+        options={[
+          "كل المواد",
+          ...(subjects?.map((subject) => subject.name) || []),
+        ]} // Add "All" option
       />
     </form>
   );

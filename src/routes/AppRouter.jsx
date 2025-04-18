@@ -25,6 +25,7 @@ import {
   GetUserProfile,
   Category,
   Seller,
+  ProductsQuantity,
 } from "src/pages";
 
 import {
@@ -104,6 +105,7 @@ export default function AppRouter() {
         >
           <Route path="loginAsUser" element={<LoginAsUser />} />
           <Route path="UserProfile" element={<GetUserProfile />} />
+          <Route path="productsQuantity" element={<ProductsQuantity />} />
           <Route path="UserProfile/:id" element={<UserProfile />} />
           <Route path="subject" element={<Subject />} />
           <Route path="product" element={<Product />} />

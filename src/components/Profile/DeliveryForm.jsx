@@ -15,8 +15,8 @@ import { useState } from "react";
 export default function DeliveryForm() {
   const { formData, updateFormData } = useDeliveryForm();
   const { mutate, isPending } = useUpdateProfile();
-  const { cities, cityStates, isLoading } = useCityState(formData.city);
-  
+  const { cities, cityStates, isLoading } = useCityState(formData?.city || " ");
+
   const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
@@ -30,9 +30,9 @@ export default function DeliveryForm() {
     const city = cities?.find((c) => c.name === formData.city);
     const data = {
       cityId: city?._id,
-      state: formData.state,
-      descriptiveAddress: formData.descriptiveAddress,
-      secondaryPhone: formData.secondaryPhone,
+      state: formData?.state,
+      descriptiveAddress: formData?.descriptiveAddress,
+      secondaryPhone: formData?.secondPhone,
     };
     mutate(data, {
       onSuccess: (data) => {
@@ -55,8 +55,8 @@ export default function DeliveryForm() {
     <form onSubmit={handleSubmit} className="flex w-full flex-col space-y-12">
       <ComboboxDropdown
         width="w-full"
-        options={cities.map((city) => city.name)}
-        value={formData.city}
+        options={cities.map((city) => city?.name)}
+        value={formData?.city|| ""}
         onChange={(value) => updateFormData("city", value)}
         defaultValue={"اختر محافظتك"}
         error={errors.city}
@@ -64,7 +64,7 @@ export default function DeliveryForm() {
       <ComboboxDropdown
         width="w-full"
         options={cityStates}
-        value={formData.state}
+        value={formData?.state || ""}
         onChange={(value) => updateFormData("state", value)}
         defaultValue={"اختر المنطقة"}
         error={errors.state}
@@ -81,12 +81,12 @@ export default function DeliveryForm() {
         }
         label="العنوان"
         type="text"
-        value={formData.descriptiveAddress}
+        value={formData?.descriptiveAddress|| ""}
         required
         onChange={(e) => updateFormData("descriptiveAddress", e.target.value)}
       />
       <InputFiled2nd
-        error={errors.secondPhone}
+        error={errors?.secondPhone}
         icon={
           <Icon
             icon="si:phone-enabled-fill"
@@ -98,15 +98,17 @@ export default function DeliveryForm() {
         required
         label="الهاتف البديل"
         type="text"
-        value={formData.secondPhone}
+        value={formData?.secondPhone|| ""}
         onChange={(e) => updateFormData("secondPhone", e.target.value)}
       />
+
       <button
         type="submit"
         className="flex w-full items-center justify-center rounded-md border-[2px] border-second-color bg-second-color py-2 font-bold text-white transition-all duration-300 hover:bg-transparent hover:text-second-color"
       >
         {isPending ? <Loader /> : "حفظ التعديلات"}
       </button>
+
     </form>
   );
 }

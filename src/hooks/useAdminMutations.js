@@ -20,7 +20,11 @@ import {
   addProduct,
   deleteProduct,
   updateProduct,
-  getProductsOptions
+  getProductsOptions,
+  getStockRecord,
+  updateStock,
+  getExpiredOrders,
+  releaseReservedStock,
 } from "src/services/api/admin";
 
 const useGetUserProfile = (id) => {
@@ -116,7 +120,7 @@ const useAddNewSeller = () => {
 const useGetAllSellers = (category) => {
   return useQuery({
     queryKey: ["Sellers"],
-    queryFn: ()=>getAllSellers(category),
+    queryFn: () => getAllSellers(category),
     refetchOnMount: true,
     staleTime: 0,
   });
@@ -162,9 +166,39 @@ const useDeleteProduct = () => {
 const useGetProductOptions = (category) => {
   return useQuery({
     queryKey: ["productOptions"],
-    queryFn:()=>getProductsOptions(category)
-  })
-}
+    queryFn: () => getProductsOptions(category),
+  });
+};
+
+const useGetStockRecord = () => {
+  const axiosAdmin = useAxiosAdmin();
+
+  return useMutation({
+    mutationFn: (id) => getStockRecord({ axiosAdmin, id }),
+  });
+};
+
+const useUpdateStock = () => {
+  const axiosAdmin = useAxiosAdmin();
+  return useMutation({
+    mutationFn: (sentData) => updateStock({ axiosAdmin, sentData }),
+  });
+};
+
+const useGetExpiredOrders = () => {
+  const axiosAdmin = useAxiosAdmin();
+  return useQuery({
+    queryKey: ["expiredOrders"],
+    queryFn: () => getExpiredOrders({ axiosAdmin }),
+  });
+};
+
+const useReleaseReservedStock = () => {
+  const axiosAdmin = useAxiosAdmin();
+  return useMutation({
+    mutationFn: () => releaseReservedStock({ axiosAdmin }),
+  });
+};
 
 export {
   useGetUserProfile,
@@ -185,5 +219,9 @@ export {
   useAddNewProduct,
   useUpdateProduct,
   useDeleteProduct,
-  useGetProductOptions
+  useGetProductOptions,
+  useGetStockRecord,
+  useUpdateStock,
+  useGetExpiredOrders,
+  useReleaseReservedStock,
 };

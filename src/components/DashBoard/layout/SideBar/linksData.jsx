@@ -6,6 +6,7 @@ import { MdOutlineCategory } from "react-icons/md";
 import { GiMaterialsScience } from "react-icons/gi";
 import { GiTeacher } from "react-icons/gi";
 import { FaBoxOpen } from "react-icons/fa";
+import { RiStockLine } from "react-icons/ri";
 
 export const links = [
   {
@@ -42,5 +43,10 @@ export const links = [
     name: "أضافة وتعديل البائعين",
     icon: <GiTeacher />,
     to: "seller",
+  },
+  {
+    name: "تعديل عدد المنتج",
+    icon: <RiStockLine />,
+    to: "productsQuantity",
   },
 ];

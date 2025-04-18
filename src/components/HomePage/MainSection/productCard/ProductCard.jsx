@@ -21,10 +21,10 @@ export default function ProductCard({
   };
 
   return (
-    <div className="mx-auto  flex min-h-fit w-full max-w-[300px] flex-col items-center gap-y-3 overflow-hidden rounded-lg border-[1px] border-black bg-card-color py-7 sm:py-2 font-cairo text-main-text--color drop-shadow-md transition-all duration-300 md:w-full">
+    <div className="mx-auto flex min-h-fit w-full max-w-[300px] flex-col items-center gap-y-3 overflow-hidden rounded-lg border-[1px] border-black bg-card-color py-7 font-cairo text-main-text--color drop-shadow-md transition-all duration-300 sm:py-4 lg:py-2 md:w-full">
       {/* Product image */}
       <Link to={"/product/" + id}>
-        <div className="bg-main-text--colo  w-full overflow-hidden px-5 drop-shadow-xl">
+        <div className="bg-main-text--colo w-full overflow-hidden px-5 drop-shadow-xl">
           <img
             src={image}
             loading="lazy"
@@ -55,8 +55,8 @@ export default function ProductCard({
 
       {stockQuantity <= 0 && (
         <div className="px-5 py-2">
-          <p className="rounded-md bg-red-700 px-3 py-2 font-mainFont text-white">
-            الكتاب هيتوفر قريب جدا تاني
+          <p className="rounded-md bg-red-700 px-3 py-2 text-center font-mainFont text-sm font-semibold text-white">
+            الكتاب ده خلص للأسف هيتوفر منه كمية جديدة قريب !
           </p>
         </div>
       )}

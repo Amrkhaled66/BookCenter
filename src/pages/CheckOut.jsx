@@ -12,10 +12,15 @@ import validateCheckoutForm from "src/utils/validateCheckoutForm";
 import { getUser } from "src/services/authServices";
 
 import Alert from "src/components/ui/Alert";
+import { useValidateCart } from "src/hooks/useCart";
+
 const CheckOut = () => {
   useGoToPageTop();
+  useValidateCart();
 
   const { cart, cartLength } = useCart();
+  const [errors, setErrors] = useState();
+
   const navigate = useNavigate();
 
   const { name, phone, secondaryPhone, address } = getUser();
@@ -23,15 +28,15 @@ const CheckOut = () => {
     name,
     firstPhone: phone || "",
     secondPhone: secondaryPhone || "",
-    city: address.city,
-    state: address.state,
-    descriptiveAddress: address.descriptiveAddress || "",
+    city: address?.city || "",
+    state: address?.state || "",
+    descriptiveAddress: address?.descriptiveAddress || "",
   });
-
 
   const mutate = useCreateInvoice();
   const handleSubmit = useCallback(() => {
     const errors = validateCheckoutForm(formData);
+
     if (Object.keys(errors).length > 0) {
       Alert(
         "في مشكلة في بيانات التسليم",
@@ -42,15 +47,16 @@ const CheckOut = () => {
       setErrors(errors);
       return;
     }
+
     mutate.mutate({
       cart,
       deliveryInfo: formData,
     });
     setErrors({});
-  }, [formData]);
-  const [errors, setErrors] = useState();
+  }, [cart, formData, mutate]);
 
   if (cartLength <= 0) return navigate(-1);
+
   return (
     <div className="relative flex min-h-screen flex-col items-center bg-white-color py-[100px] font-cairo">
       <div className="container flex w-full flex-col items-center gap-y-10 py-[100px] sm:pt-0">
@@ -63,7 +69,11 @@ const CheckOut = () => {
             formData={formData}
             setFormData={setFormData}
           />
-          <OrderSummary city={formData.city} onSubmit={handleSubmit} />
+          <OrderSummary
+            Loading={mutate.isPending}
+            city={formData.city}
+            onSubmit={handleSubmit}
+          />
         </div>
       </div>
     </div>

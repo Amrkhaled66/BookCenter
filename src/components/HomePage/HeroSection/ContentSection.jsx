@@ -14,7 +14,7 @@ import useAuth from "src/hooks/useAuth";
 const ContentSectionTitle = function () {
   return (
     <h2 className="font-elMessiri relative flex items-center text-3xl font-bold text-main-color sm:text-4xl lg:text-5xl xl:text-5xl">
-      <CurlyLine className="absolute -bottom-6 w-32 md:w-36 lg:w-auto" />
+      <CurlyLine className="absolute -bottom-6 w-32 sm:w-36 lg:w-auto" />
       <Quotes className="absolute -top-12" />
       <span className="z-10 text-nowrap">كل الكتب ...</span>
       <span className="text-nowrap">من مصدر واحد</span>
@@ -38,9 +38,10 @@ export default function ContentSection() {
       <ContentSectionTitle />
 
       {/* description */}
-      <p className="flex flex-col space-y-1 text-center text-base font-[550] leading-relaxed tracking-wide text-second-text--color md:text-right md:text-lg lg:text-2xl">
-        <span>بتدور علي كتب دراسية أو رواية تخطف أنفاسك </span>
-        <span> عندنا كل اللي محتاجه في مكان واحد </span>
+      <p className="flex flex-col space-y-1 text-center text-base font-[550]  tracking-wide text-second-text--color md:text-right sm:text-lg leading-[30px] lg:text-2xl">
+        بتدور علي كتب دراسية أو رواية تخطف أنفاسك  <br />عندنا كل اللي محتاجه في مكان
+        واحد
+        
       </p>
 
       {/* CTA button */}

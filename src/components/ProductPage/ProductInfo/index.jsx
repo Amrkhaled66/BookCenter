@@ -14,6 +14,7 @@ export default function ProductInfo({
   unAvailabilityNote,
   image,
   seller,
+  inStock,
 }) {
   const [quantity, setQuantity] = useState(1);
 
@@ -37,6 +38,7 @@ export default function ProductInfo({
         price={price}
       />
       <ActionSection
+        inStock={inStock}
         productInfo={productInfo}
         quantity={quantity}
         setQuantity={setQuantity}

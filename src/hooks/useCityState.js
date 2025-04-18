@@ -15,7 +15,7 @@ export const useCityState = (cityName) => {
         onSuccess: (data) => setCityStates(data),
       });
     }
-  }, [cityName]);
+  }, [cities, cityName, mutate]);
 
   return { cities, cityStates, isLoading };
 };

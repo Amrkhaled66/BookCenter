@@ -1,6 +1,5 @@
 import CartLine from "src/assets/cartLine.svg?react";
 
-import useCart from "src/hooks/useCart";
 export default function PageHeader({ title, children }) {
   return (
     <div className="bg-red relative flex items-center justify-end gap-x-5">

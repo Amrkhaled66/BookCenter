@@ -18,14 +18,11 @@ export default function RegisterPage({
   imageAlt,
   mainColor,
 }) {
-  const { colors } = useColors();
-  let color = colors.get(mainColor);
-
   return (
     <div
       // eslint-disable-next-line react/no-unknown-property
       css={css`
-        background-color: ${color};
+        background-color: ${mainColor};
       `}
       className={`flex h-auto min-h-screen w-full flex-col-reverse lg:flex-row`}
     >

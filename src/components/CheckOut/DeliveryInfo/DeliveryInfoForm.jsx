@@ -5,7 +5,7 @@ import ComboboxDropdown from "src/components/ui/ComboboxDropdown";
 import { useCityState } from "src/hooks/useCityState";
 
 export default function DeliveryInfoForm({ errors, formData, setFormData }) {
-  const { cities, cityStates, isLoading } = useCityState(formData.city);
+  const { cities, cityStates, isLoading } = useCityState(formData?.city);
 
   const onChange = (e) => {
     setFormData((prev) => ({
@@ -22,7 +22,7 @@ export default function DeliveryInfoForm({ errors, formData, setFormData }) {
       <FormInput
         onChange={onChange}
         name="name"
-        defaultValue={formData.name}
+        defaultValue={formData?.name || "" }
         label={"الاسم بالكامل "}
         type="text"
         error={errors?.name}
@@ -30,7 +30,7 @@ export default function DeliveryInfoForm({ errors, formData, setFormData }) {
       <FormInput
         onChange={onChange}
         name="firstPhone"
-        defaultValue={formData.firstPhone}
+        defaultValue={formData?.firstPhone || ""}
         label={"الرقم الاساسي"}
         type="text"
         error={errors?.firstPhone}
@@ -38,7 +38,7 @@ export default function DeliveryInfoForm({ errors, formData, setFormData }) {
       <FormInput
         onChange={onChange}
         name="secondPhone"
-        defaultValue={formData.secondPhone}
+        defaultValue={formData?.secondPhone || ""}
         label={"الرقم البديل"}
         type="text"
         error={errors?.secondPhone}
@@ -52,8 +52,8 @@ export default function DeliveryInfoForm({ errors, formData, setFormData }) {
           }))
         }
         width="w-full"
-        options={isLoading ? "يتم التحميل..." : cities.map((city) => city.name)}
-        value={formData.city}
+        options={isLoading ? "يتم التحميل..." : cities?.map((city) => city?.name)}
+        value={formData?.city}
         defaultValue="اختار محافظتك"
         label={"المحافظة"}
         error={errors?.city}
@@ -67,7 +67,7 @@ export default function DeliveryInfoForm({ errors, formData, setFormData }) {
         }
         width="w-full"
         options={isLoading ? "يتم التحميل..." : cityStates}
-        value={formData.state}
+        value={formData?.state}
         defaultValue="اختار مركزك"
         label={"المركز"}
         error={errors?.state}
@@ -75,7 +75,7 @@ export default function DeliveryInfoForm({ errors, formData, setFormData }) {
       <FormInput
         onChange={onChange}
         name="descriptiveAddress"
-        defaultValue={formData.descriptiveAddress}
+        defaultValue={formData?.descriptiveAddress || ""}
         label={"العنوان بالتفصيل"}
         type="text"
         error={errors?.descriptiveAddress}

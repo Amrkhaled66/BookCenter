@@ -22,7 +22,7 @@ export default function MainSection() {
   useProducts();
   if (departmentsLoading) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex h-screen  items-center justify-center">
         <ErrorContainer>
           <p className="flex items-center gap-x-2 font-mainFont">
             <Loader /> يتم تحميل الأقسام
@@ -33,8 +33,8 @@ export default function MainSection() {
   }
 
   return (
-    <div className="relative">
-      <div className="container mb-12 mt-36 flex min-h-screen h-auto flex-col items-center justify-start gap-y-11 py-5 font-mainFont">
+    <div className="relative ">
+      <div className="container  flex min-h-screen h-auto flex-col items-center justify-start gap-y-16  font-mainFont">
         <Departments />
         {selectedCategory === "67cf95e8ed649e087d873ee8" && <SubCategories />}
         <CurvedLine className="absolute -bottom-[150px] -right-32 -z-10 hidden animate-pulse sm:block" />

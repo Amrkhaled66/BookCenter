@@ -9,7 +9,10 @@ import DeliveryCar from "src/assets/DeliveryCar.png";
 
 const deliveryIssuesList = [
   "لازم الرقم الاساسي يكون متاح ديمأ لان المندوب هيتواصل عليه",
-  "العنوان لازم يكون كامل و واضح للمندوب",
+  "لو عايز التواصل يكون علي الرقم البديل تواصل مع الدعم تواصل مع الدعم ",
+  "لو المركز التابع له مش متوفر في الاختيارات  اختار اقرب مركز ليك متواجد في الاختيارات واكتب العنوان بالتفصيل",
+  `العنوان لازم يكون واضح للمندوب وياريت تكتبه
+   ( محافظة  - المركز  - القرية  - شرح العنوان بالتفصيل)`,
 ];
 
 export default function DeliveryInfo({ errors, formData, setFormData }) {
@@ -18,12 +21,12 @@ export default function DeliveryInfo({ errors, formData, setFormData }) {
 
   const list = deliveryIssuesList
     .map((issue) => {
-      return ` <li style="font-family:cairo; margin:5px 0; font-size:14px" >- ${issue}</li>`;
+      return ` <li class="border-b border-gray-400/50 pr-4   py-2" style="font-family:cairo; font-size:14px ;width:100% ;text-align:right;" >${issue}</li>`;
     })
     .join("");
 
   return (
-    <div className="mx-auto flex w-[90%] flex-col gap-y-7 rounded-lg border-[1px] border-main-color bg-white px-8 pb-16 pt-8 drop-shadow-xl sm:w-[70%] sm:px-12 lg:w-[50%] xl:w-[40%]">
+    <div className="mx-auto flex w-[90%] flex-col gap-y-7 rounded-lg border-[1px] border-main-color bg-white px-8 pb-16 pt-8 drop-shadow-xl sm:px-12 lg:w-[40%]">
       <Header title={"بيانات التوصيل"} icon={DeliveryCar} />
       <DeliveryInfoForm
         errors={errors}
@@ -45,7 +48,7 @@ export default function DeliveryInfo({ errors, formData, setFormData }) {
                     display: inline-block;
                     text-align: center;
                     margin: 5px auto;
-                    padding: 15px;
+                    padding: 15px 0px;
                     border: 1px solid #6FB3A2;
                     border-radius: 8px;
                     background-color: #F9F9F9;

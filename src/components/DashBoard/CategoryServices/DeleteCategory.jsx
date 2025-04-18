@@ -34,7 +34,7 @@ export default function DeleteCategory() {
   return (
     <div className="w-full space-y-12">
       <ComboboxDropdown
-        width="sm:w-[50%] mx-auto w-[85%]"
+        width=" w-full"
         defaultValue="اختر القسم"
         options={data.map((category) => category.name)}
         onChange={setChosenCategory}
@@ -42,7 +42,7 @@ export default function DeleteCategory() {
       <TransparentBtn
         onClick={handleSubmit}
         bgColor="#f43f5e"
-        className="mx-auto w-[85%] text-white sm:w-[50%]"
+        className="mx-auto w-full text-white "
         loading={isPending}
       >
         حذف

@@ -12,9 +12,14 @@ export default function SignUpForm({ mainColor }) {
         {
           fields: [
             { label: "الأسم الاول", inputType: "text", name: "firstName" },
-            { label: "الأسم الأخير", inputType: "text", name: "lastName" },
           ],
           layout: "inline",
+        },
+        {
+          layout: "block",
+          fields: [
+            { label: "الأسم الأخير", inputType: "text", name: "lastName" },
+          ],
         },
 
         {

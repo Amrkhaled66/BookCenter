@@ -20,10 +20,10 @@ const SideBar = () => {
     <>
       {!closed && (
         <div
-          className={`dark:bg-secondary-dark-bg space-y-2 bg-white px-2  pr-5 drop-shadow-xl transition-all duration-300 ${collapsed ? "w-16" : "min-w-64"} ${isSmallScreen ? "fixed right-0 top-0 z-10 h-auto min-h-screen" : " "} `}
+          className={`dark:bg-secondary-dark-bg space-y-2 bg-white px-2  pr-5 drop-shadow-xl transition-all duration-300 ${collapsed ? "w-16" : "min-w-72"} ${isSmallScreen ? "fixed right-0 top-0 z-10 h-auto min-h-screen" : " "} `}
         >
           <div
-            className={`${!isSmallScreen ? "sticky right-0 top-0 space-y-3 " : ""} z-[100000]`}
+            className={`${!isSmallScreen ? "sticky right-0 top-0 space-y-4 " : ""} z-[100000]`}
           >
             <SideBarHeader />
 

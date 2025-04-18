@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import InputError from "src/components/ui/InputError";
 
@@ -23,7 +24,7 @@ const FormInputField = ({
       </label>
       <div className="relative flex flex-col">
         <input
-          className={`h-16 rounded-3xl border-[3px] border-[#ebeaea] bg-[#e6eff440] px-5 font-semibold outline-none transition-all duration-300 focus:border-[${mainColor}] ${className}`}
+          className={`h-16 rounded-3xl border-2 border-[#ebeaea] bg-[#e6eff440] px-5 font-semibold outline-none transition-all duration-300  ${className}`}
           // eslint-disable-next-line react/no-unknown-property
           css={css`
             &:focus {

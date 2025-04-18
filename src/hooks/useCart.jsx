@@ -10,6 +10,9 @@ import useAxiosPrivate from "./useAxiosPrivate";
 
 import Alert from "src/components/ui/Alert";
 
+import { useCheckCart } from "./useStockMutations";
+import { getCart } from "src/services/cartServices";
+
 export default function useCart() {
   return useContext(cartContext);
 }
@@ -40,4 +43,24 @@ function useAddToCartValidation() {
   });
 }
 
-export { useAddToCartValidation };
+function useValidateCart() {
+  const cart = getCart();
+  const { updateCart } = useCart();
+  const { data, isLoading } = useCheckCart(cart);
+
+  if (isLoading) return;
+
+  const isCartValid = JSON.stringify(data || []) === JSON.stringify(cart || []);
+
+  if (isCartValid) return;
+
+  updateCart(data);
+  Alert(
+    "عفواٌ",
+    "تم تعديل عدد بعض المنتجات لعدم توافر العدد المطلوب",
+    "warning",
+    "حسناً",
+  );
+}
+
+export { useAddToCartValidation, useValidateCart };

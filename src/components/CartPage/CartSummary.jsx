@@ -10,7 +10,7 @@ export default function CartSummary() {
   const { colors } = useColors();
   const secondColor = colors.get("secondColor");
   return (
-    <div className="fixed bottom-0 border border-gray-color items-center sm:justify-start left-0 z-20 flex w-full flex-col gap-y-4 space-y-3 bg-card-color py-8 drop-shadow-2xl sm:relative sm:bg-transparent">
+    <div className="fixed bottom-0 border border-gray-color items-center sm:justify-start left-0 z-20 flex w-full flex-col gap-y-4 space-y-3 bg-white py-8 drop-shadow-2xl sm:relative sm:bg-transparent">
       <div className="flex  gap-3 text-right text-lg font-semibold sm:text-xl">
         <p className="text-nowrap">السعر الكلي للمنتجات : </p>
         <p>{currencyFormatter(calcAllPrice())}</p>
