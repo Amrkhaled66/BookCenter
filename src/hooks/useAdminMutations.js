@@ -7,6 +7,7 @@ import {
   updatePassword as updatePasswordRequest,
   addNewCategory as addNewCategoryRequest,
   getAllCategories as getCategoriesRequest,
+  getUserByPhone,
   updateCategory,
   deleteCategory,
   addNewSubject,
@@ -25,6 +26,8 @@ import {
   updateStock,
   getExpiredOrders,
   releaseReservedStock,
+  getProduct4AdminRequest,
+  getProductByNAme
 } from "src/services/api/admin";
 
 const useGetUserProfile = (id) => {
@@ -38,6 +41,20 @@ const useGetUserProfile = (id) => {
 const useGetUserId = () => {
   return useMutation({
     mutationFn: (phone) => getUserIdRequest(phone),
+  });
+};
+
+const useGetUserByPhone = () => {
+  const axiosAdmin = useAxiosAdmin();
+  return useMutation({
+    mutationFn: (phone) => getUserByPhone({ axiosAdmin, phone }),
+  });
+}
+
+const useGetProductByName4Admin = () => {
+  const axiosAdmin = useAxiosAdmin();
+  return useMutation({
+    mutationFn: (name) => getProductByNAme({ axiosAdmin, name }),
   });
 };
 
@@ -200,6 +217,13 @@ const useReleaseReservedStock = () => {
   });
 };
 
+const useGetProduct4Admin = () => {
+  const axiosAdmin = useAxiosAdmin();
+  return useMutation({
+    mutationFn: (id) => getProduct4AdminRequest({ axiosAdmin, id }),
+  });
+};
+
 export {
   useGetUserProfile,
   useGetUserId,
@@ -224,4 +248,7 @@ export {
   useUpdateStock,
   useGetExpiredOrders,
   useReleaseReservedStock,
+  useGetProduct4Admin,
+  useGetUserByPhone,
+  useGetProductByName4Admin
 };

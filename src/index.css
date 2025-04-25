@@ -8,11 +8,10 @@
 @tailwind components;
 @tailwind utilities;
 
-.BookCenter__signature--text {
-  font-family:
-    Monument Extended,
-    sans-serif;
-  -webkit-text-stroke: 0.1rem #1a472d;
+@layer base {
+  .animate {
+    @apply transform transition duration-300 ease-in-out;
+  }
 }
 
 .text-stroke {
@@ -30,10 +29,11 @@
     1px 1px 0 #000;
 }
 
-/* Add this to your global CSS file */
 body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   padding-right: 0 !important;
 }
+
+/* Reset */
 
 * {
   box-sizing: border-box;
@@ -45,7 +45,7 @@ html {
   overflow-y: auto !important;
   padding-right: 0 !important;
 }
-body{
+body {
   overflow: visible !important;
 }
 
@@ -71,6 +71,8 @@ body{
   --main__text-color: #a6d9ff;
   --second__text-color: #93999f;
 }
+
+/* Fonts */
 @font-face {
   font-family: RadyPro;
   src: url(../public/Fonts/RadyPro.otf);

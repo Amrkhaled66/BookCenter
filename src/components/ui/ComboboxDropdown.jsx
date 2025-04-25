@@ -20,6 +20,7 @@ export default function ComboboxDropdown({
   error,
   defaultValue,
   name,
+  onQueryChange
 }) {
   const [query, setQuery] = useState("");
 
@@ -34,18 +35,18 @@ export default function ComboboxDropdown({
     );
 
   return (
-    <div className={`relative  bg-white font-cairo ${width}`}>
-      <label className="text-sm font-bold text-black" htmlFor="">
+    <div className={`relative flex-1 space-y-2 bg-white font-cairo ${width}`}>
+      <label className="text-sm  text-black" htmlFor="">
         {label}
       </label>
-      <Combobox name={name} value={value} onChange={onChange}>
+      <Combobox name={name} value={value} onChange={ onChange}>
         <div className="rounded-lg border-[1px] border-gray-color bg-white px-3 py-2 font-cairo font-semibold outline-none transition-all duration-300 ease-in-out focus-within:border-main-color">
           <ComboboxButton className="flex w-full items-center pl-2">
             <ComboboxInput
               placeholder={defaultValue}
               className="w-full overflow-hidden text-ellipsis rounded-sm outline-none placeholder:font-cairo placeholder:text-sm placeholder:font-semibold placeholder:text-black"
               displayValue={(option) => option?.toString()}
-              onChange={(event) => setQuery(event.target.value)}
+              onChange={onQueryChange ? onQueryChange : (event) => setQuery(event.target.value)}
             />
             <IoIosArrowDown className="absolute left-3 text-lg sm:text-xl" />
           </ComboboxButton>

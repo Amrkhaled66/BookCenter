@@ -7,7 +7,6 @@ import {
   useUpdateProduct,
   useGetProductOptions,
 } from "src/hooks/useAdminMutations";
-import { getProductById } from "src/services/api/productApi";
 
 import Switch from "src/components/ui/Switch";
 import TransparentBtn from "src/components/ui/TransparentBtn";
@@ -15,9 +14,8 @@ import InputFiled2nd from "src/components/ui/InputFiled2nd";
 import ComboboxDropdown from "src/components/ui/ComboboxDropdown";
 import { years } from "src/services/yearServices";
 import getItemId from "src/services/getItemId";
-import { useMutation } from "@tanstack/react-query";
 import Alert from "src/components/ui/Alert";
-
+import { useGetProduct4Admin } from "src/hooks/useAdminMutations";
 export default function Update() {
   const { colors } = useColors();
   const [selectedCategory, setSelectedCategory] = useState();
@@ -30,10 +28,7 @@ export default function Update() {
   const { data: subjects = [], isLoading: subjectsLoading } =
     useGetAllSubjects();
   const { mutate, isPending } = useUpdateProduct();
-  const { mutate: getProduct } = useMutation({
-    mutationFn: (id) => getProductById(id),
-    onSuccess: (data) => setSelectedProduct(data),
-  });
+  const getProduct = useGetProduct4Admin();
 
   const mainColor = colors.get("mainColor");
 
@@ -56,7 +51,9 @@ export default function Update() {
   const isLoading = categoriesLoading || sellersLoading || subjectsLoading;
 
   const getTheProduct = (id) => {
-    getProduct(id);
+    getProduct.mutate(id, {
+      onSuccess: (data) => setSelectedProduct(data),
+    });
   };
 
   const handleSubmit = (e) => {
@@ -138,6 +135,13 @@ export default function Update() {
       sentData.append("price", parseInt(data.price));
     }
 
+    if (
+      data.sellerPrice &&
+      parseInt(data.sellerPrice) !== selectedProduct?.sellerPrice
+    ) {
+      sentData.append("sellerPrice", parseInt(data.sellerPrice));
+    }
+
     // Append only if the inStock is changed
     if (data.inStock && parseInt(data.inStock) !== selectedProduct.inStock) {
       sentData.append("inStock", parseInt(data.inStock));
@@ -168,7 +172,7 @@ export default function Update() {
           sentData: sentData,
         },
         {
-          onSuccess: (data) =>
+          onSuccess: () =>
             Alert("تم بنجاح", "تم تحديث المنتج بنجاح", "success", "حسناً"),
         },
       );
@@ -269,10 +273,11 @@ export default function Update() {
               <InputFiled2nd
                 type="number"
                 required
-                name="inStock"
-                label="كمية ال Stock"
-                defaultValue={selectedProduct.inStock}
+                defaultValue={selectedProduct.sellerPrice}
+                name="sellerPrice"
+                label="سعر البائع"
               />
+
               <InputFiled2nd
                 textArea="true"
                 name="items"

@@ -10,6 +10,18 @@ const getUserId = async (phone) => {
   return data;
 };
 
+const getUserByPhone = async ({ axiosAdmin, phone }) => {
+  const { data } = await axiosAdmin.get(`/user/getUserByPhone?phone=${phone}`);
+  return data;
+};
+
+const getProductByNAme = async ({ axiosAdmin, name }) => {
+  const { data } = await axiosAdmin.get(
+    `/products/admin/getProductByName?searchText=${name}`,
+  );
+  return data;
+};
+
 const updatePassword = async ({ axiosAdmin, data: userData }) => {
   const { data } = await axiosAdmin.post("/user/updatePassword", userData);
   return data;
@@ -124,6 +136,11 @@ const releaseReservedStock = async ({ axiosAdmin }) => {
   return data;
 };
 
+const getProduct4AdminRequest = async ({ axiosAdmin, id }) => {
+  const { data } = await axiosAdmin.get(`/products/admin/${id}`);
+  return data;
+};
+
 export {
   getUserProfile,
   getUserId,
@@ -147,5 +164,8 @@ export {
   getStockRecord,
   updateStock,
   getExpiredOrders,
-  releaseReservedStock
+  releaseReservedStock,
+  getProduct4AdminRequest,
+  getUserByPhone,
+  getProductByNAme
 };

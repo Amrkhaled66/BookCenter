@@ -55,6 +55,7 @@ export default function Add() {
       data.discountPrice &&
         sentData.append("discountPrice", parseInt(data.discountPrice));
       sentData.append("price", parseInt(data.price));
+      sentData.append("sellerPrice", parseInt(data.sellerPrice));
       sentData.append("inStock", parseInt(data.inStock));
       sentData.append("priority", parseInt(data.priority));
 
@@ -128,6 +129,12 @@ export default function Add() {
         options={yearOptions}
         name="year"
         defaultValue="السنة الدراسية"
+      />
+     <InputFiled2nd
+        type="number"
+        required
+        name="sellerPrice"
+        label="سعر البائع"
       />
       <InputFiled2nd
         type="number"

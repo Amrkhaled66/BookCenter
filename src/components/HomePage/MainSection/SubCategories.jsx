@@ -11,9 +11,8 @@ import useCategory from "src/hooks/useCategory";
 
 export default function SubCategories() {
   const { selectedCategory } = useCategory();
-  const { data: sellers, isLoading: sellersLoading } =
-    useGetAllSellers(selectedCategory);
-  const { data: subjects, isLoading: subjectsLoading } = useGetAllSubjects();
+  const { data: sellers } = useGetAllSellers(selectedCategory);
+  const { data: subjects } = useGetAllSubjects();
   const { setProductsFilter } = useProducts();
 
   const handleFilterChange = (filterKey, dataList, value) => {
@@ -30,7 +29,6 @@ export default function SubCategories() {
       }));
     }
   };
-  if (subjectsLoading || sellersLoading) return;
 
   return (
     <form className="z-20 flex w-[80%] flex-col justify-between gap-x-8 gap-y-3 sm:w-full sm:flex-row lg:w-[60%]">
@@ -42,7 +40,7 @@ export default function SubCategories() {
         options={[
           "كل المدرسين",
           ...(sellers?.map((seller) => seller.name) || []),
-        ]} // Add "All" option
+        ]}
       />
 
       {/* Year Selection */}
