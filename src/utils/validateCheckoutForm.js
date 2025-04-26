@@ -1,4 +1,3 @@
-import { error } from "jquery";
 import formatePhoneNum from "./formatePhoneNum";
 import validatePhoneNum from "./validatePhoneNum";
 

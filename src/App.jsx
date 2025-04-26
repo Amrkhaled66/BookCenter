@@ -1,7 +1,7 @@
 import AppRouter from "src/routes/AppRouter";
 
 import IsNavStickyContextProvider from "./contexts/isNavSticky";
-import ShowMobileMenuContextProvider from "./contexts/showMobileMenu.jsx";
+import ShowMobileMenuContextProvider from "./contexts/ShowMobileMenu"
 import ColorsContextProvider from "./contexts/colors";
 import CartContextProvider from "./contexts/cart.jsx";
 import CategoryContextProvider from "./contexts/category.jsx";

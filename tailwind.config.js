@@ -11,23 +11,6 @@ export default {
       screens: {
         xMd: "777px",
       },
-      keyframes: {
-        shake: {
-          "0%, 100%": { transform: "translateX(0)" },
-          "10%, 30%, 50%, 70%, 90%": { transform: "translateX(-5px)" },
-          "20%, 40%, 60%, 80%": { transform: "translateX(5px)" },
-        },
-      },
-      animation: {
-        shake: "shake 2s ease-in-out 0s 1,shake 2s ease-in-out 3s infinite",
-        pingSlow: 'ping linear infinite',
-      },
-      backgroundImage: {
-        "product-bg": "url('/src/assets/asset.png')",
-        footerBg: "url('/src/assets/footerBg.png')",
-        waveBG: "url('/src/assets/waveBG.svg')",
-        dots: "url('/src/assets/dotsBg.png')",
-      },
       container: {
         center: true,
         padding: {
@@ -58,9 +41,7 @@ export default {
         secondFont: ["Blabeloo", "sans-serif"],
         Poppins: ["Poppins", "sans-serif"],
         cairo: ["Cairo", "sans-serif"],
-        // elMessiri: ["El Messiri", "sans-serif"],
       },
     },
   },
-  plugins: [require("tailwindcss-motion")],
 };
