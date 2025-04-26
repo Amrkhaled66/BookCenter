@@ -24,7 +24,7 @@ export default function OrderCard({
   createdAt,
 }) {
   return (
-    <div className="border-third-color mx-auto w-[100%] rounded-xl border border-main-color bg-white p-3 font-cairo text-sm drop-shadow-md sm:w-[80%] lg:w-[90%]">
+    <div className="border-third-color  mx-auto w-[100%] rounded-xl border border-main-color bg-white p-3 font-cairo text-sm drop-shadow-md sm:w-[80%] lg:w-[90%]">
       <div className="space-y-3 border-b-2 border-black/10 pb-3">
         <p className="text-third-color text-center font-bold">
           تاريخ الشراء : {arabicData(createdAt)}

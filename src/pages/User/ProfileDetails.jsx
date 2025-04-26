@@ -29,7 +29,7 @@ const ProfileSection = ({ title, children, bgColor = "bg-card-color" }) => (
 );
 
 const ProfileDetails = ({ user }) => (
-  <div className="flex flex-col items-center justify-between gap-x-5 gap-y-4 lg:flex-row">
+  <div className="flex flex-col  items-center justify-between gap-x-5 gap-y-4 lg:flex-row">
     <ProfileSection title="البيانات الشخصية">
       <InfoRow icon={<IoMdPerson />} title="الاسم" value={user?.name} />
       <InfoRow icon={<FaPhoneFlip />} title="رقم الهاتف" value={user?.phone} />

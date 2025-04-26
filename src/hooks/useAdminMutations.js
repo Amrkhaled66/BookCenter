@@ -27,7 +27,8 @@ import {
   getExpiredOrders,
   releaseReservedStock,
   getProduct4AdminRequest,
-  getProductByNAme
+  getProductByNAme,
+  addManualOrder
 } from "src/services/api/admin";
 
 const useGetUserProfile = (id) => {
@@ -224,6 +225,13 @@ const useGetProduct4Admin = () => {
   });
 };
 
+const useAddManualOrder = () => {
+  const axiosAdmin = useAxiosAdmin();
+  return useMutation({
+    mutationFn: (sentData) => addManualOrder({ axiosAdmin, sentData }),
+  });
+};
+
 export {
   useGetUserProfile,
   useGetUserId,
@@ -250,5 +258,6 @@ export {
   useReleaseReservedStock,
   useGetProduct4Admin,
   useGetUserByPhone,
-  useGetProductByName4Admin
+  useGetProductByName4Admin,
+  useAddManualOrder
 };

@@ -3,7 +3,6 @@ import TransparentBtn from "./TransparentBtn";
 import useColors from "src/hooks/useColors";
 
 export default function AdminForm({
-  isChildrenUp = false,
   error,
   onSubmit,
   label,

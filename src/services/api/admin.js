@@ -141,6 +141,11 @@ const getProduct4AdminRequest = async ({ axiosAdmin, id }) => {
   return data;
 };
 
+const addManualOrder = async ({ axiosAdmin, sentData }) => {
+  const { data } = await axiosAdmin.post(`/manualOrder/add`, sentData);
+  return data;
+};
+
 export {
   getUserProfile,
   getUserId,
@@ -167,5 +172,6 @@ export {
   releaseReservedStock,
   getProduct4AdminRequest,
   getUserByPhone,
-  getProductByNAme
+  getProductByNAme,
+  addManualOrder
 };
