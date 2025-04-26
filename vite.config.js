@@ -11,7 +11,7 @@ export default defineConfig({
       },
     }),
     svgr(),
-    caseSensitivePlugin(),
+   
   ],
   resolve: {
     alias: {
