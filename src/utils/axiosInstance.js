@@ -1,8 +1,4 @@
 import axios from "axios";
-import { refreshToken } from "src/services/api/auth";
-import Alert from "src/components/ui/Alert";
-import { login, logout, getToken } from "src/services/authServices";
-import { clearStoringCart } from "src/services/cartServices";
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,

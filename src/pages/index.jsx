@@ -5,10 +5,10 @@ export { default as Products } from "./Products";
 export { default as LoginPage } from "./LoginPage";
 export { default as SignUpPage } from "./SignUpPage";
 export { default as ProfilePage } from "./ProfilePage";
-export { default as ProfileInfo } from "./User/ProfileInfo.jsx";
+export { default as ProfileInfo } from "./User/ProfileInfo";
 export { default as Orders } from "./User/Orders";
 export { default as DeliveryInfo } from "./User/DeliveryInfo";
-export { default as Checkout } from "./Checkout";
+export { default as Checkout } from "./CheckOut";
 export { default as Support } from "./Support";
 
 

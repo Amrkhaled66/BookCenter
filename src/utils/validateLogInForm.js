@@ -1,7 +1,7 @@
 import FormatePhoneNum from "./formatePhoneNum";
 import validatePhoneNum from "./validatePhoneNum";
 
-export default function ({ email,phone, password }) {
+export default function ({ phone, password }) {
   if (!phone || !password) return false;
 
   let data = {};

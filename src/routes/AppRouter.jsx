@@ -32,7 +32,6 @@ import {
 import {
   ProtectedRoute,
   OnlyGuestUser,
-  IfAdmin,
   OnlyAdmin,
 } from "src/middleware";
 

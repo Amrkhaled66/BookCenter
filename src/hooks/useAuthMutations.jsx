@@ -15,7 +15,6 @@ import Alert from "src/components/ui/Alert";
 import useAuth from "./useAuth";
 import useAdminContext from "./useAdminContext";
 
-import { logoutAdmin } from "src/services/authServices";
 
 import { ADMIN_PATH } from "src/services/defaultSettings";
 
