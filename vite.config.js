@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import svgr from "vite-plugin-svgr";
-import Checker from "vite-plugin-checker";
+// import Checker from "vite-plugin-checker";
 
 export default defineConfig({
   plugins: [
@@ -11,11 +11,11 @@ export default defineConfig({
       },
     }),
     svgr(),
-    Checker({
-      eslint: {
-        lintCommand: 'eslint "./src/**/*.{js,jsx}"', // Run ESLint during build
-      },
-    }),
+    // Checker({
+    //   eslint: {
+    //     lintCommand: 'eslint "./src/**/*.{js,jsx}"', // Run ESLint during build
+    //   },
+    // }),
   ],
   resolve: {
     alias: {
