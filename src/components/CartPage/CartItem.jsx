@@ -18,7 +18,7 @@ const itemVariants = {
 };
 
 export default function CartItem({ productInfo, quantity }) {
-  const { clearItem, modifyQuantity } = useCart();
+  const { clearItem, modifyQuantity, addToCart, decreaseCartItem } = useCart();
   const { id, image, originalPrice, discountPrice, publisher, title } =
     productInfo;
 
@@ -27,22 +27,22 @@ export default function CartItem({ productInfo, quantity }) {
 
   return (
     <motion.li variants={itemVariants} key={id} className="relative">
-      <div className="flex flex-row gap-6 border-b-2 border-gray-300 py-7">
+      <div className="flex flex-row gap-3 lg:gap-6 bg-white drop-shadow-lg  rounded-xl md:drop-shadow-none md:rounded-none  border-b-2 border-gray-300 p-3 md:px-0 md:py-7 ">
         {/* Product Image */}
         <div className="w-[40%] sm:w-[8%]">
           <Link to={`/product/${id}`} className="flex gap-4">
             <img
               src={`${image}`}
-              className="h-full w-full shadow-sm shadow-black"
+              className="h-full w-full rounded-xl shadow-sm shadow-black"
               alt="productImage"
             />
           </Link>
         </div>
 
         {/* Product Info */}
-        <div className="flex w-full flex-col items-start gap-y-4 md:flex-row">
+        <div className="flex w-full flex-col items-start justify-between md:flex-row">
           <div className="w-full space-y-3 sm:w-[75%]">
-            <p className="w-full text-lg font-semibold sm:w-[70%] sm:text-base">
+            <p className="w-full text-sm font-semibold sm:w-[70%] sm:text-base">
               {title}
             </p>
             <p className="text-xs font-medium text-black/60 sm:text-sm">
@@ -51,9 +51,9 @@ export default function CartItem({ productInfo, quantity }) {
           </div>
 
           {/* Price, Quantity, and Total */}
-          <div className="flex w-full flex-col items-start justify-between gap-2 sm:flex-row sm:items-center">
+          <div className="flex w-full  items-start justify-between gap-4 flex-row-reverse md:flex-row sm:items-center">
             {/* Price */}
-            <div className="text-lg text-center sm:text-base">
+            <div className="text-lg font-semibold text-center sm:text-base">
               <p>{currencyFormatter(mainPrice)}</p>
               {discountPrice > 0 && (
                 <p className="text-red-600 line-through">
@@ -80,7 +80,7 @@ export default function CartItem({ productInfo, quantity }) {
       {/* Delete Button */}
       <button
         onClick={() => clearItem(id)}
-        className="absolute left-0 top-0 text-red-600 hover:animate-shake"
+        className="absolute left-2 md:left-0 top-2 md:top-0 text-red-600 hover:animate-shake"
       >
         <MdDeleteOutline size={20} />
       </button>
@@ -88,40 +88,71 @@ export default function CartItem({ productInfo, quantity }) {
   );
 }
 
+
+import { FaPlus } from "react-icons/fa6";
+import { FiMinus } from "react-icons/fi";
+import Loader from "../ui/icons/Loader";
 function QuantitySelector({ id, quantity, onModify }) {
   const [currQuantity, setCurrQuantity] = useState(quantity);
+  const [inputValue, setInputValue] = useState(quantity.toString());
   const { mutate, isPending } = useAddToCartValidation();
 
-  const handleClick = () => {
-    if (quantity === currQuantity) return;
 
+  const handleAdd = () => {
+    const newQuantity = currQuantity + 1;
     mutate(
-      { id, quantity: currQuantity },
+      { id, quantity: newQuantity },
       {
-        onSuccess: () => onModify(id, currQuantity),
-        onError: () => setCurrQuantity(quantity),
+        onSuccess: () => {
+          onModify(id, newQuantity);
+          setCurrQuantity(newQuantity);
+          setInputValue(newQuantity.toString());
+        },
+        onError: () => {
+          setInputValue(quantity.toString());
+          setCurrQuantity(quantity);
+        },
       },
     );
+  }
+
+  const handleDecrease = () => {
+    if (currQuantity === 1) return;
+    const newQuantity = currQuantity - 1;
+
+    mutate(
+      { id, quantity: newQuantity },
+      {
+        onSuccess: () => {
+          onModify(id, newQuantity);
+          setCurrQuantity(newQuantity);
+          setInputValue(newQuantity.toString());
+        },
+        onError: () => {
+          setInputValue(quantity.toString());
+          setCurrQuantity(quantity);
+        },
+      },
+    )
   };
 
   return (
-    <div className="flex w-full items-center justify-start sm:justify-center">
-      <input
-        dir="rtl"
-        type="number"
-        value={currQuantity}
-        min={1}
-        disabled={isPending}
-        onChange={(e) => setCurrQuantity(Number(e.target.value))}
-        className="w-10 rounded-s-lg border border-gray-400 px-2 py-2 text-center font-cairo text-xs font-bold transition-all duration-300 focus:border-main-text--color focus:outline-none sm:w-20 sm:text-base"
-      />
-      <button
-        onClick={handleClick}
-        disabled={isPending}
-        className="rounded-e-lg bg-main-text--color px-2 py-2 text-xs text-white transition-all duration-300 hover:brightness-75 sm:text-base"
-      >
-        تحديث الكمية
+    <div className="flex rounded-xl border-2 border-main-color w-fit items-center justify-start sm:justify-center">
+      <button onClick={handleAdd} disabled={isPending} className=" disabled:cursor-not-allowed  px-2 lg:px-3 ">
+
+        {isPending ? <Loader width={15} heigh={15} /> : <FaPlus />}
       </button>
+      <input
+        type="number"
+        value={inputValue}
+        disabled
+        min={1}
+        className="   bg-main-color text-white  no-arrows    p-2 max-w-10 text-center font-cairo text-xs font-bold transition-all duration-300 focus:border-main-text--color focus:outline-none  sm:text-base"
+      />
+      <button disabled={currQuantity == 1 || isPending} onClick={handleDecrease} className=" disabled:cursor-not-allowed px-2 lg:px-3 ">
+
+        {isPending ? <Loader width={15} heigh={15} /> : <FiMinus />}</button>
+
     </div>
   );
 }

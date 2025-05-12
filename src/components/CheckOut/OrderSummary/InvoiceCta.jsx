@@ -33,7 +33,7 @@ export default function InvoiceCta({ onSubmit, Loading }) {
 
   return (
     <div className="mx-auto flex w-[85%] flex-col gap-y-8 md:w-[50%] lg:w-[40%]">
-      <CoponBtn />
+      {/* <CoponBtn /> */}
       <TransparentBtn
         onClick={onSubmit}
         bgColor={secondColor}

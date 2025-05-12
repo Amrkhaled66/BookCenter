@@ -29,7 +29,7 @@ export default function CartPage() {
         {cartLength < 1 ? (
           <EmptyCart />
         ) : (
-          <div className="mt-8 flex w-full flex-col items-center gap-y-6 pb-12 xl:w-[80%]">
+          <div className="mt-8 flex w-full flex-col items-center  gap-y-6 pb-12 xl:w-[80%]">
             <CartList />
             <CartSummary />
           </div>

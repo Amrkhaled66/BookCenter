@@ -56,7 +56,7 @@ export default function UserMenu() {
   );
 
   return (
-    <Menu as="div" className="relative order-1 lg:order-none inline-block text-left">
+    <Menu as="div" className="relative order-0 lg:order-none inline-block text-left">
       <div>
         <Menu.Button className="flex items-center gap-2 rounded-full focus:outline-none">
           <img src={pandaAvatar} alt="pandaAvatar" className="h-12 w-12" />
@@ -74,7 +74,7 @@ export default function UserMenu() {
         <Menu.Items className="absolute right-0 mt-2 w-44 divide-y divide-gray-200 rounded-md bg-slate-100 py-2 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <p className="px-4 py-2 text-right text-sm text-gray-900">
             أهلا
-            <span className="text-base font-semibold"> {userName}</span>
+            <span className="text-sm font-semibold font-cairo"> {userName}</span>
           </p>
           <div className="p-1">
             {renderMenuItem(

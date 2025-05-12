@@ -3,8 +3,8 @@ import AppRouter from "src/routes/AppRouter";
 import IsNavStickyContextProvider from "./contexts/isNavSticky";
 import ShowMobileMenuContextProvider from "./contexts/ShowMobileMenu"
 import ColorsContextProvider from "./contexts/colors";
-import CartContextProvider from "./contexts/cart.jsx";
-import CategoryContextProvider from "./contexts/category.jsx";
+import CartContextProvider from "./contexts/cart";
+import CategoryContextProvider from "./contexts/category";
 import WidthContextProvider from "./contexts/widthContext";
 import SideBarContextProvider from "./contexts/useSideBar";
 import AdminContextProvider from "./contexts/AdminContext";

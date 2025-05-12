@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 // hooks
@@ -54,10 +53,8 @@ export default function Products() {
         <p className="relative flex flex-col-reverse items-center gap-x-4 pb-4 text-center font-cairo text-base font-bold tracking-wider drop-shadow-2xl sm:flex-row xl:text-2xl">
           <span>هنضيف منتجات للقسم قريب جدا</span>
           <span>
-            <motion.img
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4, ease: "easeIn" }}
+            <img
+
               className="h-48 w-48 cursor-pointer drop-shadow-md transition-all duration-300 hover:animate-shake"
               src={graduatedPanda}
               alt="graduatedPanda"
@@ -69,12 +66,10 @@ export default function Products() {
   }
 
   return (
-    <motion.ul
+    <ul
       dir="rtl"
       key={selectedCategory}
-      initial={{ opacity: 0, y: 100 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.85, type: "spring" }}
+
       className="container mx-auto grid grid-cols-1 justify-between gap-x-8 gap-y-10  pt-0 sm:grid-cols-2 sm:py-4 lg:grid-cols-3 md:py-14 xl:grid-cols-4"
     >
       {filteredProducts?.map((product) => {
@@ -91,6 +86,6 @@ export default function Products() {
           />
         );
       })}
-    </motion.ul>
+    </ul>
   );
 }

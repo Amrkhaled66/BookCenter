@@ -21,15 +21,8 @@ export default [
       import: eslintPluginImport,
     },
     rules: {
-      "import/extensions": [
-        "error",
-        "ignorePackages",
-        {
-          js: "never",
-          jsx: "never",
-        },
-      ],
       "import/no-unresolved": ["error", { caseSensitive: true }],
+      "import/extensions": "off", // <- Add this line
       "react/prop-types": "off",
       "react/react-in-jsx-scope": "off",
       "no-unused-vars": "warn",

@@ -17,6 +17,6 @@ const paidStatus = {
     className: "bg-green-100  text-green-900",
   },
 };
-const NEXT_ITEM_FEES = 6;
+const NEXT_ITEM_FEES = 7;
 
 export { ADMIN_PATH, paidStatus, NEXT_ITEM_FEES };

@@ -1,11 +1,11 @@
 import React from "react";
 
-export default function Loader() {
+export default function Loader({width=30,heigh=30}) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={30}
-      height={30}
+      width={width}
+      height={heigh}
       viewBox="0 0 24 24"
       
     >
